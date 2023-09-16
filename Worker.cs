@@ -19,6 +19,7 @@ namespace Stockwatch
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
+            _logger?.LogInformation("Ticker has stopped!");
             await base.StopAsync(cancellationToken);
         }
 
@@ -27,7 +28,10 @@ namespace Stockwatch
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                var stk = new Stockdata("IBM");
+                var stkdata = new Stockpriceservices(_logger);
+                var _stkdata = stkdata.GetStockprice(stk);
+                await Task.Delay(300000, stoppingToken);
             }
         }
     }

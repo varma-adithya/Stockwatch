@@ -3,12 +3,9 @@
     public class Stockdata
     {
         public string Symbol { get; }
-        public decimal Price { get; }
-
-        public Stockdata(string symbol, decimal price)
+        public Stockdata(string symbol)
         {
             Symbol = symbol;
-            Price = price;
         }
 
     }

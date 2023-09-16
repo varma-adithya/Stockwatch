@@ -44,3 +44,4 @@ D:\Projects\Random\StockTicker\Stockwatch\obj\Debug\net6.0\refint\Stockwatch.dll
 D:\Projects\Random\StockTicker\Stockwatch\obj\Debug\net6.0\Stockwatch.pdb
 D:\Projects\Random\StockTicker\Stockwatch\obj\Debug\net6.0\Stockwatch.genruntimeconfig.cache
 D:\Projects\Random\StockTicker\Stockwatch\obj\Debug\net6.0\ref\Stockwatch.dll
+D:\Projects\Random\StockTicker\Stockwatch\bin\Debug\net6.0\Newtonsoft.Json.dll
