@@ -3,15 +3,18 @@
     public class Stockdata
     {
         public int Id { get; set; }
-        public string Symbol { get; set; }
+        public Symbol Symbol { get; set; }
         public decimal Upperlimit { get; set; }
         public decimal Lowerlimit { get; set; }
-        public Stockdata(string symbol, decimal upperlimit, decimal lowerlimit)
+        public Stockdata(Symbol _symbol, decimal upperlimit, decimal lowerlimit)
         {
-            Symbol = symbol;
+            Symbol = _symbol;
             Upperlimit = upperlimit;
             Lowerlimit = lowerlimit;
         }
 
+
     }
+    public enum Symbol { Appl,IBM }
+
 }

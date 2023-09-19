@@ -28,7 +28,7 @@ namespace Stockwatch.Business
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var stk = new Stockdata("IBM",200,50);
+                var stk = new Stockdata(Symbol.IBM,200,50);
                 var stkdata = new Stockpriceservices(_logger);
                 stkdata.GetStockprice(stk);
                 await Task.Delay(300000, stoppingToken);
