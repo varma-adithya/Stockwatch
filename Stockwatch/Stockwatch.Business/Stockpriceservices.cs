@@ -17,7 +17,7 @@ namespace Stockwatch.Business
         public async void GetStockprice(Stockdata stockdata)
         {
             var apiKey = "EO4BB53HAZMW6TDW";
-            string apiUrl = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stockdata.Symbol}&apikey={apiKey}";
+            string apiUrl = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stockdata.Stocksymbol.SymbolName}&apikey={apiKey}";
             IntraStockprice stockPrice;
             using (HttpClient client = new HttpClient())
             {
