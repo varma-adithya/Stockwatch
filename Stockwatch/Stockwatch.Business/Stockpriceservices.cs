@@ -63,10 +63,5 @@ namespace Stockwatch.Business
         }
 
 
-        public async void GetStockdata(Stockdata stockdata)
-        {
-
-        }
-
     }
 }
