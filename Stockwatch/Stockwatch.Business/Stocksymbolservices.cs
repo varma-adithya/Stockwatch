@@ -2,7 +2,13 @@
 
 namespace Stockwatch.Business
 {
-    public class Stocksymbolservices
+    public interface IStocksymbolservice
+    {
+        void AddStock(Stocksymbol stocksymbol);
+        Stocksymbol Fetchstock(int id);
+        List<Stocksymbol> GetAll();
+    }
+    public class Stocksymbolservices : IStocksymbolservice
     {
         private readonly StockwatchDbContext _context;
 

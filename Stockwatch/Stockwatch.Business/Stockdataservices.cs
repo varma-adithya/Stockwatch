@@ -2,7 +2,8 @@
 
 namespace Stockwatch.Business
 {
-    public class Stockdataservices
+    public interface IStockdataservices { }
+    public class Stockdataservices: IStockdataservices
     {
         private readonly StockwatchDbContext _context;
 

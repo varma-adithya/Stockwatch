@@ -3,7 +3,9 @@ using Stockwatch.Model;
 
 namespace Stockwatch.Business
 {
-    public class Stockpriceservices
+    public interface IStockpriceservices 
+    { }
+    public class Stockpriceservices: IStockpriceservices
     {
         private readonly ILogger<Worker> _logger;
         public IntraStockprice intraStockprice { get; set; }
