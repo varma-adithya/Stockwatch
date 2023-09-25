@@ -15,16 +15,14 @@ namespace Stockwatch.Business
         }
 
 
-        public async Task<IntraStockPrice> GetStockPrice(StockData stockdata)
+        public async Task<IntraStockPrice> GetStockPrice(string URL)
         {
-            var apiKey = "EO4BB53HAZMW6TDW";
-            string apiUrl = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stockdata.StockSymbol.SymbolName}&apikey={apiKey}";
             IntraStockPrice StockPrice;
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    HttpResponseMessage response = await client.GetAsync(URL);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -37,6 +35,7 @@ namespace Stockwatch.Business
                             WriteIndented = true
                         };
                         StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
+                        Console.WriteLine(StockPrice.Symbol);
                         return StockPrice;
                         //if (StockPrice.Price >= stockdata.UpperLimit)
                         //{
