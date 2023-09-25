@@ -14,13 +14,13 @@ namespace Stockwatch.WindowsApp
     }
     public class StockSymbolPage : IStockSymbolPage
     {
-        public IStocksymbolservice _stocksymbolservice;
-        public StockSymbolPage(IStocksymbolservice stocksymbolservice) { 
+        public IStockSymbolService _stocksymbolservice;
+        public StockSymbolPage(IStockSymbolService stocksymbolservice) { 
             _stocksymbolservice = stocksymbolservice;
         }
         public void AddSymbol(string symbol)
         {
-        _stocksymbolservice.AddStock(new Model.Stocksymbol { SymbolName = symbol });
+        _stocksymbolservice.AddStock(new Model.StockSymbol { SymbolName = symbol });
         }
 
         public List<string> GetSymbolList() {

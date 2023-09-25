@@ -16,6 +16,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stockwatch.Businesses\Stockwatch.Business.csproj" />
-    <ProjectReference Include="..\Stockwatch.Model\Stockwatch.Model.csproj" />
   </ItemGroup>
 </Project>

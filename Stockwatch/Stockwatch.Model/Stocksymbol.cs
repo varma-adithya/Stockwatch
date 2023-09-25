@@ -1,6 +1,6 @@
 ﻿namespace Stockwatch.Model
 {
-    public class Stocksymbol
+    public class StockSymbol
     {
         public int Id { get; set; }
         public string SymbolName { get; set; }

@@ -41,7 +41,7 @@ namespace Stockwatch.Model.Migrations
                     b.HasIndex("SymbolId")
                         .IsUnique();
 
-                    b.ToTable("Stockdatas");
+                    b.ToTable("StockDatas");
                 });
 
             modelBuilder.Entity("Stockwatch.Model.Stocksymbol", b =>
@@ -59,7 +59,7 @@ namespace Stockwatch.Model.Migrations
                     b.HasIndex("SymbolName")
                         .IsUnique();
 
-                    b.ToTable("Stocksymbols");
+                    b.ToTable("StockSymbols");
                 });
 
             modelBuilder.Entity("Stockwatch.Model.Stockdata", b =>

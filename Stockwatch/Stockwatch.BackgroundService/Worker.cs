@@ -30,9 +30,9 @@ namespace Stockwatch.Background
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var stksymb = new StockSymbol { SymbolName = "Appl" }; ;
-                var stk = new Stockdata { StockSymbol = stksymb, SymbolId = stksymb.Id, UpperLimit = 200, LowerLimit = 50 };
+                var stk = new StockData { StockSymbol = stksymb, SymbolId = stksymb.Id, UpperLimit = 200, LowerLimit = 50 };
                 var stkdata = new StockPriceService();
-                stkdata.GetStockPrice(stk);
+                var stkret = stkdata.GetStockPrice(stk);
                 await Task.Delay(300000, stoppingToken);
             }
         }

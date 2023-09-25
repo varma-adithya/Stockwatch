@@ -1,12 +1,12 @@
 ﻿namespace Stockwatch.Model
 {
-    public class Stockdata
+    public class StockData
     {
         public int Id { get; set; }
         public int SymbolId { get; set; }
-        public decimal Upperlimit { get; set; }
-        public decimal Lowerlimit { get; set; }
-        public Stocksymbol Stocksymbol { get; set; }
+        public decimal UpperLimit { get; set; }
+        public decimal LowerLimit { get; set; }
+        public StockSymbol StockSymbol { get; set; }
 
     }
 

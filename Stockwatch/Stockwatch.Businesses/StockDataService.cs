@@ -2,48 +2,48 @@
 
 namespace Stockwatch.Business
 {
-    public interface IStockDataService {
-        void AddStock(Stockdata StockData);
-        void UpdateStock(Stockdata StockData);
-        void RemoveStock(Stockdata StockData);
-        Stockdata FetchName(string Name);
-        Stockdata Fetchstock(int id);
-        List<Stockdata> GetAll();
+    public interface IStockDataservice {
+        void AddStock(StockData StockData);
+        void UpdateStock(StockData StockData);
+        void RemoveStock(StockData StockData);
+        StockData FetchName(string Name);
+        StockData Fetchstock(int id);
+        List<StockData> GetAll();
     }
-    public class StockDataService: IStockDataService
+    public class StockDataservice: IStockDataservice
     {
         private readonly StockwatchDbContext _context;
 
-        public StockDataService(StockwatchDbContext context) { _context = context; }
+        public StockDataservice(StockwatchDbContext context) { _context = context; }
 
-        public void AddStock(Stockdata StockData)
+        public void AddStock(StockData StockData)
         {
-            _context.Stockdatas.Add(StockData);
+            _context.StockDatas.Add(StockData);
             _context.SaveChanges();
         }
 
-        public void UpdateStock(Stockdata StockData)
+        public void UpdateStock(StockData StockData)
         {
             _context.Update(StockData);
             _context.SaveChanges();
         }
 
-        public Stockdata FetchName(string Name)
+        public StockData FetchName(string Name)
         {
             return GetAll().Find(x => x.StockSymbol.SymbolName == Name);
         }
 
-        public Stockdata Fetchstock(int Id)
+        public StockData Fetchstock(int Id)
         {
-            return _context.Stockdatas.Find(Id);
+            return _context.StockDatas.Find(Id);
         }
 
-        public List<Stockdata> GetAll()
+        public List<StockData> GetAll()
         {
-            return _context.Stockdatas.ToList();
+            return _context.StockDatas.ToList();
         }
 
-        public void RemoveStock(Stockdata StockData)
+        public void RemoveStock(StockData StockData)
         {
             _context.Remove(StockData);
             _context.SaveChanges();

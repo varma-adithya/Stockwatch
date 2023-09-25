@@ -25,9 +25,9 @@ namespace Stockwatch.WindowsApp
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
                     services.AddTransient<IStockSymbolPage, StockSymbolPage>();
-                    services.AddTransient<IStocksymbolservice, Stocksymbolservices>();
-                    services.AddTransient<IStockpriceservices, Stockpriceservices>();
-                    services.AddTransient<IStockdataservices, Stockdataservices>();
+                    services.AddTransient<IStockSymbolService, StockSymbolService>();
+                    services.AddTransient<IStockPriceService, StockPriceService>();
+                    services.AddTransient<IStockDataservice, StockDataservice>();
                     services.AddTransient<Form1>();
                     services.AddDbContext<StockwatchDbContext>(options =>
                     {
