@@ -2,10 +2,10 @@ using Stockwatch.Business;
 
 namespace Stockwatch.WindowsApp
 {
-    public partial class Form1 : Form
+    public partial class StockPage : Form
     {
         private IStockSymbolPage _symbolpage;
-        public Form1(IStockSymbolPage symbolpage)
+        public StockPage(IStockSymbolPage symbolpage)
         {
             _symbolpage = symbolpage;
             InitializeComponent();
@@ -47,6 +47,11 @@ namespace Stockwatch.WindowsApp
             {
                 StockPageMsg.Text = "Please select valid Symbol!";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

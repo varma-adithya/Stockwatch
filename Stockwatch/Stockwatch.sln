@@ -5,7 +5,6 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stockwatch.Background", "Stockwatch.BackgroundService\Stockwatch.Background.csproj", "{A50573C4-39D9-4627-83E6-1D1E8529B34D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{BB1DC740-F6A7-4398-BECB-CCEBACC9DE17} = {BB1DC740-F6A7-4398-BECB-CCEBACC9DE17}
 		{80295EAD-1F26-43AB-9C25-2E2AE10DDC52} = {80295EAD-1F26-43AB-9C25-2E2AE10DDC52}
 	EndProjectSection
 EndProject
@@ -17,6 +16,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stockwatch.Model", "Stockwatch.Model\Stockwatch.Model.csproj", "{80295EAD-1F26-43AB-9C25-2E2AE10DDC52}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stockwatch.WindowsApp", "Stockwatch.WindowsApp\Stockwatch.WindowsApp.csproj", "{BB1DC740-F6A7-4398-BECB-CCEBACC9DE17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A50573C4-39D9-4627-83E6-1D1E8529B34D} = {A50573C4-39D9-4627-83E6-1D1E8529B34D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

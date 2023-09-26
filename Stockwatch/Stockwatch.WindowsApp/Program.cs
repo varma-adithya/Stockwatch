@@ -17,7 +17,7 @@ namespace Stockwatch.WindowsApp
             var host = CreateHostBuilder().Build();
             ServiceProvider = host.Services;
 
-            Application.Run(ServiceProvider.GetRequiredService<Form1>());
+            Application.Run(ServiceProvider.GetRequiredService<StockPage>());
         }
         public static IServiceProvider ServiceProvider { get; private set; }
         static IHostBuilder CreateHostBuilder()
@@ -28,7 +28,7 @@ namespace Stockwatch.WindowsApp
                     services.AddTransient<IStockSymbolService, StockSymbolService>();
                     services.AddTransient<IStockPriceService, StockPriceService>();
                     services.AddTransient<IStockDataservice, StockDataservice>();
-                    services.AddTransient<Form1>();
+                    services.AddTransient<StockPage>();
                     services.AddDbContext<StockwatchDbContext>(options =>
                     {
                         options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/stock_database.db");
