@@ -1,5 +1,6 @@
 using Stockwatch.Business;
 using Stockwatch.Model;
+using System.Windows.Forms;
 
 namespace Stockwatch.WindowsApp
 {
@@ -8,8 +9,10 @@ namespace Stockwatch.WindowsApp
         private IStockSymbolPage _stockSymbolPage;
         private IStockSymbolService _symbolservice;
         private IStockAlertRangeservice _dataservice;
-        public StockPage(IStockSymbolPage stockSymbolPage,IStockSymbolService symbolservice, IStockAlertRangeservice dataservice)
+        private IStockPriceUpdates _stockPriceUpdates;
+        public StockPage(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage,IStockSymbolService symbolservice, IStockAlertRangeservice dataservice)
         {
+            _stockPriceUpdates = stockPriceUpdates;
             _dataservice = dataservice;
             _stockSymbolPage = stockSymbolPage;
             _symbolservice = symbolservice;
@@ -21,6 +24,7 @@ namespace Stockwatch.WindowsApp
             SymbolDdown.DataSource = _stockSymbolPage.GetSymbolList();
             DisplayStockDetails();
         }
+
 
         private void DisplayStockDetails()
         {
@@ -34,6 +38,9 @@ namespace Stockwatch.WindowsApp
                     Symbol1bx.Text = _dataservice.GetAll()[0].StockSymbol.SymbolName;
                     UpperLimit1bx.Text= _dataservice.GetAll()[0].UpperLimit.ToString();
                     LowerLimit1bx.Text = _dataservice.GetAll()[0].LowerLimit.ToString();
+                    var currentPrice = _stockPriceUpdates.GetCurrentPrice(_dataservice.GetAll()[0].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataservice.GetAll()[0]);
+
 
                     return;
                 case 2:
@@ -96,9 +103,41 @@ namespace Stockwatch.WindowsApp
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            var EditStock = _dataservice.FetchStockAlertRangeByName(Symbol1bx.Text);
+            EditSymbolbx.Text = EditStock.StockSymbol.SymbolName;
+            EditLLimitbx.Value = EditStock.LowerLimit;
+            EditHLimitbx.Value = EditStock.UpperLimit;
+        }
+
+        private void EditUpdatebtn_Click(object sender, EventArgs e)
+        {
+            if (EditHLimitbx.Value <= EditLLimitbx.Value)
+            {
+                UpdataMsgbx.Text = "Upper limit should be higher Lower limit";
+            }
+            else
+            {
+                var Stock = _dataservice.FetchStockAlertRangeByName(EditSymbolbx.Text);
+                Stock.UpperLimit = EditHLimitbx.Value;
+                Stock.LowerLimit = EditLLimitbx.Value;
+                _dataservice.UpdateStockAlertRange(Stock);
+                DisplayStockDetails();
+            }
+        }
+
+        private void EditDeletebtn_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Are you sure to Remove Stock?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                var Symbol = _dataservice.FetchStockAlertRangeByName(EditSymbolbx.Text);
+                if(Symbol != null)
+                    _dataservice.RemoveStockAlertRange(Symbol);
+                DisplayStockDetails();
+            }
         }
     }
 }

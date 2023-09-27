@@ -31,14 +31,18 @@ namespace Stockwatch.WindowsApp
         private void InitializeComponent()
         {
             this.InputContainer = new System.Windows.Forms.SplitContainer();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.EditSymbolbx = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.EditLLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.EditHLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.EditUpdatebtn = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.UpdataMsgbx = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.EditDeletebtn = new System.Windows.Forms.Button();
+            this.NewLLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.NewHLimitbx = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.StockPageMsg = new System.Windows.Forms.Label();
             this.NewStockcreateBtn = new System.Windows.Forms.Button();
@@ -64,20 +68,16 @@ namespace Stockwatch.WindowsApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Stock2label = new System.Windows.Forms.Label();
-            this.NewHLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.NewLLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.EditHLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.EditLLimitbx = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).BeginInit();
             this.InputContainer.Panel1.SuspendLayout();
             this.InputContainer.Panel2.SuspendLayout();
             this.InputContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).BeginInit();
             this.SuspendLayout();
             // 
             // InputContainer
@@ -88,16 +88,16 @@ namespace Stockwatch.WindowsApp
             // 
             // InputContainer.Panel1
             // 
+            this.InputContainer.Panel1.Controls.Add(this.EditSymbolbx);
+            this.InputContainer.Panel1.Controls.Add(this.label4);
             this.InputContainer.Panel1.Controls.Add(this.EditLLimitbx);
             this.InputContainer.Panel1.Controls.Add(this.EditHLimitbx);
-            this.InputContainer.Panel1.Controls.Add(this.button2);
+            this.InputContainer.Panel1.Controls.Add(this.EditUpdatebtn);
             this.InputContainer.Panel1.Controls.Add(this.label7);
-            this.InputContainer.Panel1.Controls.Add(this.label6);
             this.InputContainer.Panel1.Controls.Add(this.label3);
-            this.InputContainer.Panel1.Controls.Add(this.comboBox1);
-            this.InputContainer.Panel1.Controls.Add(this.label4);
+            this.InputContainer.Panel1.Controls.Add(this.UpdataMsgbx);
             this.InputContainer.Panel1.Controls.Add(this.label5);
-            this.InputContainer.Panel1.Controls.Add(this.button1);
+            this.InputContainer.Panel1.Controls.Add(this.EditDeletebtn);
             // 
             // InputContainer.Panel2
             // 
@@ -114,14 +114,59 @@ namespace Stockwatch.WindowsApp
             this.InputContainer.SplitterDistance = 474;
             this.InputContainer.TabIndex = 0;
             // 
-            // button2
+            // EditSymbolbx
             // 
-            this.button2.Location = new System.Drawing.Point(219, 239);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 37);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.EditSymbolbx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.EditSymbolbx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditSymbolbx.Location = new System.Drawing.Point(175, 98);
+            this.EditSymbolbx.Name = "EditSymbolbx";
+            this.EditSymbolbx.ReadOnly = true;
+            this.EditSymbolbx.Size = new System.Drawing.Size(241, 29);
+            this.EditSymbolbx.TabIndex = 22;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(21, 92);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 32);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Symbol Name:";
+            // 
+            // EditLLimitbx
+            // 
+            this.EditLLimitbx.Location = new System.Drawing.Point(200, 197);
+            this.EditLLimitbx.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.EditLLimitbx.Name = "EditLLimitbx";
+            this.EditLLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.EditLLimitbx.TabIndex = 20;
+            // 
+            // EditHLimitbx
+            // 
+            this.EditHLimitbx.Location = new System.Drawing.Point(200, 152);
+            this.EditHLimitbx.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.EditHLimitbx.Name = "EditHLimitbx";
+            this.EditHLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.EditHLimitbx.TabIndex = 19;
+            // 
+            // EditUpdatebtn
+            // 
+            this.EditUpdatebtn.Location = new System.Drawing.Point(219, 239);
+            this.EditUpdatebtn.Name = "EditUpdatebtn";
+            this.EditUpdatebtn.Size = new System.Drawing.Size(121, 37);
+            this.EditUpdatebtn.TabIndex = 18;
+            this.EditUpdatebtn.Text = "Update";
+            this.EditUpdatebtn.UseVisualStyleBackColor = true;
+            this.EditUpdatebtn.Click += new System.EventHandler(this.EditUpdatebtn_Click);
             // 
             // label7
             // 
@@ -133,16 +178,6 @@ namespace Stockwatch.WindowsApp
             this.label7.TabIndex = 9;
             this.label7.Text = "Stock Update / Delete";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(21, 92);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(124, 32);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Select Symbol";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -153,26 +188,14 @@ namespace Stockwatch.WindowsApp
             this.label3.TabIndex = 15;
             this.label3.Text = "Stock Lower Limit";
             // 
-            // comboBox1
+            // UpdataMsgbx
             // 
-            this.comboBox1.DisplayMember = "Select";
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(200, 89);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(216, 38);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.ValueMember = "Select";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(21, 244);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 29);
-            this.label4.TabIndex = 13;
+            this.UpdataMsgbx.AutoSize = true;
+            this.UpdataMsgbx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UpdataMsgbx.Location = new System.Drawing.Point(21, 244);
+            this.UpdataMsgbx.Name = "UpdataMsgbx";
+            this.UpdataMsgbx.Size = new System.Drawing.Size(0, 29);
+            this.UpdataMsgbx.TabIndex = 13;
             // 
             // label5
             // 
@@ -184,15 +207,39 @@ namespace Stockwatch.WindowsApp
             this.label5.TabIndex = 12;
             this.label5.Text = "Stock Upper Limit";
             // 
-            // button1
+            // EditDeletebtn
             // 
-            this.button1.Location = new System.Drawing.Point(346, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 37);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Delete";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.EditDeletebtn.Location = new System.Drawing.Point(346, 239);
+            this.EditDeletebtn.Name = "EditDeletebtn";
+            this.EditDeletebtn.Size = new System.Drawing.Size(121, 37);
+            this.EditDeletebtn.TabIndex = 14;
+            this.EditDeletebtn.Text = "Delete";
+            this.EditDeletebtn.UseVisualStyleBackColor = true;
+            this.EditDeletebtn.Click += new System.EventHandler(this.EditDeletebtn_Click);
+            // 
+            // NewLLimitbx
+            // 
+            this.NewLLimitbx.Location = new System.Drawing.Point(211, 197);
+            this.NewLLimitbx.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.NewLLimitbx.Name = "NewLLimitbx";
+            this.NewLLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.NewLLimitbx.TabIndex = 8;
+            // 
+            // NewHLimitbx
+            // 
+            this.NewHLimitbx.Location = new System.Drawing.Point(211, 152);
+            this.NewHLimitbx.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.NewHLimitbx.Name = "NewHLimitbx";
+            this.NewHLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.NewHLimitbx.TabIndex = 7;
             // 
             // label2
             // 
@@ -282,6 +329,7 @@ namespace Stockwatch.WindowsApp
             this.panel1.Size = new System.Drawing.Size(462, 169);
             this.panel1.TabIndex = 1;
             this.panel1.Visible = false;
+            this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
             // Symbol1bx
             // 
@@ -296,7 +344,7 @@ namespace Stockwatch.WindowsApp
             // LowerLimit1bx
             // 
             this.LowerLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LowerLimit1bx.Location = new System.Drawing.Point(341, 71);
+            this.LowerLimit1bx.Location = new System.Drawing.Point(341, 75);
             this.LowerLimit1bx.Name = "LowerLimit1bx";
             this.LowerLimit1bx.ReadOnly = true;
             this.LowerLimit1bx.Size = new System.Drawing.Size(108, 20);
@@ -305,7 +353,7 @@ namespace Stockwatch.WindowsApp
             // UpperLimit1bx
             // 
             this.UpperLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UpperLimit1bx.Location = new System.Drawing.Point(134, 71);
+            this.UpperLimit1bx.Location = new System.Drawing.Point(134, 75);
             this.UpperLimit1bx.Name = "UpperLimit1bx";
             this.UpperLimit1bx.ReadOnly = true;
             this.UpperLimit1bx.Size = new System.Drawing.Size(82, 20);
@@ -390,7 +438,7 @@ namespace Stockwatch.WindowsApp
             // LowerLimit2bx
             // 
             this.LowerLimit2bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LowerLimit2bx.Location = new System.Drawing.Point(341, 71);
+            this.LowerLimit2bx.Location = new System.Drawing.Point(341, 75);
             this.LowerLimit2bx.Name = "LowerLimit2bx";
             this.LowerLimit2bx.ReadOnly = true;
             this.LowerLimit2bx.Size = new System.Drawing.Size(108, 20);
@@ -399,7 +447,7 @@ namespace Stockwatch.WindowsApp
             // UpperLimit2bx
             // 
             this.UpperLimit2bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UpperLimit2bx.Location = new System.Drawing.Point(134, 71);
+            this.UpperLimit2bx.Location = new System.Drawing.Point(134, 75);
             this.UpperLimit2bx.Name = "UpperLimit2bx";
             this.UpperLimit2bx.ReadOnly = true;
             this.UpperLimit2bx.Size = new System.Drawing.Size(82, 20);
@@ -455,54 +503,6 @@ namespace Stockwatch.WindowsApp
             this.Stock2label.TabIndex = 2;
             this.Stock2label.Text = "Stock 2";
             // 
-            // NewHLimitbx
-            // 
-            this.NewHLimitbx.Location = new System.Drawing.Point(211, 152);
-            this.NewHLimitbx.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.NewHLimitbx.Name = "NewHLimitbx";
-            this.NewHLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.NewHLimitbx.TabIndex = 7;
-            // 
-            // NewLLimitbx
-            // 
-            this.NewLLimitbx.Location = new System.Drawing.Point(211, 197);
-            this.NewLLimitbx.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.NewLLimitbx.Name = "NewLLimitbx";
-            this.NewLLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.NewLLimitbx.TabIndex = 8;
-            // 
-            // EditHLimitbx
-            // 
-            this.EditHLimitbx.Location = new System.Drawing.Point(200, 152);
-            this.EditHLimitbx.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.EditHLimitbx.Name = "EditHLimitbx";
-            this.EditHLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.EditHLimitbx.TabIndex = 19;
-            // 
-            // EditLLimitbx
-            // 
-            this.EditLLimitbx.Location = new System.Drawing.Point(200, 197);
-            this.EditLLimitbx.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.EditLLimitbx.Name = "EditLLimitbx";
-            this.EditLLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.EditLLimitbx.TabIndex = 20;
-            // 
             // StockPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -520,14 +520,14 @@ namespace Stockwatch.WindowsApp
             this.InputContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).EndInit();
             this.InputContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -542,14 +542,12 @@ namespace Stockwatch.WindowsApp
         private Label Llimitstocklabel;
         private ComboBox SymbolDdown;
         private Label Symbolselectlabel;
-        private Button button2;
+        private Button EditUpdatebtn;
         private Label label7;
-        private Label label6;
         private Label label3;
-        private ComboBox comboBox1;
-        private Label label4;
+        private Label UpdataMsgbx;
         private Label label5;
-        private Button button1;
+        private Button EditDeletebtn;
         private Panel panel1;
         private Label Stock1label;
         private TextBox Symbol1bx;
@@ -572,5 +570,7 @@ namespace Stockwatch.WindowsApp
         private NumericUpDown EditHLimitbx;
         private NumericUpDown NewLLimitbx;
         private NumericUpDown NewHLimitbx;
+        private TextBox EditSymbolbx;
+        private Label label4;
     }
 }

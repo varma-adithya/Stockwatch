@@ -1,14 +1,16 @@
-﻿
-using Stockwatch.Background;
+﻿using Stockwatch.Business;
 
 namespace Stockwatch.WindowsApp
 {
     public interface IStockUpdatePag { }
     public class StockUpdatePage
     {
-        private Worker worker;
-        public StockUpdatePage(Worker _worker) 
-        { worker = _worker; }
+        private IStockPriceService priceService;
+        public StockUpdatePage(IStockPriceService _priceService) 
+        {
+            priceService = _priceService; 
+        }
+
 
     }
 }

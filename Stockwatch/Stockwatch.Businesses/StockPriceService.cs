@@ -1,22 +1,26 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.Extensions.Options;
+using Stockwatch.Model;
 using System.Text.Json;
 
 namespace Stockwatch.Business
 {
     public interface IStockPriceService 
-    { }
+    { 
+        public Task<IntraStockPrice?> GetStockPrice(AlphaVantageAPI URLoptions); 
+    }
+
     public class StockPriceService: IStockPriceService
     {
         //private readonly ILogger<Worker> _logger;
-        public IntraStockPrice intraStockprice { get; set; }
+        public IntraStockPrice? intraStockprice { get; set; }
 
-        public StockPriceService()
+        public async Task<IntraStockPrice?> GetStockPrice(AlphaVantageAPI URLoptions)
         {
-        }
 
+            string URL = URLoptions.URL
+                                .Replace("YOUR_SYMBOL_NAME", URLoptions.SymbolName)
+                                .Replace("YOUR_API_KEY", URLoptions.ApiKey);
 
-        public async Task<IntraStockPrice> GetStockPrice(string URL)
-        {
             IntraStockPrice StockPrice;
             using (HttpClient client = new HttpClient())
             {
@@ -37,17 +41,6 @@ namespace Stockwatch.Business
                         StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
                         Console.WriteLine(StockPrice.Symbol);
                         return StockPrice;
-                        //if (StockPrice.Price >= StockAlertRange.UpperLimit)
-                        //{
-                        //    _logger.LogInformation("Sell the stock");
-                        //}
-                        //else if(StockPrice.Price <= StockAlertRange.LowerLimit)
-                        //{
-                        //    _logger.LogInformation("Buy more stock!");
-                        //}
-                        //else { _logger.LogInformation("Keep the stock"); }
-
-                        //Console.WriteLine("Success");
                     }
 
                     else

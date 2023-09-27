@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Stockwatch.Business;
@@ -23,7 +24,12 @@ namespace Stockwatch.WindowsApp
         static IHostBuilder CreateHostBuilder()
         {
             return Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                })
                 .ConfigureServices((context, services) => {
+                    services.Configure<AlphaVantageAPI>(context.Configuration.GetSection(nameof(AlphaVantageAPI)));
                     services.AddTransient<IStockSymbolPage, StockSymbolPage>();
                     services.AddTransient<IStockSymbolService, StockSymbolService>();
                     services.AddTransient<IStockPriceService, StockPriceService>();
