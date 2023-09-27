@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stockwatch.BackgroundService\Stockwatch.Background.csproj" />
     <ProjectReference Include="..\Stockwatch.Businesses\Stockwatch.Business.csproj" />
   </ItemGroup>
 

@@ -37,11 +37,11 @@ namespace Stockwatch.Business
                         StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
                         Console.WriteLine(StockPrice.Symbol);
                         return StockPrice;
-                        //if (StockPrice.Price >= stockdata.UpperLimit)
+                        //if (StockPrice.Price >= StockAlertRange.UpperLimit)
                         //{
                         //    _logger.LogInformation("Sell the stock");
                         //}
-                        //else if(StockPrice.Price <= stockdata.LowerLimit)
+                        //else if(StockPrice.Price <= StockAlertRange.LowerLimit)
                         //{
                         //    _logger.LogInformation("Buy more stock!");
                         //}

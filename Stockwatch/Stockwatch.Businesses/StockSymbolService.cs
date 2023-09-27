@@ -4,9 +4,9 @@ namespace Stockwatch.Business
 {
     public interface IStockSymbolService
     {
-        void AddStock(StockSymbol stocksymbol);
-        StockSymbol FetchstockwId(int id);
-        StockSymbol FetchstockwName(string Name);
+        void AddStockAlertRangeSymbol(StockSymbol stocksymbol);
+        StockSymbol FetchStockAlertRangeByIdSymbolById(int id);
+        StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name);
         List<StockSymbol> GetAll();
 
         void DeleteStock(StockSymbol stocksymbol);
@@ -17,18 +17,18 @@ namespace Stockwatch.Business
 
         public StockSymbolService(StockwatchDbContext context) { _context = context; }
 
-        public void AddStock(StockSymbol stocksymbol)
+        public void AddStockAlertRangeSymbol(StockSymbol stocksymbol)
         {
             _context.StockSymbols.Add(stocksymbol);
             _context.SaveChanges();
         }
 
-        public StockSymbol FetchstockwName(string Name)
+        public StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name)
         {
             return GetAll().Find(s => s.SymbolName == Name);
         }
 
-        public StockSymbol FetchstockwId(int Id)
+        public StockSymbol FetchStockAlertRangeByIdSymbolById(int Id)
         {
             return _context.StockSymbols.Find(Id);
         }

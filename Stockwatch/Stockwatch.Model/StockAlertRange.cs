@@ -1,6 +1,6 @@
 ﻿namespace Stockwatch.Model
 {
-    public class StockData
+    public class StockAlertRange
     {
         public int Id { get; set; }
         public int SymbolId { get; set; }

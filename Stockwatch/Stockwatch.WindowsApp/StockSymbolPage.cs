@@ -9,7 +9,7 @@ namespace Stockwatch.WindowsApp
 {
     public interface IStockSymbolPage
     {
-        void AddSymbol(string symbol);
+        void AddSymbol();
         List<string> GetSymbolList();
     }
     public class StockSymbolPage : IStockSymbolPage
@@ -18,9 +18,17 @@ namespace Stockwatch.WindowsApp
         public StockSymbolPage(IStockSymbolService stocksymbolservice) { 
             _stocksymbolservice = stocksymbolservice;
         }
-        public void AddSymbol(string symbol)
+        public void AddSymbol()
         {
-        _stocksymbolservice.AddStock(new Model.StockSymbol { SymbolName = symbol });
+            if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("AAPL") == null)
+            {
+                _stocksymbolservice.AddStockAlertRangeSymbol(new Model.StockSymbol { SymbolName = "AAPL" });
+            }
+            if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("IBM") == null)
+            {
+                _stocksymbolservice.AddStockAlertRangeSymbol(new Model.StockSymbol { SymbolName = "IBM" });
+            }
+        
         }
 
         public List<string> GetSymbolList() {

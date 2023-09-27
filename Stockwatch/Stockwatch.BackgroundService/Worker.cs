@@ -41,7 +41,6 @@ namespace Stockwatch.Background
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 string SymbolName = "AAPL"; 
                 string ApiUrl = GetApiUrl(SymbolName);

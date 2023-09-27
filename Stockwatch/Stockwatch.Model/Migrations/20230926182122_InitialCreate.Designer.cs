@@ -10,7 +10,7 @@ using Stockwatch.Model;
 namespace Stockwatch.Model.Migrations
 {
     [DbContext(typeof(StockwatchDbContext))]
-    [Migration("20230920030120_InitialCreate")]
+    [Migration("20230926182122_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,35 +19,35 @@ namespace Stockwatch.Model.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
 
-            modelBuilder.Entity("Stockwatch.Model.Stockdata", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockAlertRange", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Lowerlimit")
+                    b.Property<decimal>("LowerLimit")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StocksymbolId")
+                    b.Property<int>("StockSymbolId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("SymbolId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Upperlimit")
+                    b.Property<decimal>("UpperLimit")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StocksymbolId");
+                    b.HasIndex("StockSymbolId");
 
                     b.HasIndex("SymbolId")
                         .IsUnique();
 
-                    b.ToTable("StockDatas");
+                    b.ToTable("StockAlertRanges");
                 });
 
-            modelBuilder.Entity("Stockwatch.Model.Stocksymbol", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockSymbol", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,15 +65,15 @@ namespace Stockwatch.Model.Migrations
                     b.ToTable("StockSymbols");
                 });
 
-            modelBuilder.Entity("Stockwatch.Model.Stockdata", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockAlertRange", b =>
                 {
-                    b.HasOne("Stockwatch.Model.Stocksymbol", "Stocksymbol")
+                    b.HasOne("Stockwatch.Model.StockSymbol", "StockSymbol")
                         .WithMany()
-                        .HasForeignKey("StocksymbolId")
+                        .HasForeignKey("StockSymbolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Stocksymbol");
+                    b.Navigation("StockSymbol");
                 });
 #pragma warning restore 612, 618
         }

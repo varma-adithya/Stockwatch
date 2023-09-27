@@ -17,6 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stockwatch.Model", "Stockwa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stockwatch.WindowsApp", "Stockwatch.WindowsApp\Stockwatch.WindowsApp.csproj", "{BB1DC740-F6A7-4398-BECB-CCEBACC9DE17}"
 	ProjectSection(ProjectDependencies) = postProject
+		{80295EAD-1F26-43AB-9C25-2E2AE10DDC52} = {80295EAD-1F26-43AB-9C25-2E2AE10DDC52}
 		{A50573C4-39D9-4627-83E6-1D1E8529B34D} = {A50573C4-39D9-4627-83E6-1D1E8529B34D}
 	EndProjectSection
 EndProject

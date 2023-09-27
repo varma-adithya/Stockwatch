@@ -32,17 +32,13 @@ namespace Stockwatch.WindowsApp
         {
             this.InputContainer = new System.Windows.Forms.SplitContainer();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.Hlimittbx = new System.Windows.Forms.TextBox();
-            this.Llimittbx = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.StockPageMsg = new System.Windows.Forms.Label();
             this.NewStockcreateBtn = new System.Windows.Forms.Button();
@@ -51,14 +47,14 @@ namespace Stockwatch.WindowsApp
             this.Symbolselectlabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Stock1label = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.Stock1Msg = new System.Windows.Forms.TextBox();
-            this.UpperLimit1bx = new System.Windows.Forms.TextBox();
-            this.LowerLimit1bx = new System.Windows.Forms.TextBox();
             this.Symbol1bx = new System.Windows.Forms.TextBox();
+            this.LowerLimit1bx = new System.Windows.Forms.TextBox();
+            this.UpperLimit1bx = new System.Windows.Forms.TextBox();
+            this.Stock1Msg = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Stock1label = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.Symbol2bx = new System.Windows.Forms.TextBox();
             this.LowerLimit2bx = new System.Windows.Forms.TextBox();
@@ -68,12 +64,20 @@ namespace Stockwatch.WindowsApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Stock2label = new System.Windows.Forms.Label();
+            this.NewHLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.NewLLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.EditHLimitbx = new System.Windows.Forms.NumericUpDown();
+            this.EditLLimitbx = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).BeginInit();
             this.InputContainer.Panel1.SuspendLayout();
             this.InputContainer.Panel2.SuspendLayout();
             this.InputContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).BeginInit();
             this.SuspendLayout();
             // 
             // InputContainer
@@ -84,10 +88,10 @@ namespace Stockwatch.WindowsApp
             // 
             // InputContainer.Panel1
             // 
+            this.InputContainer.Panel1.Controls.Add(this.EditLLimitbx);
+            this.InputContainer.Panel1.Controls.Add(this.EditHLimitbx);
             this.InputContainer.Panel1.Controls.Add(this.button2);
-            this.InputContainer.Panel1.Controls.Add(this.textBox1);
             this.InputContainer.Panel1.Controls.Add(this.label7);
-            this.InputContainer.Panel1.Controls.Add(this.textBox2);
             this.InputContainer.Panel1.Controls.Add(this.label6);
             this.InputContainer.Panel1.Controls.Add(this.label3);
             this.InputContainer.Panel1.Controls.Add(this.comboBox1);
@@ -97,8 +101,8 @@ namespace Stockwatch.WindowsApp
             // 
             // InputContainer.Panel2
             // 
-            this.InputContainer.Panel2.Controls.Add(this.Hlimittbx);
-            this.InputContainer.Panel2.Controls.Add(this.Llimittbx);
+            this.InputContainer.Panel2.Controls.Add(this.NewLLimitbx);
+            this.InputContainer.Panel2.Controls.Add(this.NewHLimitbx);
             this.InputContainer.Panel2.Controls.Add(this.label2);
             this.InputContainer.Panel2.Controls.Add(this.StockPageMsg);
             this.InputContainer.Panel2.Controls.Add(this.NewStockcreateBtn);
@@ -119,13 +123,6 @@ namespace Stockwatch.WindowsApp
             this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(200, 193);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 27);
-            this.textBox1.TabIndex = 17;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -135,13 +132,6 @@ namespace Stockwatch.WindowsApp
             this.label7.Size = new System.Drawing.Size(250, 42);
             this.label7.TabIndex = 9;
             this.label7.Text = "Stock Update / Delete";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(200, 148);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(216, 27);
-            this.textBox2.TabIndex = 16;
             // 
             // label6
             // 
@@ -159,9 +149,9 @@ namespace Stockwatch.WindowsApp
             this.label3.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(21, 192);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 32);
+            this.label3.Size = new System.Drawing.Size(157, 32);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Symbol Lower limit";
+            this.label3.Text = "Stock Lower Limit";
             // 
             // comboBox1
             // 
@@ -190,9 +180,9 @@ namespace Stockwatch.WindowsApp
             this.label5.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(21, 147);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 32);
+            this.label5.Size = new System.Drawing.Size(157, 32);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Symbol Lower limit";
+            this.label5.Text = "Stock Upper Limit";
             // 
             // button1
             // 
@@ -204,29 +194,15 @@ namespace Stockwatch.WindowsApp
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Hlimittbx
-            // 
-            this.Hlimittbx.Location = new System.Drawing.Point(211, 193);
-            this.Hlimittbx.Name = "Hlimittbx";
-            this.Hlimittbx.Size = new System.Drawing.Size(216, 27);
-            this.Hlimittbx.TabIndex = 8;
-            // 
-            // Llimittbx
-            // 
-            this.Llimittbx.Location = new System.Drawing.Point(211, 148);
-            this.Llimittbx.Name = "Llimittbx";
-            this.Llimittbx.Size = new System.Drawing.Size(216, 27);
-            this.Llimittbx.TabIndex = 7;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(32, 192);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 32);
+            this.label2.Size = new System.Drawing.Size(157, 32);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Symbol Lower limit";
+            this.label2.Text = "Stock Lower Limit";
             // 
             // StockPageMsg
             // 
@@ -254,9 +230,9 @@ namespace Stockwatch.WindowsApp
             this.Llimitstocklabel.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Llimitstocklabel.Location = new System.Drawing.Point(32, 147);
             this.Llimitstocklabel.Name = "Llimitstocklabel";
-            this.Llimitstocklabel.Size = new System.Drawing.Size(165, 32);
+            this.Llimitstocklabel.Size = new System.Drawing.Size(157, 32);
             this.Llimitstocklabel.TabIndex = 3;
-            this.Llimitstocklabel.Text = "Symbol Lower limit";
+            this.Llimitstocklabel.Text = "Stock Upper Limit";
             // 
             // SymbolDdown
             // 
@@ -305,46 +281,35 @@ namespace Stockwatch.WindowsApp
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(462, 169);
             this.panel1.TabIndex = 1;
+            this.panel1.Visible = false;
             // 
-            // Stock1label
+            // Symbol1bx
             // 
-            this.Stock1label.AutoSize = true;
-            this.Stock1label.Font = new System.Drawing.Font("Dubai", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Stock1label.Location = new System.Drawing.Point(16, -9);
-            this.Stock1label.Name = "Stock1label";
-            this.Stock1label.Size = new System.Drawing.Size(76, 34);
-            this.Stock1label.TabIndex = 2;
-            this.Stock1label.Text = "Stock 1";
+            this.Symbol1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Symbol1bx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Symbol1bx.Location = new System.Drawing.Point(149, 43);
+            this.Symbol1bx.Name = "Symbol1bx";
+            this.Symbol1bx.ReadOnly = true;
+            this.Symbol1bx.Size = new System.Drawing.Size(241, 29);
+            this.Symbol1bx.TabIndex = 15;
             // 
-            // label8
+            // LowerLimit1bx
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(16, 39);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 32);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Symbol Name:";
+            this.LowerLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LowerLimit1bx.Location = new System.Drawing.Point(341, 71);
+            this.LowerLimit1bx.Name = "LowerLimit1bx";
+            this.LowerLimit1bx.ReadOnly = true;
+            this.LowerLimit1bx.Size = new System.Drawing.Size(108, 20);
+            this.LowerLimit1bx.TabIndex = 14;
             // 
-            // label9
+            // UpperLimit1bx
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(16, 71);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 32);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Upper Limit:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(223, 71);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(112, 32);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "Lower Limit:";
+            this.UpperLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.UpperLimit1bx.Location = new System.Drawing.Point(134, 71);
+            this.UpperLimit1bx.Name = "UpperLimit1bx";
+            this.UpperLimit1bx.ReadOnly = true;
+            this.UpperLimit1bx.Size = new System.Drawing.Size(82, 20);
+            this.UpperLimit1bx.TabIndex = 13;
             // 
             // Stock1Msg
             // 
@@ -356,33 +321,45 @@ namespace Stockwatch.WindowsApp
             this.Stock1Msg.Size = new System.Drawing.Size(383, 31);
             this.Stock1Msg.TabIndex = 12;
             // 
-            // UpperLimit1bx
+            // label10
             // 
-            this.UpperLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UpperLimit1bx.Location = new System.Drawing.Point(134, 71);
-            this.UpperLimit1bx.Name = "UpperLimit1bx";
-            this.UpperLimit1bx.ReadOnly = true;
-            this.UpperLimit1bx.Size = new System.Drawing.Size(82, 20);
-            this.UpperLimit1bx.TabIndex = 13;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(223, 71);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(112, 32);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Lower Limit:";
             // 
-            // LowerLimit1bx
+            // label9
             // 
-            this.LowerLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LowerLimit1bx.Location = new System.Drawing.Point(341, 71);
-            this.LowerLimit1bx.Name = "LowerLimit1bx";
-            this.LowerLimit1bx.ReadOnly = true;
-            this.LowerLimit1bx.Size = new System.Drawing.Size(108, 20);
-            this.LowerLimit1bx.TabIndex = 14;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(16, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(112, 32);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Upper Limit:";
             // 
-            // Symbol1bx
+            // label8
             // 
-            this.Symbol1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Symbol1bx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Symbol1bx.Location = new System.Drawing.Point(149, 43);
-            this.Symbol1bx.Name = "Symbol1bx";
-            this.Symbol1bx.ReadOnly = true;
-            this.Symbol1bx.Size = new System.Drawing.Size(241, 29);
-            this.Symbol1bx.TabIndex = 15;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(16, 39);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(127, 32);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Symbol Name:";
+            // 
+            // Stock1label
+            // 
+            this.Stock1label.AutoSize = true;
+            this.Stock1label.Font = new System.Drawing.Font("Dubai", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Stock1label.Location = new System.Drawing.Point(16, -9);
+            this.Stock1label.Name = "Stock1label";
+            this.Stock1label.Size = new System.Drawing.Size(76, 34);
+            this.Stock1label.TabIndex = 2;
+            this.Stock1label.Text = "Stock 1";
             // 
             // panel2
             // 
@@ -398,6 +375,7 @@ namespace Stockwatch.WindowsApp
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(462, 169);
             this.panel2.TabIndex = 16;
+            this.panel2.Visible = false;
             // 
             // Symbol2bx
             // 
@@ -477,6 +455,54 @@ namespace Stockwatch.WindowsApp
             this.Stock2label.TabIndex = 2;
             this.Stock2label.Text = "Stock 2";
             // 
+            // NewHLimitbx
+            // 
+            this.NewHLimitbx.Location = new System.Drawing.Point(211, 152);
+            this.NewHLimitbx.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.NewHLimitbx.Name = "NewHLimitbx";
+            this.NewHLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.NewHLimitbx.TabIndex = 7;
+            // 
+            // NewLLimitbx
+            // 
+            this.NewLLimitbx.Location = new System.Drawing.Point(211, 197);
+            this.NewLLimitbx.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.NewLLimitbx.Name = "NewLLimitbx";
+            this.NewLLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.NewLLimitbx.TabIndex = 8;
+            // 
+            // EditHLimitbx
+            // 
+            this.EditHLimitbx.Location = new System.Drawing.Point(200, 152);
+            this.EditHLimitbx.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.EditHLimitbx.Name = "EditHLimitbx";
+            this.EditHLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.EditHLimitbx.TabIndex = 19;
+            // 
+            // EditLLimitbx
+            // 
+            this.EditLLimitbx.Location = new System.Drawing.Point(200, 197);
+            this.EditLLimitbx.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.EditLLimitbx.Name = "EditLLimitbx";
+            this.EditLLimitbx.Size = new System.Drawing.Size(216, 27);
+            this.EditLLimitbx.TabIndex = 20;
+            // 
             // StockPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -498,6 +524,10 @@ namespace Stockwatch.WindowsApp
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -506,8 +536,6 @@ namespace Stockwatch.WindowsApp
 
         private SplitContainer InputContainer;
         private Label label1;
-        private TextBox Hlimittbx;
-        private TextBox Llimittbx;
         private Label label2;
         private Label StockPageMsg;
         private Button NewStockcreateBtn;
@@ -515,9 +543,7 @@ namespace Stockwatch.WindowsApp
         private ComboBox SymbolDdown;
         private Label Symbolselectlabel;
         private Button button2;
-        private TextBox textBox1;
         private Label label7;
-        private TextBox textBox2;
         private Label label6;
         private Label label3;
         private ComboBox comboBox1;
@@ -542,5 +568,9 @@ namespace Stockwatch.WindowsApp
         private Label label12;
         private Label label13;
         private Label Stock2label;
+        private NumericUpDown EditLLimitbx;
+        private NumericUpDown EditHLimitbx;
+        private NumericUpDown NewLLimitbx;
+        private NumericUpDown NewHLimitbx;
     }
 }
