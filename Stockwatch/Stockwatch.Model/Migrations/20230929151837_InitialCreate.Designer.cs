@@ -10,7 +10,7 @@ using Stockwatch.Model;
 namespace Stockwatch.Model.Migrations
 {
     [DbContext(typeof(StockwatchDbContext))]
-    [Migration("20230926182122_InitialCreate")]
+    [Migration("20230929151837_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,17 +31,12 @@ namespace Stockwatch.Model.Migrations
                     b.Property<int>("StockSymbolId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SymbolId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("UpperLimit")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StockSymbolId");
-
-                    b.HasIndex("SymbolId")
+                    b.HasIndex("StockSymbolId")
                         .IsUnique();
 
                     b.ToTable("StockAlertRanges");

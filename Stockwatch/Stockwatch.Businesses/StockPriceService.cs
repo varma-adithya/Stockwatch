@@ -17,7 +17,7 @@ namespace Stockwatch.Business
         public async Task<IntraStockPrice?> GetStockPrice(AlphaVantageAPI URLoptions)
         {
 
-            string URL = URLoptions.URL
+            string URL = URLoptions.ApiUrl
                                 .Replace("YOUR_SYMBOL_NAME", URLoptions.SymbolName)
                                 .Replace("YOUR_API_KEY", URLoptions.ApiKey);
 

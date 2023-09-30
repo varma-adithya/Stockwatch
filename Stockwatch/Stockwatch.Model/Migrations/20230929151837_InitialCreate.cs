@@ -29,10 +29,9 @@ namespace Stockwatch.Model.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    SymbolId = table.Column<int>(type: "INTEGER", nullable: false),
+                    StockSymbolId = table.Column<int>(type: "INTEGER", nullable: false),
                     UpperLimit = table.Column<decimal>(type: "TEXT", nullable: false),
-                    LowerLimit = table.Column<decimal>(type: "TEXT", nullable: false),
-                    StockSymbolId = table.Column<int>(type: "INTEGER", nullable: false)
+                    LowerLimit = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,12 +47,7 @@ namespace Stockwatch.Model.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StockAlertRanges_StockSymbolId",
                 table: "StockAlertRanges",
-                column: "StockSymbolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StockAlertRanges_SymbolId",
-                table: "StockAlertRanges",
-                column: "SymbolId",
+                column: "StockSymbolId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

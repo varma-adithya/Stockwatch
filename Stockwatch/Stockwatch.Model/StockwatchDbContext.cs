@@ -15,7 +15,7 @@ namespace Stockwatch.Model
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<StockAlertRange>().HasIndex(x => x.SymbolId).IsUnique();
+            modelBuilder.Entity<StockAlertRange>().HasIndex(x => x.StockSymbolId).IsUnique();
             modelBuilder.Entity<StockSymbol>().HasIndex(x => x.SymbolName).IsUnique();
         }
 

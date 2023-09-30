@@ -10,11 +10,11 @@ namespace Stockwatch.Background
         private IConfiguration _configuration;
         private AlphaVantageAPI _options;
         private IStockWorkerService _workerService;
-        public List<IntraStockPrice> currentPrices;
-        private StockPriceService _priceService = new StockPriceService();
-        public Worker(IStockWorkerService workerService, IConfiguration configuration, ILogger<Worker> logger, IOptions<AlphaVantageAPI> options)
+        private IStockPriceService _priceService;
+        public Worker(IStockPriceService priceService,IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<AlphaVantageAPI> options)
         {
-            _workerService = workerService;
+            _priceService = priceService;
+            _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
             _options = options.Value;
             _configuration = configuration;
             _logger = logger;
@@ -37,16 +37,21 @@ namespace Stockwatch.Background
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var checksymbollist = _workerService.GetStocksymbols();
+                var checksymbollist = _workerService.GetAll();
                 foreach (var checksymbol in checksymbollist)
                 {
-                    _options.SymbolName = checksymbol;
+                    _options.SymbolName = checksymbol.StockSymbol.SymbolName;
                     var StockPrice = _priceService.GetStockPrice(_options);
+
                     if(StockPrice.Result != null)
                     {
-                        currentPrices.Add(StockPrice.Result);
+                        IntraStockPrice currentPrice = StockPrice.Result;
+                        int res = _workerService.CheckStockRange(currentPrice, checksymbol);
+                        Console.WriteLine(res);
                     }
                 }
+
+                
 
                 await Task.Delay(300000, stoppingToken);
             }

@@ -28,17 +28,12 @@ namespace Stockwatch.Model.Migrations
                     b.Property<int>("StockSymbolId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SymbolId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("UpperLimit")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StockSymbolId");
-
-                    b.HasIndex("SymbolId")
+                    b.HasIndex("StockSymbolId")
                         .IsUnique();
 
                     b.ToTable("StockAlertRanges");

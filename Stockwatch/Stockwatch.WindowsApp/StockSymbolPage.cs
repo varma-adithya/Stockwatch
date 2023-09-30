@@ -1,4 +1,5 @@
 ﻿using Stockwatch.Business;
+using Stockwatch.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Stockwatch.WindowsApp
     {
         void AddSymbol();
         List<string> GetSymbolList();
+        StockSymbol FetchStockAlertRangeByIdSymbolById(int id);
+        StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name);
     }
     public class StockSymbolPage : IStockSymbolPage
     {
@@ -22,13 +25,23 @@ namespace Stockwatch.WindowsApp
         {
             if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("AAPL") == null)
             {
-                _stocksymbolservice.AddStockAlertRangeSymbol(new Model.StockSymbol { SymbolName = "AAPL" });
+                _stocksymbolservice.AddStockAlertRangeSymbol(new StockSymbol { SymbolName = "AAPL" });
             }
             if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("IBM") == null)
             {
-                _stocksymbolservice.AddStockAlertRangeSymbol(new Model.StockSymbol { SymbolName = "IBM" });
+                _stocksymbolservice.AddStockAlertRangeSymbol(new StockSymbol { SymbolName = "IBM" });
             }
         
+        }
+
+        public StockSymbol FetchStockAlertRangeByIdSymbolById(int id)
+        {
+            return _stocksymbolservice.FetchStockAlertRangeByIdSymbolById(id);
+        }
+
+        public StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name)
+        {
+        return _stocksymbolservice.FetchStockAlertRangeByIdSymbolByName(Name);
         }
 
         public List<string> GetSymbolList() {

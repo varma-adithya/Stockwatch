@@ -9,37 +9,40 @@ namespace Stockwatch.WindowsApp
 {
     internal static class Program
     {
+        public static IHost? CurrentHost { get; private set; }
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            var host = CreateHostBuilder().Build();
-            ServiceProvider = host.Services;
+            ApplicationConfiguration.Initialize();
 
-            Application.Run(ServiceProvider.GetRequiredService<StockPage>());
-        }
-        public static IServiceProvider ServiceProvider { get; private set; }
-        static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration((hostContext, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                })
-                .ConfigureServices((context, services) => {
-                    services.Configure<AlphaVantageAPI>(context.Configuration.GetSection(nameof(AlphaVantageAPI)));
-                    services.AddTransient<IStockSymbolPage, StockSymbolPage>();
-                    services.AddTransient<IStockSymbolService, StockSymbolService>();
-                    services.AddTransient<IStockPriceService, StockPriceService>();
-                    services.AddTransient<IStockAlertRangeservice, StockAlertRangeservice>();
-                    services.AddTransient<StockPage>();
-                    services.AddDbContext<StockwatchDbContext>(options =>
+            CurrentHost = Host.CreateDefaultBuilder()
+                    .ConfigureServices((context, services) =>
                     {
-                        options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/stock_database.db");
-                    });
-                });
+
+                        services.Configure<AlphaVantageAPI>(context.Configuration.GetSection(nameof(AlphaVantageAPI)));
+                        services.AddTransient<StockPage>();
+                        services.AddTransient<IStockSymbolPage, StockSymbolPage>();
+                        services.AddTransient<IStockSymbolService, StockSymbolService>();
+                        services.AddTransient<IStockPriceService, StockPriceService>();
+                        services.AddTransient<IStockPriceUpdates, StockPriceUpdates>();
+                        services.AddTransient<IStockAlertRangeservice, StockAlertRangeservice>();
+                        services.AddDbContext<StockwatchDbContext>(options =>
+                        {
+                            options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");
+                        });
+                    })
+                    .ConfigureAppConfiguration(context =>
+                    {
+                     context.AddJsonFile("appsetting.json", optional: false, reloadOnChange: true);
+                    })
+                    .Build();
+
+            using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
+            Application.Run(serviceScope.ServiceProvider.GetRequiredService<StockPage>());
         }
 
     }

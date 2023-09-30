@@ -1,26 +1,27 @@
 ﻿using Stockwatch.Business;
 using Stockwatch.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stockwatch.Background
 {
     public interface IStockWorkerService
     {
         public List<string> GetStocksymbols();
+        public int CheckStockRange(IntraStockPrice currentprice, StockAlertRange stockAlertRange);
+        public List<StockAlertRange> GetAll();
     }
 
     public class StockWorkerService : IStockWorkerService
     {
+
         private IStockAlertRangeservice _stockAlertRangeService;
 
-        public StockWorkerService(IStockAlertRangeservice stockAlertRangeservice)
+
+        public StockWorkerService(IStockAlertRangeservice stockAlertRangeService)
         {
-            _stockAlertRangeService = stockAlertRangeservice;
+            _stockAlertRangeService = stockAlertRangeService;
         }
+
+        public List<StockAlertRange> GetAll() {return _stockAlertRangeService.GetAll(); }
 
         public List<string> GetStocksymbols() {
             var allstocks = _stockAlertRangeService.GetAll();

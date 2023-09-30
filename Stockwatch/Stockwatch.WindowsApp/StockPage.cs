@@ -7,16 +7,14 @@ namespace Stockwatch.WindowsApp
     public partial class StockPage : Form
     {
         private IStockSymbolPage _stockSymbolPage;
-        private IStockSymbolService _symbolservice;
         private IStockAlertRangeservice _dataservice;
         private IStockPriceUpdates _stockPriceUpdates;
-        public StockPage(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage,IStockSymbolService symbolservice, IStockAlertRangeservice dataservice)
+        public StockPage(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeservice dataservice)
         {
+            InitializeComponent();
             _stockPriceUpdates = stockPriceUpdates;
             _dataservice = dataservice;
             _stockSymbolPage = stockSymbolPage;
-            _symbolservice = symbolservice;
-            InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -95,8 +93,8 @@ namespace Stockwatch.WindowsApp
                 StockPageMsg.Text = "Upper limit should be higher Lower limit"; 
             }
             else {
-                var Symbol = _symbolservice.FetchStockAlertRangeByIdSymbolByName(SymbolDdown.Text);
-                var NewStock = new StockAlertRange() { SymbolId = Symbol.Id,StockSymbol = Symbol, UpperLimit = NewHLimitbx.Value, LowerLimit = NewLLimitbx.Value };
+                var Symbol = _stockSymbolPage.FetchStockAlertRangeByIdSymbolByName(SymbolDdown.Text);
+                var NewStock = new StockAlertRange() { StockSymbolId = Symbol.Id,StockSymbol = Symbol, UpperLimit = NewHLimitbx.Value, LowerLimit = NewLLimitbx.Value };
                 _dataservice.AddStockAlertRange(NewStock);
                 DisplayStockDetails();
             }
