@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Stockwatch.Business;
 using Stockwatch.Model;
+using System.Reflection;
 
 namespace Stockwatch.WindowsApp
 {
@@ -37,7 +38,9 @@ namespace Stockwatch.WindowsApp
                     })
                     .ConfigureAppConfiguration(context =>
                     {
-                     context.AddJsonFile("appsetting.json", optional: false, reloadOnChange: true);
+                        context.AddEnvironmentVariables();
+                         context.AddUserSecrets<StockPage>();
+                        context.AddJsonFile("appsetting.json", optional: false, reloadOnChange: true);
                     })
                     .Build();
 

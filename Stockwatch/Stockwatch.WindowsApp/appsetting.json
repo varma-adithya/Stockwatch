@@ -1,6 +1,6 @@
 {
   "AlphaVantageAPI": {
-    "ApiKey": "APIKey",
+    "ApiKey": "EO4BB53HAZMW6TDW",
     "ApiUrl": "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=YOUR_SYMBOL_NAME&apikey=YOUR_API_KEY"
   }
 }

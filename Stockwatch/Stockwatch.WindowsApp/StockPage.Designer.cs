@@ -30,6 +30,7 @@ namespace Stockwatch.WindowsApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.InputContainer = new System.Windows.Forms.SplitContainer();
             this.EditSymbolbx = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -68,6 +69,7 @@ namespace Stockwatch.WindowsApp
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Stock2label = new System.Windows.Forms.Label();
+            this.WorkerServiceIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).BeginInit();
             this.InputContainer.Panel1.SuspendLayout();
             this.InputContainer.Panel2.SuspendLayout();
@@ -503,6 +505,11 @@ namespace Stockwatch.WindowsApp
             this.Stock2label.TabIndex = 2;
             this.Stock2label.Text = "Stock 2";
             // 
+            // WorkerServiceIcon
+            // 
+            this.WorkerServiceIcon.Text = "WorkerService";
+            this.WorkerServiceIcon.Visible = true;
+            // 
             // StockPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -572,5 +579,6 @@ namespace Stockwatch.WindowsApp
         private NumericUpDown NewHLimitbx;
         private TextBox EditSymbolbx;
         private Label label4;
+        private NotifyIcon WorkerServiceIcon;
     }
 }
