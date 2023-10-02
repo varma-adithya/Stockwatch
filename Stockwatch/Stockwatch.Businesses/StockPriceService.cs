@@ -7,7 +7,6 @@ namespace Stockwatch.Business
     { }
     public class StockPriceService: IStockPriceService
     {
-        //private readonly ILogger<Worker> _logger;
         public IntraStockPrice intraStockprice { get; set; }
 
         public StockPriceService()
@@ -27,7 +26,6 @@ namespace Stockwatch.Business
                     if (response.IsSuccessStatusCode)
                     {
 
-                        //_logger.LogInformation("Api call successfull!");
                         string jsonContent = await response.Content.ReadAsStringAsync();
                         var serializeOptions = new JsonSerializerOptions
                         {
@@ -37,28 +35,14 @@ namespace Stockwatch.Business
                         StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
                         Console.WriteLine(StockPrice.Symbol);
                         return StockPrice;
-                        //if (StockPrice.Price >= stockdata.UpperLimit)
-                        //{
-                        //    _logger.LogInformation("Sell the stock");
-                        //}
-                        //else if(StockPrice.Price <= stockdata.LowerLimit)
-                        //{
-                        //    _logger.LogInformation("Buy more stock!");
-                        //}
-                        //else { _logger.LogInformation("Keep the stock"); }
-
-                        //Console.WriteLine("Success");
                     }
-
                     else
-                    {
-                        //_logger.LogInformation("Api call failed!");
+                    {                     
                         return null;
                     }
                 }
                 catch (Exception ex)
-                {
-                    //_logger.LogInformation(ex.Message);
+                {                   
                     return null;
                 }
             }

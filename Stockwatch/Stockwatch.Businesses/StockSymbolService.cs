@@ -4,12 +4,11 @@ namespace Stockwatch.Business
 {
     public interface IStockSymbolService
     {
-        void AddStock(StockSymbol stocksymbol);
-        StockSymbol FetchstockwId(int id);
-        StockSymbol FetchstockwName(string Name);
+        void AddStockSymbol(StockSymbol stocksymbol);
+        StockSymbol FetchStockSymbolById(int id);
+        StockSymbol FetchStockSymbolByName(string Name);
         List<StockSymbol> GetAll();
-
-        void DeleteStock(StockSymbol stocksymbol);
+        void DeleteStockSymbol(StockSymbol stockSymbol);
     }
     public class StockSymbolService : IStockSymbolService
     {
@@ -17,25 +16,25 @@ namespace Stockwatch.Business
 
         public StockSymbolService(StockwatchDbContext context) { _context = context; }
 
-        public void AddStock(StockSymbol stocksymbol)
+        public void AddStockSymbol(StockSymbol stockSymbol)
         {
-            _context.StockSymbols.Add(stocksymbol);
+            _context.StockSymbols.Add(stockSymbol);
             _context.SaveChanges();
         }
 
-        public StockSymbol FetchstockwName(string Name)
+        public StockSymbol FetchStockSymbolByName(string name)
         {
-            return GetAll().Find(s => s.SymbolName == Name);
+            return GetAll().Find(s => s.SymbolName == name);
         }
 
-        public StockSymbol FetchstockwId(int Id)
+        public StockSymbol FetchStockSymbolById(int id)
         {
-            return _context.StockSymbols.Find(Id);
+            return _context.StockSymbols.Find(id);
         }
 
-        public void DeleteStock(StockSymbol stocksymbol)
+        public void DeleteStockSymbol(StockSymbol stockSymbol)
         {
-            _context.Remove(stocksymbol);
+            _context.Remove(stockSymbol);
         }
 
         public List<StockSymbol> GetAll()

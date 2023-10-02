@@ -4,27 +4,20 @@ namespace Stockwatch.WindowsApp
 {
     public partial class Form1 : Form
     {
-        private IStockSymbolPage _symbolpage;
-        public Form1(IStockSymbolPage symbolpage)
+        private IStockSymbolPage _stockSymbolPage;
+        public Form1(IStockSymbolPage stockSymbolPage)
         {
-            _symbolpage = symbolpage;
+            _stockSymbolPage = stockSymbolPage;
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            SymbolDdown.Items.Add("Select");
-
-            foreach (string item in _symbolpage.GetSymbolList())
-            {
-                SymbolDdown.Items.Add(item);
-            }
-            SymbolDdown.SelectedIndex = 0;
-
+            SymbolDdown.DataSource = _stockSymbolPage.GetSymbolList();            
         }
 
         private void SymbolsubmitBtn_Click(object sender, EventArgs e)
         {
-            if (SymbolnameTbx.Text == String.Empty)
+            if (SymbolnameTbx.Text == string.Empty)
             {
                 SymbolpageMsg.Text = "Please Enter Symbol name!";
             }
@@ -32,13 +25,10 @@ namespace Stockwatch.WindowsApp
             {
                 SymbolpageMsg.Text = String.Empty;
                 var newsymbolname = SymbolnameTbx.Text;
-                _symbolpage.AddSymbol(newsymbolname);
+                _stockSymbolPage.AddSymbol(newsymbolname);
             }
         }
 
-        private void SymbolDdown_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
 
         private void NewStockcreateBtn_Click(object sender, EventArgs e)
         {

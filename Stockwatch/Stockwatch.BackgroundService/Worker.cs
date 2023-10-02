@@ -7,7 +7,7 @@ namespace Stockwatch.Background
     {
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _configuration;
-        private StockPriceService _PriceService = new StockPriceService();
+        private StockPriceService _priceService = new StockPriceService();
         public Worker(IConfiguration configuration, ILogger<Worker> logger)
         {
             _configuration = configuration;
@@ -41,13 +41,12 @@ namespace Stockwatch.Background
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                string SymbolName = "AAPL"; 
-                string ApiUrl = GetApiUrl(SymbolName);
-                var StockPrice = _PriceService.GetStockPrice(ApiUrl);
+                string symbolName = "AAPL"; 
+                string apiUrl = GetApiUrl(symbolName);
+                var StockPrice = _priceService.GetStockPrice(apiUrl);
                 Console.WriteLine(StockPrice.Result.Symbol);
-                await Task.Delay(300000, stoppingToken);
+                await Task.Delay(500000, stoppingToken);
             }
         }
     }

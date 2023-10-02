@@ -178,7 +178,6 @@ namespace Stockwatch.WindowsApp
             this.SymbolDdown.Size = new System.Drawing.Size(216, 38);
             this.SymbolDdown.TabIndex = 2;
             this.SymbolDdown.ValueMember = "Select";
-            this.SymbolDdown.SelectedIndexChanged += new System.EventHandler(this.SymbolDdown_SelectedIndexChanged);
             // 
             // Symbolselectlabel
             // 
