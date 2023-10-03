@@ -1,5 +1,3 @@
-using Stockwatch.Business;
-
 namespace Stockwatch.WindowsApp
 {
     public partial class Form1 : Form
@@ -12,28 +10,25 @@ namespace Stockwatch.WindowsApp
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            SymbolDdown.DataSource = _stockSymbolPage.GetSymbolList();            
+            symbolDdown.DataSource = _stockSymbolPage.GetSymbolList();            
         }
-
         private void SymbolsubmitBtn_Click(object sender, EventArgs e)
         {
-            if (SymbolnameTbx.Text == string.Empty)
+            if (symbolnameTbx.Text == string.Empty)
             {
                 SymbolpageMsg.Text = "Please Enter Symbol name!";
             }
             else
             {
                 SymbolpageMsg.Text = String.Empty;
-                var newsymbolname = SymbolnameTbx.Text;
+                var newsymbolname = symbolnameTbx.Text;
                 _stockSymbolPage.AddSymbol(newsymbolname);
             }
         }
-
-
         private void NewStockcreateBtn_Click(object sender, EventArgs e)
         {
 
-            if (SymbolDdown.SelectedIndex == 0)
+            if (symbolDdown.SelectedIndex == 0)
             {
                 StockPageMsg.Text = "Please select valid Symbol!";
             }

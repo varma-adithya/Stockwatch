@@ -13,35 +13,29 @@ namespace Stockwatch.Business
     public class StockAlertRangeService: IStockAlertRangeService
     {
         private readonly StockwatchDbContext _context;
-
         public StockAlertRangeService(StockwatchDbContext context) => _context = context;
         public void AddStockAlertRange(StockAlertRange StockAlertRange)
         {
             _context.StockAlertRanges.Add(StockAlertRange);
             _context.SaveChanges();
         }
-
         public void UpdateStockAlertRange(StockAlertRange StockAlertRange)
         {
             _context.Update(StockAlertRange);
             _context.SaveChanges();
         }
-
         public StockAlertRange FetchStockAlertRangeByName(string name)
         {
-            return GetAll().Find(x => x.StockSymbol.SymbolName == name);
+            return _context.StockAlertRanges.FirstOrDefault(x => x.StockSymbol.SymbolName == name);
         }
-
         public StockAlertRange FetchStockAlertRangeById(int id)
         {
             return _context.StockAlertRanges.Find(id);
         }
-
         public List<StockAlertRange> GetAll()
         {
             return _context.StockAlertRanges.ToList();
         }
-
         public void RemoveStockAlertRange(StockAlertRange StockAlertRange)
         {
             _context.Remove(StockAlertRange);

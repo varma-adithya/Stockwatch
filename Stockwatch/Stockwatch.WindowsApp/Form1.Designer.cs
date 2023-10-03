@@ -32,16 +32,16 @@ namespace Stockwatch.WindowsApp
         {
             this.InputContainer = new System.Windows.Forms.SplitContainer();
             this.SymbolpageMsg = new System.Windows.Forms.Label();
-            this.SymbolsubmitBtn = new System.Windows.Forms.Button();
-            this.SymbolnameTbx = new System.Windows.Forms.TextBox();
+            this.symbolsubmitBtn = new System.Windows.Forms.Button();
+            this.symbolnameTbx = new System.Windows.Forms.TextBox();
             this.entersymbollabel = new System.Windows.Forms.Label();
-            this.Hlimittbx = new System.Windows.Forms.TextBox();
-            this.Llimittbx = new System.Windows.Forms.TextBox();
+            this.hlimittbx = new System.Windows.Forms.TextBox();
+            this.llimittbx = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.StockPageMsg = new System.Windows.Forms.Label();
             this.NewStockcreateBtn = new System.Windows.Forms.Button();
             this.Llimitstocklabel = new System.Windows.Forms.Label();
-            this.SymbolDdown = new System.Windows.Forms.ComboBox();
+            this.symbolDdown = new System.Windows.Forms.ComboBox();
             this.Symbolselectlabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).BeginInit();
@@ -59,19 +59,19 @@ namespace Stockwatch.WindowsApp
             // InputContainer.Panel1
             // 
             this.InputContainer.Panel1.Controls.Add(this.SymbolpageMsg);
-            this.InputContainer.Panel1.Controls.Add(this.SymbolsubmitBtn);
-            this.InputContainer.Panel1.Controls.Add(this.SymbolnameTbx);
+            this.InputContainer.Panel1.Controls.Add(this.symbolsubmitBtn);
+            this.InputContainer.Panel1.Controls.Add(this.symbolnameTbx);
             this.InputContainer.Panel1.Controls.Add(this.entersymbollabel);
             // 
             // InputContainer.Panel2
             // 
-            this.InputContainer.Panel2.Controls.Add(this.Hlimittbx);
-            this.InputContainer.Panel2.Controls.Add(this.Llimittbx);
+            this.InputContainer.Panel2.Controls.Add(this.hlimittbx);
+            this.InputContainer.Panel2.Controls.Add(this.llimittbx);
             this.InputContainer.Panel2.Controls.Add(this.label2);
             this.InputContainer.Panel2.Controls.Add(this.StockPageMsg);
             this.InputContainer.Panel2.Controls.Add(this.NewStockcreateBtn);
             this.InputContainer.Panel2.Controls.Add(this.Llimitstocklabel);
-            this.InputContainer.Panel2.Controls.Add(this.SymbolDdown);
+            this.InputContainer.Panel2.Controls.Add(this.symbolDdown);
             this.InputContainer.Panel2.Controls.Add(this.Symbolselectlabel);
             this.InputContainer.Panel2.Controls.Add(this.label1);
             this.InputContainer.Size = new System.Drawing.Size(998, 298);
@@ -87,22 +87,22 @@ namespace Stockwatch.WindowsApp
             this.SymbolpageMsg.Size = new System.Drawing.Size(0, 29);
             this.SymbolpageMsg.TabIndex = 3;
             // 
-            // SymbolsubmitBtn
+            // symbolsubmitBtn
             // 
-            this.SymbolsubmitBtn.Location = new System.Drawing.Point(240, 192);
-            this.SymbolsubmitBtn.Name = "SymbolsubmitBtn";
-            this.SymbolsubmitBtn.Size = new System.Drawing.Size(179, 58);
-            this.SymbolsubmitBtn.TabIndex = 2;
-            this.SymbolsubmitBtn.Text = "Create";
-            this.SymbolsubmitBtn.UseVisualStyleBackColor = true;
-            this.SymbolsubmitBtn.Click += new System.EventHandler(this.SymbolsubmitBtn_Click);
+            this.symbolsubmitBtn.Location = new System.Drawing.Point(240, 192);
+            this.symbolsubmitBtn.Name = "symbolsubmitBtn";
+            this.symbolsubmitBtn.Size = new System.Drawing.Size(179, 58);
+            this.symbolsubmitBtn.TabIndex = 2;
+            this.symbolsubmitBtn.Text = "Create";
+            this.symbolsubmitBtn.UseVisualStyleBackColor = true;
+            this.symbolsubmitBtn.Click += new System.EventHandler(this.SymbolsubmitBtn_Click);
             // 
-            // SymbolnameTbx
+            // symbolnameTbx
             // 
-            this.SymbolnameTbx.Location = new System.Drawing.Point(42, 130);
-            this.SymbolnameTbx.Name = "SymbolnameTbx";
-            this.SymbolnameTbx.Size = new System.Drawing.Size(377, 27);
-            this.SymbolnameTbx.TabIndex = 1;
+            this.symbolnameTbx.Location = new System.Drawing.Point(42, 130);
+            this.symbolnameTbx.Name = "symbolnameTbx";
+            this.symbolnameTbx.Size = new System.Drawing.Size(377, 27);
+            this.symbolnameTbx.TabIndex = 1;
             // 
             // entersymbollabel
             // 
@@ -114,19 +114,19 @@ namespace Stockwatch.WindowsApp
             this.entersymbollabel.TabIndex = 0;
             this.entersymbollabel.Text = "Enter New Symbol Name";
             // 
-            // Hlimittbx
+            // hlimittbx
             // 
-            this.Hlimittbx.Location = new System.Drawing.Point(211, 193);
-            this.Hlimittbx.Name = "Hlimittbx";
-            this.Hlimittbx.Size = new System.Drawing.Size(216, 27);
-            this.Hlimittbx.TabIndex = 8;
+            this.hlimittbx.Location = new System.Drawing.Point(211, 193);
+            this.hlimittbx.Name = "hlimittbx";
+            this.hlimittbx.Size = new System.Drawing.Size(216, 27);
+            this.hlimittbx.TabIndex = 8;
             // 
-            // Llimittbx
+            // llimittbx
             // 
-            this.Llimittbx.Location = new System.Drawing.Point(211, 148);
-            this.Llimittbx.Name = "Llimittbx";
-            this.Llimittbx.Size = new System.Drawing.Size(216, 27);
-            this.Llimittbx.TabIndex = 7;
+            this.llimittbx.Location = new System.Drawing.Point(211, 148);
+            this.llimittbx.Name = "llimittbx";
+            this.llimittbx.Size = new System.Drawing.Size(216, 27);
+            this.llimittbx.TabIndex = 7;
             // 
             // label2
             // 
@@ -167,17 +167,17 @@ namespace Stockwatch.WindowsApp
             this.Llimitstocklabel.TabIndex = 3;
             this.Llimitstocklabel.Text = "Symbol Lower limit";
             // 
-            // SymbolDdown
+            // symbolDdown
             // 
-            this.SymbolDdown.DisplayMember = "Select";
-            this.SymbolDdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SymbolDdown.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SymbolDdown.FormattingEnabled = true;
-            this.SymbolDdown.Location = new System.Drawing.Point(211, 89);
-            this.SymbolDdown.Name = "SymbolDdown";
-            this.SymbolDdown.Size = new System.Drawing.Size(216, 38);
-            this.SymbolDdown.TabIndex = 2;
-            this.SymbolDdown.ValueMember = "Select";
+            this.symbolDdown.DisplayMember = "Select";
+            this.symbolDdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.symbolDdown.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.symbolDdown.FormattingEnabled = true;
+            this.symbolDdown.Location = new System.Drawing.Point(211, 89);
+            this.symbolDdown.Name = "symbolDdown";
+            this.symbolDdown.Size = new System.Drawing.Size(216, 38);
+            this.symbolDdown.TabIndex = 2;
+            this.symbolDdown.ValueMember = "Select";
             // 
             // Symbolselectlabel
             // 
@@ -222,17 +222,17 @@ namespace Stockwatch.WindowsApp
 
         private SplitContainer InputContainer;
         private Label SymbolpageMsg;
-        private Button SymbolsubmitBtn;
-        private TextBox SymbolnameTbx;
+        private Button symbolsubmitBtn;
+        private TextBox symbolnameTbx;
         private Label entersymbollabel;
         private Label label1;
-        private TextBox Hlimittbx;
-        private TextBox Llimittbx;
+        private TextBox hlimittbx;
+        private TextBox llimittbx;
         private Label label2;
         private Label StockPageMsg;
         private Button NewStockcreateBtn;
         private Label Llimitstocklabel;
-        private ComboBox SymbolDdown;
+        private ComboBox symbolDdown;
         private Label Symbolselectlabel;
     }
 }

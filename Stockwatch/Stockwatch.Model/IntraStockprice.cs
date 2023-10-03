@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Stockwatch.Model
+namespace Stockwatch.Model.Dto
 {
     public class IntraStockPrice
     {

@@ -13,7 +13,6 @@ namespace Stockwatch.Background
             _configuration = configuration;
             _logger = logger;
         }
-
         private string GetApiUrl(string symbolName)
         {
             string Apikey = _configuration["APIKey"];
@@ -24,19 +23,16 @@ namespace Stockwatch.Background
             Console.WriteLine(apiUrl);
             return apiUrl;
         }
-
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Ticker has started!");
             await base.StartAsync(cancellationToken);
         }
-
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             _logger?.LogInformation("Ticker has stopped!");
             await base.StopAsync(cancellationToken);
         }
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)

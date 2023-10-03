@@ -1,31 +1,30 @@
-﻿using Stockwatch.Model;
+﻿using Stockwatch.Model.Dto;
 using System.Text.Json;
 
 namespace Stockwatch.Business
 {
     public interface IStockPriceService 
-    { }
+    {
+        public Task<IntraStockPrice> GetStockPrice(string url);
+    }
     public class StockPriceService: IStockPriceService
     {
-        public IntraStockPrice intraStockprice { get; set; }
+        public IntraStockPrice _intraStockPrice { get; set; }
 
         public StockPriceService()
         {
         }
 
-
-        public async Task<IntraStockPrice> GetStockPrice(string URL)
+        public async Task<IntraStockPrice> GetStockPrice(string url)
         {
             IntraStockPrice StockPrice;
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(URL);
-
+                    HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
-
                         string jsonContent = await response.Content.ReadAsStringAsync();
                         var serializeOptions = new JsonSerializerOptions
                         {
@@ -46,10 +45,6 @@ namespace Stockwatch.Business
                     return null;
                 }
             }
-
-
         }
-
-
     }
 }
