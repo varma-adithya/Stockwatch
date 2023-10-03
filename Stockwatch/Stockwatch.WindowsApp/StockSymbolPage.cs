@@ -24,7 +24,7 @@ namespace Stockwatch.WindowsApp
         
         public void AddSymbol(string symbol)
         {
-            _stockSymbolService.AddStock(new StockSymbol { SymbolName = symbol });
+            _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = symbol });
         }
 
         public List<string> GetSymbolList() 
