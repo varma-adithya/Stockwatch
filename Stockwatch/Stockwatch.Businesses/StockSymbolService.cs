@@ -5,13 +5,9 @@ namespace Stockwatch.Business
     public interface IStockSymbolService
     {
         void AddStockSymbol(StockSymbol stockSymbol);
-
         StockSymbol FetchStockSymbolById(int id);
-        
         StockSymbol FetchStockSymbolByName(string name);
-        
         List<StockSymbol> GetAll();
-        
         void DeleteStockSymbol(StockSymbol stockSymbol);
     }
     public class StockSymbolService : IStockSymbolService

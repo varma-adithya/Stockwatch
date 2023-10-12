@@ -9,15 +9,10 @@ namespace Stockwatch.Background
     {
 
         private ILogger<Worker> _logger;
-        
         private IConfiguration _configuration;
-        
         private AlphaVantageAPI _options;
-        
         private IStockWorkerService _workerService;
-        
         private IStockPriceService _priceService;
-        
         public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<AlphaVantageAPI> options)
         {
             _priceService = priceService;
@@ -26,7 +21,7 @@ namespace Stockwatch.Background
             _configuration = configuration;
             _logger = logger;
         }
-        
+      
         private string GetApiUrl(string symbolName)
         {
             string apiKey = _configuration["APIKey"];

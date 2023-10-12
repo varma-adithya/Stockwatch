@@ -6,7 +6,6 @@ namespace Stockwatch.Model
     {
         public DbSet<StockAlertRange> StockAlertRanges { get; set; }
         public DbSet<StockSymbol> StockSymbols { get; set; }
-
         public StockwatchDbContext(DbContextOptions<StockwatchDbContext> options): base(options)
         {
         }

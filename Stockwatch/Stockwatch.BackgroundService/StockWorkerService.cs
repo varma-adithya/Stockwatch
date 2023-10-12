@@ -7,17 +7,13 @@ namespace Stockwatch.Background
     public interface IStockWorkerService
     {
         public List<string> GetStockSymbols();
-
         public int CheckStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange);
-        
         public List<StockAlertRange> GetAll();
     }
 
     public class StockWorkerService : IStockWorkerService
     {
-
         private IStockAlertRangeService _stockAlertRangeService;
-
         public StockWorkerService(IStockAlertRangeService stockAlertRangeService)
         {
             _stockAlertRangeService = stockAlertRangeService;
@@ -46,7 +42,6 @@ namespace Stockwatch.Background
                 return 0;
             }
         }
-
 
     }
 }

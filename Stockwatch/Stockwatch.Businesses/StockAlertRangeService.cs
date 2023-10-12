@@ -4,15 +4,10 @@ namespace Stockwatch.Business
 {
     public interface IStockAlertRangeService {
         void AddStockAlertRange(StockAlertRange stockAlertRange);
-
         void UpdateStockAlertRange(StockAlertRange stockAlertRange);
-        
         void RemoveStockAlertRange(StockAlertRange stockAlertRange);
-        
         StockAlertRange FetchStockAlertRangeByName(string name);
-        
         StockAlertRange FetchStockAlertRangeById(int id);
-        
         List<StockAlertRange> GetAll();
     }
     public class StockAlertRangeService: IStockAlertRangeService
@@ -42,14 +37,17 @@ namespace Stockwatch.Business
         {
             return _context.StockAlertRanges.Find(id);
         }
+
         public List<StockAlertRange> GetAll()
         {
             return _context.StockAlertRanges.ToList();
         }
+
         public void RemoveStockAlertRange(StockAlertRange stockAlertRange)
         {
             _context.Remove(stockAlertRange);
             _context.SaveChanges();
         }
+
     }
 }
