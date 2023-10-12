@@ -30,533 +30,515 @@ namespace Stockwatch.WindowsApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.InputContainer = new System.Windows.Forms.SplitContainer();
-            this.EditSymbolbx = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.EditLLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.EditHLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.EditUpdatebtn = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.UpdataMsgbx = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.EditDeletebtn = new System.Windows.Forms.Button();
-            this.NewLLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.NewHLimitbx = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.StockPageMsg = new System.Windows.Forms.Label();
-            this.NewStockcreateBtn = new System.Windows.Forms.Button();
-            this.Llimitstocklabel = new System.Windows.Forms.Label();
-            this.SymbolDdown = new System.Windows.Forms.ComboBox();
-            this.Symbolselectlabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.Symbol1bx = new System.Windows.Forms.TextBox();
-            this.LowerLimit1bx = new System.Windows.Forms.TextBox();
-            this.UpperLimit1bx = new System.Windows.Forms.TextBox();
-            this.Stock1Msg = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.Stock1label = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.Symbol2bx = new System.Windows.Forms.TextBox();
-            this.LowerLimit2bx = new System.Windows.Forms.TextBox();
-            this.UpperLimit2bx = new System.Windows.Forms.TextBox();
-            this.Stock2Msg = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.Stock2label = new System.Windows.Forms.Label();
-            this.WorkerServiceIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).BeginInit();
-            this.InputContainer.Panel1.SuspendLayout();
-            this.InputContainer.Panel2.SuspendLayout();
-            this.InputContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            inputContainer = new SplitContainer();
+            editSymbolBx = new TextBox();
+            label4 = new Label();
+            editLowLimitBx = new NumericUpDown();
+            editHighLimitBx = new NumericUpDown();
+            editUpdateBtn = new Button();
+            label7 = new Label();
+            label3 = new Label();
+            updateMsgBx = new Label();
+            label5 = new Label();
+            editDeleteBtn = new Button();
+            newLowLimitBx = new NumericUpDown();
+            newHighLimitBx = new NumericUpDown();
+            label2 = new Label();
+            stockPageMsg = new Label();
+            newStockCreateBtn = new Button();
+            Llimitstocklabel = new Label();
+            SymbolDown = new ComboBox();
+            Symbolselectlabel = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            Symbol1bx = new TextBox();
+            LowerLimit1bx = new TextBox();
+            UpperLimit1bx = new TextBox();
+            Stock1Msg = new TextBox();
+            label10 = new Label();
+            label9 = new Label();
+            label8 = new Label();
+            stock1Label = new Label();
+            panel2 = new Panel();
+            Symbol2bx = new TextBox();
+            LowerLimit2bx = new TextBox();
+            UpperLimit2bx = new TextBox();
+            Stock2Msg = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            Stock2label = new Label();
+            WorkerServiceIcon = new NotifyIcon(components);
+            ((System.ComponentModel.ISupportInitialize)inputContainer).BeginInit();
+            inputContainer.Panel1.SuspendLayout();
+            inputContainer.Panel2.SuspendLayout();
+            inputContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)editLowLimitBx).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)editHighLimitBx).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)newLowLimitBx).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)newHighLimitBx).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            SuspendLayout();
             // 
-            // InputContainer
+            // inputContainer
             // 
-            this.InputContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.InputContainer.Location = new System.Drawing.Point(12, 427);
-            this.InputContainer.Name = "InputContainer";
+            inputContainer.BorderStyle = BorderStyle.Fixed3D;
+            inputContainer.Location = new Point(12, 427);
+            inputContainer.Name = "inputContainer";
             // 
-            // InputContainer.Panel1
+            // inputContainer.Panel1
             // 
-            this.InputContainer.Panel1.Controls.Add(this.EditSymbolbx);
-            this.InputContainer.Panel1.Controls.Add(this.label4);
-            this.InputContainer.Panel1.Controls.Add(this.EditLLimitbx);
-            this.InputContainer.Panel1.Controls.Add(this.EditHLimitbx);
-            this.InputContainer.Panel1.Controls.Add(this.EditUpdatebtn);
-            this.InputContainer.Panel1.Controls.Add(this.label7);
-            this.InputContainer.Panel1.Controls.Add(this.label3);
-            this.InputContainer.Panel1.Controls.Add(this.UpdataMsgbx);
-            this.InputContainer.Panel1.Controls.Add(this.label5);
-            this.InputContainer.Panel1.Controls.Add(this.EditDeletebtn);
+            inputContainer.Panel1.Controls.Add(editSymbolBx);
+            inputContainer.Panel1.Controls.Add(label4);
+            inputContainer.Panel1.Controls.Add(editLowLimitBx);
+            inputContainer.Panel1.Controls.Add(editHighLimitBx);
+            inputContainer.Panel1.Controls.Add(editUpdateBtn);
+            inputContainer.Panel1.Controls.Add(label7);
+            inputContainer.Panel1.Controls.Add(label3);
+            inputContainer.Panel1.Controls.Add(updateMsgBx);
+            inputContainer.Panel1.Controls.Add(label5);
+            inputContainer.Panel1.Controls.Add(editDeleteBtn);
             // 
-            // InputContainer.Panel2
+            // inputContainer.Panel2
             // 
-            this.InputContainer.Panel2.Controls.Add(this.NewLLimitbx);
-            this.InputContainer.Panel2.Controls.Add(this.NewHLimitbx);
-            this.InputContainer.Panel2.Controls.Add(this.label2);
-            this.InputContainer.Panel2.Controls.Add(this.StockPageMsg);
-            this.InputContainer.Panel2.Controls.Add(this.NewStockcreateBtn);
-            this.InputContainer.Panel2.Controls.Add(this.Llimitstocklabel);
-            this.InputContainer.Panel2.Controls.Add(this.SymbolDdown);
-            this.InputContainer.Panel2.Controls.Add(this.Symbolselectlabel);
-            this.InputContainer.Panel2.Controls.Add(this.label1);
-            this.InputContainer.Size = new System.Drawing.Size(998, 298);
-            this.InputContainer.SplitterDistance = 474;
-            this.InputContainer.TabIndex = 0;
+            inputContainer.Panel2.Controls.Add(newLowLimitBx);
+            inputContainer.Panel2.Controls.Add(newHighLimitBx);
+            inputContainer.Panel2.Controls.Add(label2);
+            inputContainer.Panel2.Controls.Add(stockPageMsg);
+            inputContainer.Panel2.Controls.Add(newStockCreateBtn);
+            inputContainer.Panel2.Controls.Add(Llimitstocklabel);
+            inputContainer.Panel2.Controls.Add(SymbolDown);
+            inputContainer.Panel2.Controls.Add(Symbolselectlabel);
+            inputContainer.Panel2.Controls.Add(label1);
+            inputContainer.Size = new Size(998, 298);
+            inputContainer.SplitterDistance = 474;
+            inputContainer.TabIndex = 0;
             // 
-            // EditSymbolbx
+            // editSymbolBx
             // 
-            this.EditSymbolbx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.EditSymbolbx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EditSymbolbx.Location = new System.Drawing.Point(175, 98);
-            this.EditSymbolbx.Name = "EditSymbolbx";
-            this.EditSymbolbx.ReadOnly = true;
-            this.EditSymbolbx.Size = new System.Drawing.Size(241, 29);
-            this.EditSymbolbx.TabIndex = 22;
+            editSymbolBx.BorderStyle = BorderStyle.None;
+            editSymbolBx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            editSymbolBx.Location = new Point(175, 98);
+            editSymbolBx.Name = "editSymbolBx";
+            editSymbolBx.ReadOnly = true;
+            editSymbolBx.Size = new Size(241, 29);
+            editSymbolBx.TabIndex = 22;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(21, 92);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 32);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Symbol Name:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(21, 92);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 32);
+            label4.TabIndex = 21;
+            label4.Text = "Symbol Name:";
             // 
-            // EditLLimitbx
+            // editLowLimitBx
             // 
-            this.EditLLimitbx.Location = new System.Drawing.Point(200, 197);
-            this.EditLLimitbx.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.EditLLimitbx.Name = "EditLLimitbx";
-            this.EditLLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.EditLLimitbx.TabIndex = 20;
+            editLowLimitBx.Location = new Point(200, 197);
+            editLowLimitBx.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+            editLowLimitBx.Name = "editLowLimitBx";
+            editLowLimitBx.Size = new Size(216, 27);
+            editLowLimitBx.TabIndex = 20;
             // 
-            // EditHLimitbx
+            // editHighLimitBx
             // 
-            this.EditHLimitbx.Location = new System.Drawing.Point(200, 152);
-            this.EditHLimitbx.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.EditHLimitbx.Name = "EditHLimitbx";
-            this.EditHLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.EditHLimitbx.TabIndex = 19;
+            editHighLimitBx.Location = new Point(200, 152);
+            editHighLimitBx.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            editHighLimitBx.Name = "editHighLimitBx";
+            editHighLimitBx.Size = new Size(216, 27);
+            editHighLimitBx.TabIndex = 19;
             // 
-            // EditUpdatebtn
+            // editUpdateBtn
             // 
-            this.EditUpdatebtn.Location = new System.Drawing.Point(219, 239);
-            this.EditUpdatebtn.Name = "EditUpdatebtn";
-            this.EditUpdatebtn.Size = new System.Drawing.Size(121, 37);
-            this.EditUpdatebtn.TabIndex = 18;
-            this.EditUpdatebtn.Text = "Update";
-            this.EditUpdatebtn.UseVisualStyleBackColor = true;
-            this.EditUpdatebtn.Click += new System.EventHandler(this.EditUpdatebtn_Click);
+            editUpdateBtn.Location = new Point(219, 239);
+            editUpdateBtn.Name = "editUpdateBtn";
+            editUpdateBtn.Size = new Size(121, 37);
+            editUpdateBtn.TabIndex = 18;
+            editUpdateBtn.Text = "Update";
+            editUpdateBtn.UseVisualStyleBackColor = true;
+            editUpdateBtn.Click += EditUpdateBtn_Click;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Dubai", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(21, 29);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(250, 42);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Stock Update / Delete";
+            label7.AutoSize = true;
+            label7.Font = new Font("Dubai", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.Location = new Point(21, 29);
+            label7.Name = "label7";
+            label7.Size = new Size(250, 42);
+            label7.TabIndex = 9;
+            label7.Text = "Stock Update / Delete";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(21, 192);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 32);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Stock Lower Limit";
+            label3.AutoSize = true;
+            label3.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(21, 192);
+            label3.Name = "label3";
+            label3.Size = new Size(157, 32);
+            label3.TabIndex = 15;
+            label3.Text = "Stock Lower Limit";
             // 
-            // UpdataMsgbx
+            // updateMsgBx
             // 
-            this.UpdataMsgbx.AutoSize = true;
-            this.UpdataMsgbx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.UpdataMsgbx.Location = new System.Drawing.Point(21, 244);
-            this.UpdataMsgbx.Name = "UpdataMsgbx";
-            this.UpdataMsgbx.Size = new System.Drawing.Size(0, 29);
-            this.UpdataMsgbx.TabIndex = 13;
+            updateMsgBx.AutoSize = true;
+            updateMsgBx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            updateMsgBx.Location = new Point(21, 244);
+            updateMsgBx.Name = "updateMsgBx";
+            updateMsgBx.Size = new Size(0, 29);
+            updateMsgBx.TabIndex = 13;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(21, 147);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 32);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Stock Upper Limit";
+            label5.AutoSize = true;
+            label5.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(21, 147);
+            label5.Name = "label5";
+            label5.Size = new Size(157, 32);
+            label5.TabIndex = 12;
+            label5.Text = "Stock Upper Limit";
             // 
-            // EditDeletebtn
+            // editDeleteBtn
             // 
-            this.EditDeletebtn.Location = new System.Drawing.Point(346, 239);
-            this.EditDeletebtn.Name = "EditDeletebtn";
-            this.EditDeletebtn.Size = new System.Drawing.Size(121, 37);
-            this.EditDeletebtn.TabIndex = 14;
-            this.EditDeletebtn.Text = "Delete";
-            this.EditDeletebtn.UseVisualStyleBackColor = true;
-            this.EditDeletebtn.Click += new System.EventHandler(this.EditDeletebtn_Click);
+            editDeleteBtn.Location = new Point(346, 239);
+            editDeleteBtn.Name = "editDeleteBtn";
+            editDeleteBtn.Size = new Size(121, 37);
+            editDeleteBtn.TabIndex = 14;
+            editDeleteBtn.Text = "Delete";
+            editDeleteBtn.UseVisualStyleBackColor = true;
+            editDeleteBtn.Click += EditDeleteBtn_Click;
             // 
-            // NewLLimitbx
+            // newLowLimitBx
             // 
-            this.NewLLimitbx.Location = new System.Drawing.Point(211, 197);
-            this.NewLLimitbx.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.NewLLimitbx.Name = "NewLLimitbx";
-            this.NewLLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.NewLLimitbx.TabIndex = 8;
+            newLowLimitBx.Location = new Point(211, 197);
+            newLowLimitBx.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+            newLowLimitBx.Name = "newLowLimitBx";
+            newLowLimitBx.Size = new Size(216, 27);
+            newLowLimitBx.TabIndex = 8;
             // 
-            // NewHLimitbx
+            // newHighLimitBx
             // 
-            this.NewHLimitbx.Location = new System.Drawing.Point(211, 152);
-            this.NewHLimitbx.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.NewHLimitbx.Name = "NewHLimitbx";
-            this.NewHLimitbx.Size = new System.Drawing.Size(216, 27);
-            this.NewHLimitbx.TabIndex = 7;
+            newHighLimitBx.Location = new Point(211, 152);
+            newHighLimitBx.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+            newHighLimitBx.Name = "newHighLimitBx";
+            newHighLimitBx.Size = new Size(216, 27);
+            newHighLimitBx.TabIndex = 7;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(32, 192);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 32);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Stock Lower Limit";
+            label2.AutoSize = true;
+            label2.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(32, 192);
+            label2.Name = "label2";
+            label2.Size = new Size(157, 32);
+            label2.TabIndex = 6;
+            label2.Text = "Stock Lower Limit";
             // 
-            // StockPageMsg
+            // stockPageMsg
             // 
-            this.StockPageMsg.AutoSize = true;
-            this.StockPageMsg.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.StockPageMsg.Location = new System.Drawing.Point(32, 247);
-            this.StockPageMsg.Name = "StockPageMsg";
-            this.StockPageMsg.Size = new System.Drawing.Size(117, 29);
-            this.StockPageMsg.TabIndex = 4;
-            this.StockPageMsg.Text = "*Upto 4 stocks";
+            stockPageMsg.AutoSize = true;
+            stockPageMsg.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            stockPageMsg.Location = new Point(32, 247);
+            stockPageMsg.Name = "stockPageMsg";
+            stockPageMsg.Size = new Size(117, 29);
+            stockPageMsg.TabIndex = 4;
+            stockPageMsg.Text = "*Upto 4 stocks";
             // 
-            // NewStockcreateBtn
+            // newStockCreateBtn
             // 
-            this.NewStockcreateBtn.Location = new System.Drawing.Point(306, 242);
-            this.NewStockcreateBtn.Name = "NewStockcreateBtn";
-            this.NewStockcreateBtn.Size = new System.Drawing.Size(121, 37);
-            this.NewStockcreateBtn.TabIndex = 5;
-            this.NewStockcreateBtn.Text = "Create";
-            this.NewStockcreateBtn.UseVisualStyleBackColor = true;
-            this.NewStockcreateBtn.Click += new System.EventHandler(this.NewStockcreateBtn_Click);
+            newStockCreateBtn.Location = new Point(306, 242);
+            newStockCreateBtn.Name = "newStockCreateBtn";
+            newStockCreateBtn.Size = new Size(121, 37);
+            newStockCreateBtn.TabIndex = 5;
+            newStockCreateBtn.Text = "Create";
+            newStockCreateBtn.UseVisualStyleBackColor = true;
+            newStockCreateBtn.Click += NewStockCreateBtn_Click;
             // 
             // Llimitstocklabel
             // 
-            this.Llimitstocklabel.AutoSize = true;
-            this.Llimitstocklabel.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Llimitstocklabel.Location = new System.Drawing.Point(32, 147);
-            this.Llimitstocklabel.Name = "Llimitstocklabel";
-            this.Llimitstocklabel.Size = new System.Drawing.Size(157, 32);
-            this.Llimitstocklabel.TabIndex = 3;
-            this.Llimitstocklabel.Text = "Stock Upper Limit";
+            Llimitstocklabel.AutoSize = true;
+            Llimitstocklabel.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Llimitstocklabel.Location = new Point(32, 147);
+            Llimitstocklabel.Name = "Llimitstocklabel";
+            Llimitstocklabel.Size = new Size(157, 32);
+            Llimitstocklabel.TabIndex = 3;
+            Llimitstocklabel.Text = "Stock Upper Limit";
             // 
-            // SymbolDdown
+            // SymbolDown
             // 
-            this.SymbolDdown.DisplayMember = "Select";
-            this.SymbolDdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SymbolDdown.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SymbolDdown.FormattingEnabled = true;
-            this.SymbolDdown.Location = new System.Drawing.Point(211, 89);
-            this.SymbolDdown.Name = "SymbolDdown";
-            this.SymbolDdown.Size = new System.Drawing.Size(216, 38);
-            this.SymbolDdown.TabIndex = 2;
-            this.SymbolDdown.ValueMember = "Select";
-            this.SymbolDdown.SelectedIndexChanged += new System.EventHandler(this.SymbolDdown_SelectedIndexChanged);
+            SymbolDown.DisplayMember = "Select";
+            SymbolDown.DropDownStyle = ComboBoxStyle.DropDownList;
+            SymbolDown.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            SymbolDown.FormattingEnabled = true;
+            SymbolDown.Location = new Point(211, 89);
+            SymbolDown.Name = "SymbolDown";
+            SymbolDown.Size = new Size(216, 38);
+            SymbolDown.TabIndex = 2;
+            SymbolDown.ValueMember = "Select";
             // 
             // Symbolselectlabel
             // 
-            this.Symbolselectlabel.AutoSize = true;
-            this.Symbolselectlabel.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Symbolselectlabel.Location = new System.Drawing.Point(32, 92);
-            this.Symbolselectlabel.Name = "Symbolselectlabel";
-            this.Symbolselectlabel.Size = new System.Drawing.Size(124, 32);
-            this.Symbolselectlabel.TabIndex = 1;
-            this.Symbolselectlabel.Text = "Select Symbol";
+            Symbolselectlabel.AutoSize = true;
+            Symbolselectlabel.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Symbolselectlabel.Location = new Point(32, 92);
+            Symbolselectlabel.Name = "Symbolselectlabel";
+            Symbolselectlabel.Size = new Size(124, 32);
+            Symbolselectlabel.TabIndex = 1;
+            Symbolselectlabel.Text = "Select Symbol";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Dubai", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(32, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(196, 42);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Brand New Stock";
+            label1.AutoSize = true;
+            label1.Font = new Font("Dubai", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(32, 29);
+            label1.Name = "label1";
+            label1.Size = new Size(196, 42);
+            label1.TabIndex = 0;
+            label1.Text = "Brand New Stock";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Symbol1bx);
-            this.panel1.Controls.Add(this.LowerLimit1bx);
-            this.panel1.Controls.Add(this.UpperLimit1bx);
-            this.panel1.Controls.Add(this.Stock1Msg);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.Stock1label);
-            this.panel1.Location = new System.Drawing.Point(19, 66);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(462, 169);
-            this.panel1.TabIndex = 1;
-            this.panel1.Visible = false;
-            this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            panel1.Controls.Add(Symbol1bx);
+            panel1.Controls.Add(LowerLimit1bx);
+            panel1.Controls.Add(UpperLimit1bx);
+            panel1.Controls.Add(Stock1Msg);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(stock1Label);
+            panel1.Location = new Point(19, 66);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(462, 169);
+            panel1.TabIndex = 1;
+            panel1.Visible = false;
+            panel1.Click += panel1_Click;
             // 
             // Symbol1bx
             // 
-            this.Symbol1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Symbol1bx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Symbol1bx.Location = new System.Drawing.Point(149, 43);
-            this.Symbol1bx.Name = "Symbol1bx";
-            this.Symbol1bx.ReadOnly = true;
-            this.Symbol1bx.Size = new System.Drawing.Size(241, 29);
-            this.Symbol1bx.TabIndex = 15;
+            Symbol1bx.BorderStyle = BorderStyle.None;
+            Symbol1bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            Symbol1bx.Location = new Point(149, 43);
+            Symbol1bx.Name = "Symbol1bx";
+            Symbol1bx.ReadOnly = true;
+            Symbol1bx.Size = new Size(241, 29);
+            Symbol1bx.TabIndex = 15;
             // 
             // LowerLimit1bx
             // 
-            this.LowerLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LowerLimit1bx.Location = new System.Drawing.Point(341, 75);
-            this.LowerLimit1bx.Name = "LowerLimit1bx";
-            this.LowerLimit1bx.ReadOnly = true;
-            this.LowerLimit1bx.Size = new System.Drawing.Size(108, 20);
-            this.LowerLimit1bx.TabIndex = 14;
+            LowerLimit1bx.BorderStyle = BorderStyle.None;
+            LowerLimit1bx.Location = new Point(341, 75);
+            LowerLimit1bx.Name = "LowerLimit1bx";
+            LowerLimit1bx.ReadOnly = true;
+            LowerLimit1bx.Size = new Size(108, 20);
+            LowerLimit1bx.TabIndex = 14;
             // 
             // UpperLimit1bx
             // 
-            this.UpperLimit1bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UpperLimit1bx.Location = new System.Drawing.Point(134, 75);
-            this.UpperLimit1bx.Name = "UpperLimit1bx";
-            this.UpperLimit1bx.ReadOnly = true;
-            this.UpperLimit1bx.Size = new System.Drawing.Size(82, 20);
-            this.UpperLimit1bx.TabIndex = 13;
+            UpperLimit1bx.BorderStyle = BorderStyle.None;
+            UpperLimit1bx.Location = new Point(134, 75);
+            UpperLimit1bx.Name = "UpperLimit1bx";
+            UpperLimit1bx.ReadOnly = true;
+            UpperLimit1bx.Size = new Size(82, 20);
+            UpperLimit1bx.TabIndex = 13;
             // 
             // Stock1Msg
             // 
-            this.Stock1Msg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Stock1Msg.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Stock1Msg.Location = new System.Drawing.Point(33, 120);
-            this.Stock1Msg.Name = "Stock1Msg";
-            this.Stock1Msg.ReadOnly = true;
-            this.Stock1Msg.Size = new System.Drawing.Size(383, 31);
-            this.Stock1Msg.TabIndex = 12;
+            Stock1Msg.BorderStyle = BorderStyle.None;
+            Stock1Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Stock1Msg.Location = new Point(33, 120);
+            Stock1Msg.Name = "Stock1Msg";
+            Stock1Msg.ReadOnly = true;
+            Stock1Msg.Size = new Size(383, 31);
+            Stock1Msg.TabIndex = 12;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(223, 71);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(112, 32);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "Lower Limit:";
+            label10.AutoSize = true;
+            label10.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Location = new Point(223, 71);
+            label10.Name = "label10";
+            label10.Size = new Size(112, 32);
+            label10.TabIndex = 11;
+            label10.Text = "Lower Limit:";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(16, 71);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 32);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Upper Limit:";
+            label9.AutoSize = true;
+            label9.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Location = new Point(16, 71);
+            label9.Name = "label9";
+            label9.Size = new Size(112, 32);
+            label9.TabIndex = 10;
+            label9.Text = "Upper Limit:";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(16, 39);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 32);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Symbol Name:";
+            label8.AutoSize = true;
+            label8.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(16, 39);
+            label8.Name = "label8";
+            label8.Size = new Size(127, 32);
+            label8.TabIndex = 9;
+            label8.Text = "Symbol Name:";
             // 
-            // Stock1label
+            // stock1Label
             // 
-            this.Stock1label.AutoSize = true;
-            this.Stock1label.Font = new System.Drawing.Font("Dubai", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Stock1label.Location = new System.Drawing.Point(16, -9);
-            this.Stock1label.Name = "Stock1label";
-            this.Stock1label.Size = new System.Drawing.Size(76, 34);
-            this.Stock1label.TabIndex = 2;
-            this.Stock1label.Text = "Stock 1";
+            stock1Label.AutoSize = true;
+            stock1Label.Font = new Font("Dubai", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            stock1Label.Location = new Point(16, -9);
+            stock1Label.Name = "stock1Label";
+            stock1Label.Size = new Size(76, 34);
+            stock1Label.TabIndex = 2;
+            stock1Label.Text = "Stock 1";
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.Symbol2bx);
-            this.panel2.Controls.Add(this.LowerLimit2bx);
-            this.panel2.Controls.Add(this.UpperLimit2bx);
-            this.panel2.Controls.Add(this.Stock2Msg);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.Stock2label);
-            this.panel2.Location = new System.Drawing.Point(524, 66);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(462, 169);
-            this.panel2.TabIndex = 16;
-            this.panel2.Visible = false;
+            panel2.Controls.Add(Symbol2bx);
+            panel2.Controls.Add(LowerLimit2bx);
+            panel2.Controls.Add(UpperLimit2bx);
+            panel2.Controls.Add(Stock2Msg);
+            panel2.Controls.Add(label11);
+            panel2.Controls.Add(label12);
+            panel2.Controls.Add(label13);
+            panel2.Controls.Add(Stock2label);
+            panel2.Location = new Point(524, 66);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(462, 169);
+            panel2.TabIndex = 16;
+            panel2.Visible = false;
             // 
             // Symbol2bx
             // 
-            this.Symbol2bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Symbol2bx.Font = new System.Drawing.Font("Dubai", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Symbol2bx.Location = new System.Drawing.Point(149, 43);
-            this.Symbol2bx.Name = "Symbol2bx";
-            this.Symbol2bx.ReadOnly = true;
-            this.Symbol2bx.Size = new System.Drawing.Size(241, 29);
-            this.Symbol2bx.TabIndex = 15;
+            Symbol2bx.BorderStyle = BorderStyle.None;
+            Symbol2bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            Symbol2bx.Location = new Point(149, 43);
+            Symbol2bx.Name = "Symbol2bx";
+            Symbol2bx.ReadOnly = true;
+            Symbol2bx.Size = new Size(241, 29);
+            Symbol2bx.TabIndex = 15;
             // 
             // LowerLimit2bx
             // 
-            this.LowerLimit2bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LowerLimit2bx.Location = new System.Drawing.Point(341, 75);
-            this.LowerLimit2bx.Name = "LowerLimit2bx";
-            this.LowerLimit2bx.ReadOnly = true;
-            this.LowerLimit2bx.Size = new System.Drawing.Size(108, 20);
-            this.LowerLimit2bx.TabIndex = 14;
+            LowerLimit2bx.BorderStyle = BorderStyle.None;
+            LowerLimit2bx.Location = new Point(341, 75);
+            LowerLimit2bx.Name = "LowerLimit2bx";
+            LowerLimit2bx.ReadOnly = true;
+            LowerLimit2bx.Size = new Size(108, 20);
+            LowerLimit2bx.TabIndex = 14;
             // 
             // UpperLimit2bx
             // 
-            this.UpperLimit2bx.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.UpperLimit2bx.Location = new System.Drawing.Point(134, 75);
-            this.UpperLimit2bx.Name = "UpperLimit2bx";
-            this.UpperLimit2bx.ReadOnly = true;
-            this.UpperLimit2bx.Size = new System.Drawing.Size(82, 20);
-            this.UpperLimit2bx.TabIndex = 13;
+            UpperLimit2bx.BorderStyle = BorderStyle.None;
+            UpperLimit2bx.Location = new Point(134, 75);
+            UpperLimit2bx.Name = "UpperLimit2bx";
+            UpperLimit2bx.ReadOnly = true;
+            UpperLimit2bx.Size = new Size(82, 20);
+            UpperLimit2bx.TabIndex = 13;
             // 
             // Stock2Msg
             // 
-            this.Stock2Msg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Stock2Msg.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Stock2Msg.Location = new System.Drawing.Point(33, 120);
-            this.Stock2Msg.Name = "Stock2Msg";
-            this.Stock2Msg.ReadOnly = true;
-            this.Stock2Msg.Size = new System.Drawing.Size(383, 31);
-            this.Stock2Msg.TabIndex = 12;
+            Stock2Msg.BorderStyle = BorderStyle.None;
+            Stock2Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Stock2Msg.Location = new Point(33, 120);
+            Stock2Msg.Name = "Stock2Msg";
+            Stock2Msg.ReadOnly = true;
+            Stock2Msg.Size = new Size(383, 31);
+            Stock2Msg.TabIndex = 12;
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(223, 71);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(112, 32);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Lower Limit:";
+            label11.AutoSize = true;
+            label11.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Location = new Point(223, 71);
+            label11.Name = "label11";
+            label11.Size = new Size(112, 32);
+            label11.TabIndex = 11;
+            label11.Text = "Lower Limit:";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(16, 71);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(112, 32);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Upper Limit:";
+            label12.AutoSize = true;
+            label12.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label12.Location = new Point(16, 71);
+            label12.Name = "label12";
+            label12.Size = new Size(112, 32);
+            label12.TabIndex = 10;
+            label12.Text = "Upper Limit:";
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Dubai", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(16, 39);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(127, 32);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "Symbol Name:";
+            label13.AutoSize = true;
+            label13.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Location = new Point(16, 39);
+            label13.Name = "label13";
+            label13.Size = new Size(127, 32);
+            label13.TabIndex = 9;
+            label13.Text = "Symbol Name:";
             // 
             // Stock2label
             // 
-            this.Stock2label.AutoSize = true;
-            this.Stock2label.Font = new System.Drawing.Font("Dubai", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Stock2label.Location = new System.Drawing.Point(16, -9);
-            this.Stock2label.Name = "Stock2label";
-            this.Stock2label.Size = new System.Drawing.Size(76, 34);
-            this.Stock2label.TabIndex = 2;
-            this.Stock2label.Text = "Stock 2";
+            Stock2label.AutoSize = true;
+            Stock2label.Font = new Font("Dubai", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Stock2label.Location = new Point(16, -9);
+            Stock2label.Name = "Stock2label";
+            Stock2label.Size = new Size(76, 34);
+            Stock2label.TabIndex = 2;
+            Stock2label.Text = "Stock 2";
             // 
             // WorkerServiceIcon
             // 
-            this.WorkerServiceIcon.Text = "WorkerService";
-            this.WorkerServiceIcon.Visible = true;
+            WorkerServiceIcon.Text = "WorkerService";
+            WorkerServiceIcon.Visible = true;
             // 
             // StockPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 737);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.InputContainer);
-            this.Name = "StockPage";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.InputContainer.Panel1.ResumeLayout(false);
-            this.InputContainer.Panel1.PerformLayout();
-            this.InputContainer.Panel2.ResumeLayout(false);
-            this.InputContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InputContainer)).EndInit();
-            this.InputContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.EditLLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditHLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewLLimitbx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NewHLimitbx)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1022, 737);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(inputContainer);
+            Name = "StockPage";
+            Text = "Form1";
+            Load += Form1_Load;
+            inputContainer.Panel1.ResumeLayout(false);
+            inputContainer.Panel1.PerformLayout();
+            inputContainer.Panel2.ResumeLayout(false);
+            inputContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)inputContainer).EndInit();
+            inputContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)editLowLimitBx).EndInit();
+            ((System.ComponentModel.ISupportInitialize)editHighLimitBx).EndInit();
+            ((System.ComponentModel.ISupportInitialize)newLowLimitBx).EndInit();
+            ((System.ComponentModel.ISupportInitialize)newHighLimitBx).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private SplitContainer InputContainer;
+        private SplitContainer inputContainer;
         private Label label1;
         private Label label2;
-        private Label StockPageMsg;
-        private Button NewStockcreateBtn;
+        private Label stockPageMsg;
+        private Button newStockCreateBtn;
         private Label Llimitstocklabel;
-        private ComboBox SymbolDdown;
+        private ComboBox SymbolDown;
         private Label Symbolselectlabel;
-        private Button EditUpdatebtn;
+        private Button editUpdateBtn;
         private Label label7;
         private Label label3;
-        private Label UpdataMsgbx;
+        private Label updateMsgBx;
         private Label label5;
-        private Button EditDeletebtn;
+        private Button editDeleteBtn;
         private Panel panel1;
-        private Label Stock1label;
+        private Label stock1Label;
         private TextBox Symbol1bx;
         private TextBox LowerLimit1bx;
         private TextBox UpperLimit1bx;
@@ -573,11 +555,11 @@ namespace Stockwatch.WindowsApp
         private Label label12;
         private Label label13;
         private Label Stock2label;
-        private NumericUpDown EditLLimitbx;
-        private NumericUpDown EditHLimitbx;
-        private NumericUpDown NewLLimitbx;
-        private NumericUpDown NewHLimitbx;
-        private TextBox EditSymbolbx;
+        private NumericUpDown editLowLimitBx;
+        private NumericUpDown editHighLimitBx;
+        private NumericUpDown newLowLimitBx;
+        private NumericUpDown newHighLimitBx;
+        private TextBox editSymbolBx;
         private Label label4;
         private NotifyIcon WorkerServiceIcon;
     }
