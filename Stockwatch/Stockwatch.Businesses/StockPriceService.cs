@@ -11,13 +11,10 @@ namespace Stockwatch.Business
     {
         public IntraStockPrice _intraStockPrice { get; set; }
 
-        public StockPriceService()
-        {
-        }
-
         public async Task<IntraStockPrice> GetStockPrice(string url)
         {
-            IntraStockPrice StockPrice;
+            IntraStockPrice stockPrice;
+
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -31,9 +28,8 @@ namespace Stockwatch.Business
                             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                             WriteIndented = true
                         };
-                        StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
-                        Console.WriteLine(StockPrice.Symbol);
-                        return StockPrice;
+                        stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
+                        return stockPrice;
                     }
                     else
                     {                     
