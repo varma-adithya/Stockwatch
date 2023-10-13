@@ -53,13 +53,11 @@ namespace Stockwatch.Background
                 foreach (var checkSymbol in checkSymbolList)
                 {
                     _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
-                    var StockPrice = _priceService.GetStockPrice(_options);
-
-                    if (StockPrice.Result != null)
+                    var stockPrice = _priceService.GetStockPrice(_options);
+                    if (stockPrice.Result != null)
                     {
-                        IntraStockPrice currentPrice = StockPrice.Result;
+                        IntraStockPrice currentPrice = stockPrice.Result;
                         int res = _workerService.CheckStockRange(currentPrice, checkSymbol);
-                        Console.WriteLine(res);
                     }
                 }
 

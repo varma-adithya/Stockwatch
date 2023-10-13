@@ -1,4 +1,5 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Stockwatch.Model;
 
 namespace Stockwatch.Business
 {
@@ -40,7 +41,7 @@ namespace Stockwatch.Business
 
         public List<StockAlertRange> GetAll()
         {
-            return _context.StockAlertRanges.ToList();
+            return _context.StockAlertRanges.Include(x => x.StockSymbol).ToList();
         }
 
         public void RemoveStockAlertRange(StockAlertRange stockAlertRange)
