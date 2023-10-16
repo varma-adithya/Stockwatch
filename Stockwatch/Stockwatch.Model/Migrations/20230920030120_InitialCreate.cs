@@ -11,7 +11,7 @@ namespace Stockwatch.Model.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Stocksymbols",
+                name: "StockSymbols",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -24,7 +24,7 @@ namespace Stockwatch.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stockdatas",
+                name: "StockAlertRanges",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -36,29 +36,29 @@ namespace Stockwatch.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stockdatas", x => x.Id);
+                    table.PrimaryKey("PK_StockAlertRanges", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Stockdatas_Stocksymbols_StocksymbolId",
+                        name: "FK_StockAlertRanges_Stocksymbols_StocksymbolId",
                         column: x => x.StocksymbolId,
-                        principalTable: "Stocksymbols",
+                        principalTable: "StockSymbols",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stockdatas_StocksymbolId",
-                table: "Stockdatas",
+                name: "IX_StockAlertRanges_StocksymbolId",
+                table: "StockAlertRanges",
                 column: "StocksymbolId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stockdatas_SymbolId",
-                table: "Stockdatas",
+                name: "IX_StockAlertRanges_SymbolId",
+                table: "StockAlertRanges",
                 column: "SymbolId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stocksymbols_SymbolName",
-                table: "Stocksymbols",
+                table: "StockSymbols",
                 column: "SymbolName",
                 unique: true);
         }
@@ -67,10 +67,10 @@ namespace Stockwatch.Model.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Stockdatas");
+                name: "StockAlertRanges");
 
             migrationBuilder.DropTable(
-                name: "Stocksymbols");
+                name: "StockSymbols");
         }
     }
 }

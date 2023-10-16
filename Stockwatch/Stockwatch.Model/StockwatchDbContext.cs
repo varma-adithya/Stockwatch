@@ -4,9 +4,8 @@ namespace Stockwatch.Model
 {
     public class StockwatchDbContext : DbContext
     {
-        public DbSet<Stockdata> Stockdatas { get; set; }
-        public DbSet<Stocksymbol> Stocksymbols { get; set; }
-
+        public DbSet<StockAlertRange> StockAlertRanges { get; set; }
+        public DbSet<StockSymbol> StockSymbols { get; set; }
         public StockwatchDbContext(DbContextOptions<StockwatchDbContext> options): base(options)
         {
         }
@@ -15,9 +14,8 @@ namespace Stockwatch.Model
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Stockdata>().HasIndex(x => x.SymbolId).IsUnique();
-            modelBuilder.Entity<Stocksymbol>().HasIndex(x => x.SymbolName).IsUnique();
-
+            modelBuilder.Entity<StockAlertRange>().HasIndex(x => x.StockSymbolId).IsUnique();
+            modelBuilder.Entity<StockSymbol>().HasIndex(x => x.SymbolName).IsUnique();
         }
 
     }

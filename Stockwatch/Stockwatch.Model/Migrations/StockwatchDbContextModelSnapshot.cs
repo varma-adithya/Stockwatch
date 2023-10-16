@@ -16,7 +16,7 @@ namespace Stockwatch.Model.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
 
-            modelBuilder.Entity("Stockwatch.Model.Stockdata", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockAlertRange", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace Stockwatch.Model.Migrations
                     b.HasIndex("SymbolId")
                         .IsUnique();
 
-                    b.ToTable("Stockdatas");
+                    b.ToTable("StockAlertRanges");
                 });
 
             modelBuilder.Entity("Stockwatch.Model.Stocksymbol", b =>
@@ -59,10 +59,10 @@ namespace Stockwatch.Model.Migrations
                     b.HasIndex("SymbolName")
                         .IsUnique();
 
-                    b.ToTable("Stocksymbols");
+                    b.ToTable("StockSymbols");
                 });
 
-            modelBuilder.Entity("Stockwatch.Model.Stockdata", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockAlertRange", b =>
                 {
                     b.HasOne("Stockwatch.Model.Stocksymbol", "Stocksymbol")
                         .WithMany()

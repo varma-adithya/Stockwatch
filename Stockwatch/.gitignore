@@ -12,6 +12,8 @@
 
 #Object-specific files
 *.db
+*.db-shm
+*.db-wal
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)

@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Stockwatch": {
+    "Stockwatch.BackgroundService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

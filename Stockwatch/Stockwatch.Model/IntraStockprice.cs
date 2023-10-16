@@ -1,38 +1,43 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace Stockwatch.Model
+namespace Stockwatch.Model.Dto
 {
-    public class IntraStockprice
+    public class GlobalQuote
     {
-        [JsonProperty("01. symbol")]
+        [JsonPropertyName("01. symbol")]
         public string Symbol { get; set; }
 
-        [JsonProperty("02. open")]
+        [JsonPropertyName("02. open")]
         public decimal Open { get; set; }
 
-        [JsonProperty("03. high")]
+        [JsonPropertyName("03. high")]
         public decimal High { get; set; }
 
-        [JsonProperty("04. low")]
+        [JsonPropertyName("04. low")]
         public decimal Low { get; set; }
 
-        [JsonProperty("05. price")]
+        [JsonPropertyName("05. price")]
         public decimal Price { get; set; }
 
-        [JsonProperty("06. volume")]
+        [JsonPropertyName("06. volume")]
         public long Volume { get; set; }
 
-        [JsonProperty("07. latest trading day")]
+        [JsonPropertyName("07. latest trading day")]
         public DateTime LatestTradingDay { get; set; }
 
-        [JsonProperty("08. previous close")]
+        [JsonPropertyName("08. previous close")]
         public decimal PreviousClose { get; set; }
 
-        [JsonProperty("09. change")]
+        [JsonPropertyName("09. change")]
         public decimal Change { get; set; }
 
-        [JsonProperty("10. change percent")]
-        public string? Percentchange { get; set; }
+        [JsonPropertyName("10. change percent")]
+        public string PercentChange { get; set; }
+    }
 
+    public class IntraStockPrice
+    {
+        [JsonPropertyName("Global Quote")]
+        public GlobalQuote GlobalQuote { get; set; }
     }
 }
