@@ -21,16 +21,6 @@ namespace Stockwatch.Background
             _configuration = configuration;
             _logger = logger;
         }
-      
-        private string GetApiUrl(string symbolName)
-        {
-            string apiKey = _configuration["APIKey"];
-            string apiUrlTemplate = _configuration["ApiSettings:ApiUrl"];
-            string apiUrl = apiUrlTemplate
-                .Replace("YOUR_SYMBOL_NAME", symbolName)
-                .Replace("YOUR_API_KEY", apiKey);
-            return apiUrl;
-        }
         
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
@@ -59,8 +49,7 @@ namespace Stockwatch.Background
                     if (stockPrice.Result != null)
                     {
                         IntraStockPrice currentPrice = stockPrice.Result;
-                        int res = _workerService.CheckStockRange(currentPrice, checkSymbol);
-                        Console.WriteLine(res);
+                        _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
                     }
                 }
 
