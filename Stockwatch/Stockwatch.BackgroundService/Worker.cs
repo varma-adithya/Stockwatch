@@ -48,16 +48,19 @@ namespace Stockwatch.Background
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var checkSymbolList = _workerService.GetAll();
                 foreach (var checkSymbol in checkSymbolList)
                 {
                     _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
                     var stockPrice = _priceService.GetStockPrice(_options);
+                    Console.WriteLine(stockPrice.Result.GlobalQuote.Symbol);
                     if (stockPrice.Result != null)
                     {
                         IntraStockPrice currentPrice = stockPrice.Result;
                         int res = _workerService.CheckStockRange(currentPrice, checkSymbol);
+                        Console.WriteLine(res);
                     }
                 }
 

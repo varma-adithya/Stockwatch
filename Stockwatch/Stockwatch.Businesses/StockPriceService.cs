@@ -1,23 +1,23 @@
 ﻿using Stockwatch.Model;
 using Stockwatch.Model.Dto;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Stockwatch.Business
 {
     public interface IStockPriceService 
     {
-        public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI UrlOptions);
+        public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions);
     }
     public class StockPriceService: IStockPriceService
     {
         public IntraStockPrice _intraStockPrice { get; set; }
 
-        public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI UrlOptions)
+        public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions)
         {
-            IntraStockPrice stockPrice;
-            string url = UrlOptions.ApiUrl
-                    .Replace("YOUR_SYMBOL_NAME", UrlOptions.SymbolName)
-                    .Replace("YOUR_API_KEY", UrlOptions.ApiKey);
+            string url = urlOptions.ApiUrl
+                    .Replace("YOUR_SYMBOL_NAME", urlOptions.SymbolName)
+                    .Replace("YOUR_API_KEY", urlOptions.ApiKey);
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -28,23 +28,28 @@ namespace Stockwatch.Business
                         string jsonContent = await response.Content.ReadAsStringAsync();
                         var serializeOptions = new JsonSerializerOptions
                         {
+
+                            NumberHandling = JsonNumberHandling.AllowReadingFromString,
                             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                            WriteIndented = true
+                            PropertyNameCaseInsensitive = true,
                         };
-                        stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
+
+                        IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
+                        Console.WriteLine(stockPrice.GlobalQuote.High);
                         return stockPrice;
                     }
                     else
-                    {                     
+                    {
                         return null;
                     }
                 }
                 catch (Exception ex)
-                {                   
+                {
                     return null;
                 }
             }
         }
+
 
     }
 }

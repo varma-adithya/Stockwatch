@@ -29,11 +29,11 @@ namespace Stockwatch.Background
 
         public int CheckStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
         {
-            if (currentPrice.Price >= stockAlertRange.UpperLimit)
+            if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
             {
                 return 1;
             }
-            else if (currentPrice.Price <= stockAlertRange.LowerLimit)
+            else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
             {
                 return -1;
             }
