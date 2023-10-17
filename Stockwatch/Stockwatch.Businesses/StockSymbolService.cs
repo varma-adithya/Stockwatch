@@ -4,44 +4,42 @@ namespace Stockwatch.Business
 {
     public interface IStockSymbolService
     {
-        void AddStockAlertRangeSymbol(StockSymbol stocksymbol);
-        StockSymbol FetchStockAlertRangeByIdSymbolById(int id);
-        StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name);
+        void AddStockSymbol(StockSymbol stockSymbol);
+        StockSymbol FetchStockSymbolById(int id);
+        StockSymbol FetchStockSymbolByName(string name);
         List<StockSymbol> GetAll();
-
-        void DeleteStock(StockSymbol stocksymbol);
+        void DeleteStockSymbol(StockSymbol stockSymbol);
     }
     public class StockSymbolService : IStockSymbolService
     {
         private readonly StockwatchDbContext _context;
-
+        
         public StockSymbolService(StockwatchDbContext context) { _context = context; }
-
-        public void AddStockAlertRangeSymbol(StockSymbol stocksymbol)
+        
+        public void AddStockSymbol(StockSymbol stockSymbol)
         {
-            _context.StockSymbols.Add(stocksymbol);
+            _context.StockSymbols.Add(stockSymbol);
             _context.SaveChanges();
         }
-
-        public StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name)
+        
+        public StockSymbol FetchStockSymbolByName(string name)
         {
-            return GetAll().Find(s => s.SymbolName == Name);
+            return GetAll().Find(s => s.SymbolName == name);
         }
-
-        public StockSymbol FetchStockAlertRangeByIdSymbolById(int Id)
+        
+        public StockSymbol FetchStockSymbolById(int id)
         {
-            return _context.StockSymbols.Find(Id);
+            return _context.StockSymbols.Find(id);
         }
-
-        public void DeleteStock(StockSymbol stocksymbol)
+        
+        public void DeleteStockSymbol(StockSymbol stockSymbol)
         {
-            _context.Remove(stocksymbol);
+            _context.Remove(stockSymbol);
         }
-
+        
         public List<StockSymbol> GetAll()
         {
             return _context.StockSymbols.ToList();
         }
-
     }
 }

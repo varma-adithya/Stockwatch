@@ -1,52 +1,54 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Stockwatch.Model;
 
 namespace Stockwatch.Business
 {
-    public interface IStockAlertRangeservice {
-        void AddStockAlertRange(StockAlertRange StockAlertRange);
-        void UpdateStockAlertRange(StockAlertRange StockAlertRange);
-        void RemoveStockAlertRange(StockAlertRange StockAlertRange);
-        StockAlertRange FetchStockAlertRangeByName(string Name);
+    public interface IStockAlertRangeService {
+        void AddStockAlertRange(StockAlertRange stockAlertRange);
+        void UpdateStockAlertRange(StockAlertRange stockAlertRange);
+        void RemoveStockAlertRange(StockAlertRange stockAlertRange);
+        StockAlertRange FetchStockAlertRangeByName(string name);
         StockAlertRange FetchStockAlertRangeById(int id);
         List<StockAlertRange> GetAll();
     }
-    public class StockAlertRangeservice: IStockAlertRangeservice
+    public class StockAlertRangeService: IStockAlertRangeService
     {
         private readonly StockwatchDbContext _context;
-
-        public StockAlertRangeservice(StockwatchDbContext context) { _context = context; }
-
-        public void AddStockAlertRange(StockAlertRange StockAlertRange)
+        
+        public StockAlertRangeService(StockwatchDbContext context) => _context = context;
+        
+        public void AddStockAlertRange(StockAlertRange stockAlertRange)
         {
-            _context.StockAlertRanges.Add(StockAlertRange);
+            _context.StockAlertRanges.Add(stockAlertRange);
             _context.SaveChanges();
         }
-
-        public void UpdateStockAlertRange(StockAlertRange StockAlertRange)
+        
+        public void UpdateStockAlertRange(StockAlertRange stockAlertRange)
         {
-            _context.Update(StockAlertRange);
+            _context.Update(stockAlertRange);
             _context.SaveChanges();
         }
-
-        public StockAlertRange FetchStockAlertRangeByName(string Name)
+        
+        public StockAlertRange FetchStockAlertRangeByName(string name)
         {
-            return GetAll().Find(x => x.StockSymbol.SymbolName == Name);
+            return _context.StockAlertRanges.FirstOrDefault(x => x.StockSymbol.SymbolName == name);
         }
-
-        public StockAlertRange FetchStockAlertRangeById(int Id)
+        
+        public StockAlertRange FetchStockAlertRangeById(int id)
         {
-            return _context.StockAlertRanges.Find(Id);
+            return _context.StockAlertRanges.Find(id);
         }
 
         public List<StockAlertRange> GetAll()
         {
-            return _context.StockAlertRanges.ToList();
+            return _context.StockAlertRanges.Include(x => x.StockSymbol).ToList();
         }
 
-        public void RemoveStockAlertRange(StockAlertRange StockAlertRange)
+        public void RemoveStockAlertRange(StockAlertRange stockAlertRange)
         {
-            _context.Remove(StockAlertRange);
+            _context.Remove(stockAlertRange);
             _context.SaveChanges();
         }
+
     }
 }

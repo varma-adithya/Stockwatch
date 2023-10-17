@@ -12,40 +12,42 @@ namespace Stockwatch.WindowsApp
     {
         void AddSymbol();
         List<string> GetSymbolList();
-        StockSymbol FetchStockAlertRangeByIdSymbolById(int id);
-        StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name);
+        StockSymbol FetchStockSymbolById(int id);
+        StockSymbol FetchStockSymbolByName(string name);
     }
     public class StockSymbolPage : IStockSymbolPage
     {
-        public IStockSymbolService _stocksymbolservice;
-        public StockSymbolPage(IStockSymbolService stocksymbolservice) { 
-            _stocksymbolservice = stocksymbolservice;
+        public IStockSymbolService _stockSymbolService;
+        
+        public StockSymbolPage(IStockSymbolService stocksymbolservice) {
+            _stockSymbolService = stocksymbolservice;
         }
         public void AddSymbol()
         {
-            if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("AAPL") == null)
+            if (_stockSymbolService.FetchStockSymbolByName("AAPL") == null)
             {
-                _stocksymbolservice.AddStockAlertRangeSymbol(new StockSymbol { SymbolName = "AAPL" });
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "AAPL" });
             }
-            if (_stocksymbolservice.FetchStockAlertRangeByIdSymbolByName("IBM") == null)
+            if (_stockSymbolService.FetchStockSymbolByName("IBM") == null)
             {
-                _stocksymbolservice.AddStockAlertRangeSymbol(new StockSymbol { SymbolName = "IBM" });
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "IBM" });
             }
         
         }
 
-        public StockSymbol FetchStockAlertRangeByIdSymbolById(int id)
+        public StockSymbol FetchStockSymbolById(int id)
         {
-            return _stocksymbolservice.FetchStockAlertRangeByIdSymbolById(id);
+            return _stockSymbolService.FetchStockSymbolById(id);
         }
 
-        public StockSymbol FetchStockAlertRangeByIdSymbolByName(string Name)
+        public StockSymbol FetchStockSymbolByName(string name)
         {
-        return _stocksymbolservice.FetchStockAlertRangeByIdSymbolByName(Name);
+        return _stockSymbolService.FetchStockSymbolByName(name);
         }
 
-        public List<string> GetSymbolList() {
-            var stockSymbols = _stocksymbolservice.GetAll();
+        public List<string> GetSymbolList() 
+        {
+            var stockSymbols = _stockSymbolService.GetAll();
             return stockSymbols.Select(ss => ss.SymbolName).ToList();
         }
     }

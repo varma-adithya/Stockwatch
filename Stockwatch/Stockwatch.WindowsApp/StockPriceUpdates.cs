@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Stockwatch.Business;
 using Stockwatch.Model;
+using Stockwatch.Model.Dto;
 
 namespace Stockwatch.WindowsApp
 {
@@ -31,11 +32,11 @@ namespace Stockwatch.WindowsApp
         }
         public string GetComments(IntraStockPrice currentprice, StockAlertRange stockAlertRange)
         {
-            if (currentprice.Price >= stockAlertRange.UpperLimit)
+            if (currentprice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
             {
                 return "Stock in profit!";
             }
-            else if (currentprice.Price <= stockAlertRange.LowerLimit)
+            else if (currentprice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
             {
                 return "Stock in Loss!";
             }

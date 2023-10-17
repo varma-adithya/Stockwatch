@@ -1,62 +1,54 @@
 ﻿using Microsoft.Extensions.Options;
 using Stockwatch.Model;
+using Stockwatch.Model.Dto;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Stockwatch.Business
 {
     public interface IStockPriceService 
-    { 
-        public Task<IntraStockPrice?> GetStockPrice(AlphaVantageAPI URLoptions); 
+    {
+        public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions);
     }
-
     public class StockPriceService: IStockPriceService
     {
-        //private readonly ILogger<Worker> _logger;
-        public IntraStockPrice? intraStockprice { get; set; }
+        public IntraStockPrice _intraStockPrice { get; set; }
 
-        public async Task<IntraStockPrice?> GetStockPrice(AlphaVantageAPI URLoptions)
+        public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions)
         {
-
-            string URL = URLoptions.ApiUrl
-                                .Replace("YOUR_SYMBOL_NAME", URLoptions.SymbolName)
-                                .Replace("YOUR_API_KEY", URLoptions.ApiKey);
-
-            IntraStockPrice StockPrice;
+            string url = urlOptions.ApiUrl
+                    .Replace("YOUR_SYMBOL_NAME", urlOptions.SymbolName)
+                    .Replace("YOUR_API_KEY", urlOptions.ApiKey);
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(URL);
-
+                    HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
-
-                        //_logger.LogInformation("Api call successfull!");
                         string jsonContent = await response.Content.ReadAsStringAsync();
                         var serializeOptions = new JsonSerializerOptions
                         {
-                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                            WriteIndented = true
-                        };
-                        StockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent)!;
-                        Console.WriteLine(StockPrice.Symbol);
-                        return StockPrice;
-                    }
 
+                            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                            PropertyNameCaseInsensitive = true,
+                        };
+
+                        IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
+                        Console.WriteLine(stockPrice.GlobalQuote.High);
+                        return stockPrice;
+                    }
                     else
                     {
-                        //_logger.LogInformation("Api call failed!");
                         return null;
                     }
                 }
                 catch (Exception ex)
                 {
-                    //_logger.LogInformation(ex.Message);
                     return null;
                 }
             }
-
-
         }
 
 

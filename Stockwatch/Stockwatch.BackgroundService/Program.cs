@@ -5,13 +5,13 @@ using Stockwatch.Model;
 
 IHost host = Host.CreateDefaultBuilder(args)
 
-    .ConfigureServices((hostContext,services) =>
+    .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();
         services.Configure<AlphaVantageAPI>(hostContext.Configuration.GetSection(nameof(AlphaVantageAPI)));
         services.AddTransient<IStockPriceService, StockPriceService>();
         services.AddTransient<IStockWorkerService, StockWorkerService>();
-        services.AddTransient<IStockAlertRangeservice, StockAlertRangeservice>();
+        services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
         services.AddDbContext<StockwatchDbContext>(options =>
         {
             options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");

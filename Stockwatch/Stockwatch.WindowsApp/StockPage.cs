@@ -7,9 +7,9 @@ namespace Stockwatch.WindowsApp
     public partial class StockPage : Form
     {
         private IStockSymbolPage _stockSymbolPage;
-        private IStockAlertRangeservice _dataService;
+        private IStockAlertRangeService _dataService;
         private IStockPriceUpdates _stockPriceUpdates;
-        public StockPage(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeservice dataservice)
+        public StockPage(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice)
         {
             InitializeComponent();
             _stockPriceUpdates = stockPriceUpdates;
@@ -90,7 +90,7 @@ namespace Stockwatch.WindowsApp
             }
             else
             {
-                var Symbol = _stockSymbolPage.FetchStockAlertRangeByIdSymbolByName(SymbolDown.Text);
+                var Symbol = _stockSymbolPage.FetchStockSymbolByName(SymbolDown.Text);
                 var NewStock = new StockAlertRange() { StockSymbolId = Symbol.Id, StockSymbol = Symbol, UpperLimit = newHighLimitBx.Value, LowerLimit = newLowLimitBx.Value };
                 _dataService.AddStockAlertRange(NewStock);
                 DisplayStockDetails();

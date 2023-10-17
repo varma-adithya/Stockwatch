@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Stockwatch.Model
+namespace Stockwatch.Model.Dto
 {
-    public class IntraStockPrice
+    public class GlobalQuote
     {
         [JsonPropertyName("01. symbol")]
         public string Symbol { get; set; }
@@ -32,7 +32,12 @@ namespace Stockwatch.Model
         public decimal Change { get; set; }
 
         [JsonPropertyName("10. change percent")]
-        public string? Percentchange { get; set; }
+        public string PercentChange { get; set; }
+    }
 
+    public class IntraStockPrice
+    {
+        [JsonPropertyName("Global Quote")]
+        public GlobalQuote GlobalQuote { get; set; }
     }
 }

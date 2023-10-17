@@ -1,48 +1,55 @@
-﻿using Stockwatch.Business;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using Stockwatch.Business;
 using Stockwatch.Model;
+using Stockwatch.Model.Dto;
 
 namespace Stockwatch.Background
 {
     public interface IStockWorkerService
     {
-        public List<string> GetStocksymbols();
-        public int CheckStockRange(IntraStockPrice currentprice, StockAlertRange stockAlertRange);
+        public List<string> GetStockSymbols();
+        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange);
         public List<StockAlertRange> GetAll();
     }
 
     public class StockWorkerService : IStockWorkerService
     {
-
-        private IStockAlertRangeservice _stockAlertRangeService;
-
-
-        public StockWorkerService(IStockAlertRangeservice stockAlertRangeService)
+        private IStockAlertRangeService _stockAlertRangeService;
+        public StockWorkerService(IStockAlertRangeService stockAlertRangeService)
         {
             _stockAlertRangeService = stockAlertRangeService;
         }
 
-        public List<StockAlertRange> GetAll() {return _stockAlertRangeService.GetAll(); }
+        public List<StockAlertRange> GetAll() { return _stockAlertRangeService.GetAll(); }
 
-        public List<string> GetStocksymbols() {
+        public List<string> GetStockSymbols()
+        {
             var allstocks = _stockAlertRangeService.GetAll();
             return allstocks.Select(stock => stock.StockSymbol.SymbolName).ToList();
         }
 
-        public int CheckStockRange(IntraStockPrice currentprice, StockAlertRange stockAlertRange)
+        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
         {
-            if (currentprice.Price >= stockAlertRange.UpperLimit)
+            if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
             {
-                return 1;
+                NotifyStockRange("Stock Price Surge",currentPrice.GlobalQuote.Symbol+" stock price value has surged above the Upper Limit");
             }
-            else if(currentprice.Price <= stockAlertRange.LowerLimit)
+            else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
             {
-                return -1;
+                NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
             }
-            else 
-            {
-                return 0;
-            }
-         }
+            else
+                NotifyStockRange("Stock Price in Range", currentPrice.GlobalQuote.Symbol + " stock price value is in range");
+
+        }
+
+        private void NotifyStockRange(string head, string content)
+        {
+            new ToastContentBuilder()
+                .AddText(head)
+                .AddText(content)
+                .Show();
+        }
 
 
     }

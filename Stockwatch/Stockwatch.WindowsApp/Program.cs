@@ -30,7 +30,7 @@ namespace Stockwatch.WindowsApp
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
                         services.AddTransient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockPriceUpdates, StockPriceUpdates>();
-                        services.AddTransient<IStockAlertRangeservice, StockAlertRangeservice>();
+                        services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {
                             options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");
@@ -47,6 +47,5 @@ namespace Stockwatch.WindowsApp
             using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
             Application.Run(serviceScope.ServiceProvider.GetRequiredService<StockPage>());
         }
-
     }
 }
