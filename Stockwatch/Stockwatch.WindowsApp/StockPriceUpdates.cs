@@ -8,7 +8,7 @@ namespace Stockwatch.WindowsApp
 {
     public interface IStockPriceUpdates 
     {
-        public IntraStockPrice GetCurrentPrice(StockSymbol symbol);
+        public Task<IntraStockPrice> GetCurrentPrice(StockSymbol symbol);
         public string GetComments(IntraStockPrice currentprice, StockAlertRange stockAlertRange);
     }
     public class StockPriceUpdates:IStockPriceUpdates
@@ -22,10 +22,10 @@ namespace Stockwatch.WindowsApp
             _Configuration = Configuration;
             _stockpriceservice = stockPriceService;
         }
-        public IntraStockPrice GetCurrentPrice(StockSymbol symbol)
+        public async Task<IntraStockPrice> GetCurrentPrice(StockSymbol symbol)
         {
             _options.SymbolName = symbol.SymbolName;
-            var currentprice = _stockpriceservice.GetStockPrice(_options).Result;
+            var currentprice = await _stockpriceservice.GetStockPrice(_options);
             if (currentprice != null)
                 return currentprice;
             else return null;

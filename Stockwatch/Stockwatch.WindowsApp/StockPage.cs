@@ -24,7 +24,7 @@ namespace Stockwatch.WindowsApp
         }
 
 
-        private void DisplayStockDetails()
+        private async void DisplayStockDetails()
         {
             var Count = _dataService.GetAll().Count();
             switch (Count)
@@ -36,8 +36,9 @@ namespace Stockwatch.WindowsApp
                     Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
                     UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
                     LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
-                    var currentPrice = _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
+                    var currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
                     Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
 
                     return;
@@ -46,11 +47,17 @@ namespace Stockwatch.WindowsApp
                     Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
                     UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
                     LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
                     Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
                     UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
                     LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
                 case 3:
@@ -58,11 +65,17 @@ namespace Stockwatch.WindowsApp
                     Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
                     UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
                     LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
                     Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
                     UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
                     LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
                 case 4:
@@ -70,17 +83,22 @@ namespace Stockwatch.WindowsApp
                     Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
                     UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
                     LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
                     Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
                     UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
                     LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
+                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
 
             }
         }
-
 
         private void NewStockCreateBtn_Click(object sender, EventArgs e)
         {
@@ -100,10 +118,10 @@ namespace Stockwatch.WindowsApp
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            var EditStock = _dataService.FetchStockAlertRangeByName(Symbol1bx.Text);
-            editSymbolBx.Text = EditStock.StockSymbol.SymbolName;
-            editLowLimitBx.Value = EditStock.LowerLimit;
-            editHighLimitBx.Value = EditStock.UpperLimit;
+            var editStock = _dataService.FetchStockAlertRangeByName(Symbol1bx.Text);
+            editSymbolBx.Text = editStock.StockSymbol.SymbolName;
+            editLowLimitBx.Value = editStock.LowerLimit;
+            editHighLimitBx.Value = editStock.UpperLimit;
         }
 
         private void EditUpdateBtn_Click(object sender, EventArgs e)
