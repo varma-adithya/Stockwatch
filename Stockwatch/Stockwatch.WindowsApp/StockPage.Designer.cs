@@ -54,10 +54,10 @@ namespace Stockwatch.WindowsApp
             panel1 = new Panel();
             currentPriceStock1Bx = new TextBox();
             label6 = new Label();
-            Symbol1bx = new TextBox();
-            LowerLimit1bx = new TextBox();
-            UpperLimit1bx = new TextBox();
-            Stock1Msg = new TextBox();
+            symbol1Bx = new TextBox();
+            lowerLimit1Bx = new TextBox();
+            upperLimit1Bx = new TextBox();
+            stock1Msg = new TextBox();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
@@ -65,15 +65,37 @@ namespace Stockwatch.WindowsApp
             panel2 = new Panel();
             currentPriceStock2Bx = new TextBox();
             label14 = new Label();
-            Symbol2bx = new TextBox();
-            LowerLimit2bx = new TextBox();
-            UpperLimit2bx = new TextBox();
-            Stock2Msg = new TextBox();
+            symbol2Bx = new TextBox();
+            lowerLimit2Bx = new TextBox();
+            upperLimit2Bx = new TextBox();
+            stock2Msg = new TextBox();
             label11 = new Label();
             label12 = new Label();
             label13 = new Label();
             Stock2label = new Label();
             WorkerServiceIcon = new NotifyIcon(components);
+            panel3 = new Panel();
+            currentPriceStock3Bx = new TextBox();
+            label15 = new Label();
+            symbol3Bx = new TextBox();
+            lowerLimit3Bx = new TextBox();
+            upperLimit3Bx = new TextBox();
+            stock3Msg = new TextBox();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            panel4 = new Panel();
+            currentPriceStock4Bx = new TextBox();
+            label20 = new Label();
+            symbol4Bx = new TextBox();
+            lowerLimit4Bx = new TextBox();
+            upperLimit4Bx = new TextBox();
+            stock4Msg = new TextBox();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
             ((System.ComponentModel.ISupportInitialize)inputContainer).BeginInit();
             inputContainer.Panel1.SuspendLayout();
             inputContainer.Panel2.SuspendLayout();
@@ -84,6 +106,8 @@ namespace Stockwatch.WindowsApp
             ((System.ComponentModel.ISupportInitialize)newHighLimitBx).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // inputContainer
@@ -307,10 +331,10 @@ namespace Stockwatch.WindowsApp
             // 
             panel1.Controls.Add(currentPriceStock1Bx);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(Symbol1bx);
-            panel1.Controls.Add(LowerLimit1bx);
-            panel1.Controls.Add(UpperLimit1bx);
-            panel1.Controls.Add(Stock1Msg);
+            panel1.Controls.Add(symbol1Bx);
+            panel1.Controls.Add(lowerLimit1Bx);
+            panel1.Controls.Add(upperLimit1Bx);
+            panel1.Controls.Add(stock1Msg);
             panel1.Controls.Add(label10);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(label8);
@@ -342,43 +366,43 @@ namespace Stockwatch.WindowsApp
             label6.TabIndex = 16;
             label6.Text = "Current Price:";
             // 
-            // Symbol1bx
+            // symbol1Bx
             // 
-            Symbol1bx.BorderStyle = BorderStyle.None;
-            Symbol1bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            Symbol1bx.Location = new Point(170, 26);
-            Symbol1bx.Name = "Symbol1bx";
-            Symbol1bx.ReadOnly = true;
-            Symbol1bx.Size = new Size(241, 29);
-            Symbol1bx.TabIndex = 15;
+            symbol1Bx.BorderStyle = BorderStyle.None;
+            symbol1Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            symbol1Bx.Location = new Point(170, 26);
+            symbol1Bx.Name = "symbol1Bx";
+            symbol1Bx.ReadOnly = true;
+            symbol1Bx.Size = new Size(241, 29);
+            symbol1Bx.TabIndex = 15;
             // 
-            // LowerLimit1bx
+            // lowerLimit1Bx
             // 
-            LowerLimit1bx.BorderStyle = BorderStyle.None;
-            LowerLimit1bx.Location = new Point(341, 104);
-            LowerLimit1bx.Name = "LowerLimit1bx";
-            LowerLimit1bx.ReadOnly = true;
-            LowerLimit1bx.Size = new Size(108, 20);
-            LowerLimit1bx.TabIndex = 14;
+            lowerLimit1Bx.BorderStyle = BorderStyle.None;
+            lowerLimit1Bx.Location = new Point(341, 104);
+            lowerLimit1Bx.Name = "lowerLimit1Bx";
+            lowerLimit1Bx.ReadOnly = true;
+            lowerLimit1Bx.Size = new Size(108, 20);
+            lowerLimit1Bx.TabIndex = 14;
             // 
-            // UpperLimit1bx
+            // upperLimit1Bx
             // 
-            UpperLimit1bx.BorderStyle = BorderStyle.None;
-            UpperLimit1bx.Location = new Point(134, 104);
-            UpperLimit1bx.Name = "UpperLimit1bx";
-            UpperLimit1bx.ReadOnly = true;
-            UpperLimit1bx.Size = new Size(82, 20);
-            UpperLimit1bx.TabIndex = 13;
+            upperLimit1Bx.BorderStyle = BorderStyle.None;
+            upperLimit1Bx.Location = new Point(134, 104);
+            upperLimit1Bx.Name = "upperLimit1Bx";
+            upperLimit1Bx.ReadOnly = true;
+            upperLimit1Bx.Size = new Size(82, 20);
+            upperLimit1Bx.TabIndex = 13;
             // 
-            // Stock1Msg
+            // stock1Msg
             // 
-            Stock1Msg.BorderStyle = BorderStyle.None;
-            Stock1Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Stock1Msg.Location = new Point(28, 138);
-            Stock1Msg.Name = "Stock1Msg";
-            Stock1Msg.ReadOnly = true;
-            Stock1Msg.Size = new Size(383, 31);
-            Stock1Msg.TabIndex = 12;
+            stock1Msg.BorderStyle = BorderStyle.None;
+            stock1Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            stock1Msg.Location = new Point(28, 138);
+            stock1Msg.Name = "stock1Msg";
+            stock1Msg.ReadOnly = true;
+            stock1Msg.Size = new Size(383, 31);
+            stock1Msg.TabIndex = 12;
             // 
             // label10
             // 
@@ -424,10 +448,10 @@ namespace Stockwatch.WindowsApp
             // 
             panel2.Controls.Add(currentPriceStock2Bx);
             panel2.Controls.Add(label14);
-            panel2.Controls.Add(Symbol2bx);
-            panel2.Controls.Add(LowerLimit2bx);
-            panel2.Controls.Add(UpperLimit2bx);
-            panel2.Controls.Add(Stock2Msg);
+            panel2.Controls.Add(symbol2Bx);
+            panel2.Controls.Add(lowerLimit2Bx);
+            panel2.Controls.Add(upperLimit2Bx);
+            panel2.Controls.Add(stock2Msg);
             panel2.Controls.Add(label11);
             panel2.Controls.Add(label12);
             panel2.Controls.Add(label13);
@@ -437,6 +461,7 @@ namespace Stockwatch.WindowsApp
             panel2.Size = new Size(462, 169);
             panel2.TabIndex = 16;
             panel2.Visible = false;
+            panel2.Click += panel2_Click;
             // 
             // currentPriceStock2Bx
             // 
@@ -458,43 +483,43 @@ namespace Stockwatch.WindowsApp
             label14.TabIndex = 16;
             label14.Text = "Current Price:";
             // 
-            // Symbol2bx
+            // symbol2Bx
             // 
-            Symbol2bx.BorderStyle = BorderStyle.None;
-            Symbol2bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            Symbol2bx.Location = new Point(149, 33);
-            Symbol2bx.Name = "Symbol2bx";
-            Symbol2bx.ReadOnly = true;
-            Symbol2bx.Size = new Size(241, 29);
-            Symbol2bx.TabIndex = 15;
+            symbol2Bx.BorderStyle = BorderStyle.None;
+            symbol2Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            symbol2Bx.Location = new Point(149, 33);
+            symbol2Bx.Name = "symbol2Bx";
+            symbol2Bx.ReadOnly = true;
+            symbol2Bx.Size = new Size(241, 29);
+            symbol2Bx.TabIndex = 15;
             // 
-            // LowerLimit2bx
+            // lowerLimit2Bx
             // 
-            LowerLimit2bx.BorderStyle = BorderStyle.None;
-            LowerLimit2bx.Location = new Point(341, 104);
-            LowerLimit2bx.Name = "LowerLimit2bx";
-            LowerLimit2bx.ReadOnly = true;
-            LowerLimit2bx.Size = new Size(108, 20);
-            LowerLimit2bx.TabIndex = 14;
+            lowerLimit2Bx.BorderStyle = BorderStyle.None;
+            lowerLimit2Bx.Location = new Point(341, 104);
+            lowerLimit2Bx.Name = "lowerLimit2Bx";
+            lowerLimit2Bx.ReadOnly = true;
+            lowerLimit2Bx.Size = new Size(108, 20);
+            lowerLimit2Bx.TabIndex = 14;
             // 
-            // UpperLimit2bx
+            // upperLimit2Bx
             // 
-            UpperLimit2bx.BorderStyle = BorderStyle.None;
-            UpperLimit2bx.Location = new Point(134, 104);
-            UpperLimit2bx.Name = "UpperLimit2bx";
-            UpperLimit2bx.ReadOnly = true;
-            UpperLimit2bx.Size = new Size(82, 20);
-            UpperLimit2bx.TabIndex = 13;
+            upperLimit2Bx.BorderStyle = BorderStyle.None;
+            upperLimit2Bx.Location = new Point(134, 104);
+            upperLimit2Bx.Name = "upperLimit2Bx";
+            upperLimit2Bx.ReadOnly = true;
+            upperLimit2Bx.Size = new Size(82, 20);
+            upperLimit2Bx.TabIndex = 13;
             // 
-            // Stock2Msg
+            // stock2Msg
             // 
-            Stock2Msg.BorderStyle = BorderStyle.None;
-            Stock2Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Stock2Msg.Location = new Point(23, 138);
-            Stock2Msg.Name = "Stock2Msg";
-            Stock2Msg.ReadOnly = true;
-            Stock2Msg.Size = new Size(383, 31);
-            Stock2Msg.TabIndex = 12;
+            stock2Msg.BorderStyle = BorderStyle.None;
+            stock2Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            stock2Msg.Location = new Point(23, 138);
+            stock2Msg.Name = "stock2Msg";
+            stock2Msg.ReadOnly = true;
+            stock2Msg.Size = new Size(383, 31);
+            stock2Msg.TabIndex = 12;
             // 
             // label11
             // 
@@ -541,11 +566,247 @@ namespace Stockwatch.WindowsApp
             WorkerServiceIcon.Text = "WorkerService";
             WorkerServiceIcon.Visible = true;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(currentPriceStock3Bx);
+            panel3.Controls.Add(label15);
+            panel3.Controls.Add(symbol3Bx);
+            panel3.Controls.Add(lowerLimit3Bx);
+            panel3.Controls.Add(upperLimit3Bx);
+            panel3.Controls.Add(stock3Msg);
+            panel3.Controls.Add(label16);
+            panel3.Controls.Add(label17);
+            panel3.Controls.Add(label18);
+            panel3.Controls.Add(label19);
+            panel3.Location = new Point(19, 241);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(462, 169);
+            panel3.TabIndex = 18;
+            panel3.Visible = false;
+            panel3.Click += panel3_Click;
+            // 
+            // currentPriceStock3Bx
+            // 
+            currentPriceStock3Bx.BorderStyle = BorderStyle.None;
+            currentPriceStock3Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPriceStock3Bx.Location = new Point(149, 69);
+            currentPriceStock3Bx.Name = "currentPriceStock3Bx";
+            currentPriceStock3Bx.ReadOnly = true;
+            currentPriceStock3Bx.Size = new Size(257, 29);
+            currentPriceStock3Bx.TabIndex = 17;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Location = new Point(16, 68);
+            label15.Name = "label15";
+            label15.Size = new Size(123, 32);
+            label15.TabIndex = 16;
+            label15.Text = "Current Price:";
+            // 
+            // symbol3Bx
+            // 
+            symbol3Bx.BorderStyle = BorderStyle.None;
+            symbol3Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            symbol3Bx.Location = new Point(149, 33);
+            symbol3Bx.Name = "symbol3Bx";
+            symbol3Bx.ReadOnly = true;
+            symbol3Bx.Size = new Size(241, 29);
+            symbol3Bx.TabIndex = 15;
+            // 
+            // lowerLimit3Bx
+            // 
+            lowerLimit3Bx.BorderStyle = BorderStyle.None;
+            lowerLimit3Bx.Location = new Point(341, 104);
+            lowerLimit3Bx.Name = "lowerLimit3Bx";
+            lowerLimit3Bx.ReadOnly = true;
+            lowerLimit3Bx.Size = new Size(108, 20);
+            lowerLimit3Bx.TabIndex = 14;
+            // 
+            // upperLimit3Bx
+            // 
+            upperLimit3Bx.BorderStyle = BorderStyle.None;
+            upperLimit3Bx.Location = new Point(134, 104);
+            upperLimit3Bx.Name = "upperLimit3Bx";
+            upperLimit3Bx.ReadOnly = true;
+            upperLimit3Bx.Size = new Size(82, 20);
+            upperLimit3Bx.TabIndex = 13;
+            // 
+            // stock3Msg
+            // 
+            stock3Msg.BorderStyle = BorderStyle.None;
+            stock3Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            stock3Msg.Location = new Point(23, 138);
+            stock3Msg.Name = "stock3Msg";
+            stock3Msg.ReadOnly = true;
+            stock3Msg.Size = new Size(383, 31);
+            stock3Msg.TabIndex = 12;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Location = new Point(223, 100);
+            label16.Name = "label16";
+            label16.Size = new Size(112, 32);
+            label16.TabIndex = 11;
+            label16.Text = "Lower Limit:";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Location = new Point(16, 100);
+            label17.Name = "label17";
+            label17.Size = new Size(112, 32);
+            label17.TabIndex = 10;
+            label17.Text = "Upper Limit:";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Location = new Point(16, 29);
+            label18.Name = "label18";
+            label18.Size = new Size(127, 32);
+            label18.TabIndex = 9;
+            label18.Text = "Symbol Name:";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Dubai", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label19.Location = new Point(16, -9);
+            label19.Name = "label19";
+            label19.Size = new Size(76, 34);
+            label19.TabIndex = 2;
+            label19.Text = "Stock 3";
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(currentPriceStock4Bx);
+            panel4.Controls.Add(label20);
+            panel4.Controls.Add(symbol4Bx);
+            panel4.Controls.Add(lowerLimit4Bx);
+            panel4.Controls.Add(upperLimit4Bx);
+            panel4.Controls.Add(stock4Msg);
+            panel4.Controls.Add(label21);
+            panel4.Controls.Add(label22);
+            panel4.Controls.Add(label23);
+            panel4.Controls.Add(label24);
+            panel4.Location = new Point(524, 241);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(462, 169);
+            panel4.TabIndex = 19;
+            panel4.Visible = false;
+            panel4.Click += panel4_Click;
+            // 
+            // currentPriceStock4Bx
+            // 
+            currentPriceStock4Bx.BorderStyle = BorderStyle.None;
+            currentPriceStock4Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPriceStock4Bx.Location = new Point(149, 69);
+            currentPriceStock4Bx.Name = "currentPriceStock4Bx";
+            currentPriceStock4Bx.ReadOnly = true;
+            currentPriceStock4Bx.Size = new Size(257, 29);
+            currentPriceStock4Bx.TabIndex = 17;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Location = new Point(16, 68);
+            label20.Name = "label20";
+            label20.Size = new Size(123, 32);
+            label20.TabIndex = 16;
+            label20.Text = "Current Price:";
+            // 
+            // symbol4Bx
+            // 
+            symbol4Bx.BorderStyle = BorderStyle.None;
+            symbol4Bx.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            symbol4Bx.Location = new Point(149, 33);
+            symbol4Bx.Name = "symbol4Bx";
+            symbol4Bx.ReadOnly = true;
+            symbol4Bx.Size = new Size(241, 29);
+            symbol4Bx.TabIndex = 15;
+            // 
+            // lowerLimit4Bx
+            // 
+            lowerLimit4Bx.BorderStyle = BorderStyle.None;
+            lowerLimit4Bx.Location = new Point(341, 104);
+            lowerLimit4Bx.Name = "lowerLimit4Bx";
+            lowerLimit4Bx.ReadOnly = true;
+            lowerLimit4Bx.Size = new Size(108, 20);
+            lowerLimit4Bx.TabIndex = 14;
+            // 
+            // upperLimit4Bx
+            // 
+            upperLimit4Bx.BorderStyle = BorderStyle.None;
+            upperLimit4Bx.Location = new Point(134, 104);
+            upperLimit4Bx.Name = "upperLimit4Bx";
+            upperLimit4Bx.ReadOnly = true;
+            upperLimit4Bx.Size = new Size(82, 20);
+            upperLimit4Bx.TabIndex = 13;
+            // 
+            // stock4Msg
+            // 
+            stock4Msg.BorderStyle = BorderStyle.None;
+            stock4Msg.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            stock4Msg.Location = new Point(23, 138);
+            stock4Msg.Name = "stock4Msg";
+            stock4Msg.ReadOnly = true;
+            stock4Msg.Size = new Size(383, 31);
+            stock4Msg.TabIndex = 12;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Location = new Point(223, 100);
+            label21.Name = "label21";
+            label21.Size = new Size(112, 32);
+            label21.TabIndex = 11;
+            label21.Text = "Lower Limit:";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Location = new Point(16, 100);
+            label22.Name = "label22";
+            label22.Size = new Size(112, 32);
+            label22.TabIndex = 10;
+            label22.Text = "Upper Limit:";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Dubai", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Location = new Point(16, 29);
+            label23.Name = "label23";
+            label23.Size = new Size(127, 32);
+            label23.TabIndex = 9;
+            label23.Text = "Symbol Name:";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Dubai", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Location = new Point(16, -9);
+            label24.Name = "label24";
+            label24.Size = new Size(76, 34);
+            label24.TabIndex = 2;
+            label24.Text = "Stock 4";
+            // 
             // StockPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1022, 737);
+            Controls.Add(panel4);
+            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(inputContainer);
@@ -566,6 +827,10 @@ namespace Stockwatch.WindowsApp
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -587,18 +852,18 @@ namespace Stockwatch.WindowsApp
         private Button editDeleteBtn;
         private Panel panel1;
         private Label stock1Label;
-        private TextBox Symbol1bx;
-        private TextBox LowerLimit1bx;
-        private TextBox UpperLimit1bx;
-        private TextBox Stock1Msg;
+        private TextBox symbol1Bx;
+        private TextBox lowerLimit1Bx;
+        private TextBox upperLimit1Bx;
+        private TextBox stock1Msg;
         private Label label10;
         private Label label9;
         private Label label8;
         private Panel panel2;
-        private TextBox Symbol2bx;
-        private TextBox LowerLimit2bx;
-        private TextBox UpperLimit2bx;
-        private TextBox Stock2Msg;
+        private TextBox symbol2Bx;
+        private TextBox lowerLimit2Bx;
+        private TextBox upperLimit2Bx;
+        private TextBox stock2Msg;
         private Label label11;
         private Label label12;
         private Label label13;
@@ -614,5 +879,27 @@ namespace Stockwatch.WindowsApp
         private Label label6;
         private TextBox currentPriceStock2Bx;
         private Label label14;
+        private Panel panel3;
+        private TextBox currentPriceStock3Bx;
+        private Label label15;
+        private TextBox symbol3Bx;
+        private TextBox lowerLimit3Bx;
+        private TextBox upperLimit3Bx;
+        private TextBox stock3Msg;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private Panel panel4;
+        private TextBox currentPriceStock4Bx;
+        private Label label20;
+        private TextBox symbol4Bx;
+        private TextBox lowerLimit4Bx;
+        private TextBox upperLimit4Bx;
+        private TextBox stock4Msg;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
     }
 }

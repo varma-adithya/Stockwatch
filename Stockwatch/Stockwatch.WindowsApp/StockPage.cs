@@ -33,66 +33,66 @@ namespace Stockwatch.WindowsApp
                     break;
                 case 1:
                     panel1.Show();
-                    Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
-                    UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
-                    LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    symbol1Bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
+                    upperLimit1Bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
+                    lowerLimit1Bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
                     var currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
 
                     return;
                 case 2:
                     panel1.Show();
-                    Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
-                    UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
-                    LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    symbol1Bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
+                    upperLimit1Bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
+                    lowerLimit1Bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
-                    Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
-                    UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
-                    LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    symbol2Bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
+                    upperLimit2Bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
+                    lowerLimit2Bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
                 case 3:
                     panel1.Show();
-                    Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
-                    UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
-                    LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    symbol1Bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
+                    upperLimit1Bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
+                    lowerLimit1Bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
-                    Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
-                    UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
-                    LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    symbol2Bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
+                    upperLimit2Bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
+                    lowerLimit2Bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
                 case 4:
                     panel1.Show();
-                    Symbol1bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
-                    UpperLimit1bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
-                    LowerLimit1bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
+                    symbol1Bx.Text = _dataService.GetAll()[0].StockSymbol.SymbolName;
+                    upperLimit1Bx.Text = _dataService.GetAll()[0].UpperLimit.ToString();
+                    lowerLimit1Bx.Text = _dataService.GetAll()[0].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[0].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     panel2.Show();
-                    Symbol2bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
-                    UpperLimit2bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
-                    LowerLimit2bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
+                    symbol2Bx.Text = _dataService.GetAll()[1].StockSymbol.SymbolName;
+                    upperLimit2Bx.Text = _dataService.GetAll()[1].UpperLimit.ToString();
+                    lowerLimit2Bx.Text = _dataService.GetAll()[1].LowerLimit.ToString();
                     currentPrice = await _stockPriceUpdates.GetCurrentPrice(_dataService.GetAll()[1].StockSymbol);
-                    Stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
+                    stock1Msg.Text = _stockPriceUpdates.GetComments(currentPrice, _dataService.GetAll()[0]);
                     currentPriceStock1Bx.Text = currentPrice.GlobalQuote.Price.ToString();
 
                     return;
@@ -109,16 +109,47 @@ namespace Stockwatch.WindowsApp
             else
             {
                 var Symbol = _stockSymbolPage.FetchStockSymbolByName(SymbolDown.Text);
-                var NewStock = new StockAlertRange() { StockSymbolId = Symbol.Id, StockSymbol = Symbol, UpperLimit = newHighLimitBx.Value, LowerLimit = newLowLimitBx.Value };
-                _dataService.AddStockAlertRange(NewStock);
-                DisplayStockDetails();
+                if (_dataService.FetchStockAlertRangeByName(Symbol.SymbolName) == null)
+                {
+                    var NewStock = new StockAlertRange() { StockSymbolId = Symbol.Id, StockSymbol = Symbol, UpperLimit = newHighLimitBx.Value, LowerLimit = newLowLimitBx.Value };
+                    _dataService.AddStockAlertRange(NewStock);
+                    DisplayStockDetails();
+                }
+                else
+                {
+                    stockPageMsg.Text = "Alert Range with this Symbol exists!";
+                }
             }
 
         }
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            var editStock = _dataService.FetchStockAlertRangeByName(Symbol1bx.Text);
+            var editStock = _dataService.FetchStockAlertRangeByName(symbol1Bx.Text);
+            editSymbolBx.Text = editStock.StockSymbol.SymbolName;
+            editLowLimitBx.Value = editStock.LowerLimit;
+            editHighLimitBx.Value = editStock.UpperLimit;
+        }
+
+        private void panel2_Click(object sender, EventArgs e)
+        {
+            var editStock = _dataService.FetchStockAlertRangeByName(symbol2Bx.Text);
+            editSymbolBx.Text = editStock.StockSymbol.SymbolName;
+            editLowLimitBx.Value = editStock.LowerLimit;
+            editHighLimitBx.Value = editStock.UpperLimit;
+        }
+
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            var editStock = _dataService.FetchStockAlertRangeByName(symbol3Bx.Text);
+            editSymbolBx.Text = editStock.StockSymbol.SymbolName;
+            editLowLimitBx.Value = editStock.LowerLimit;
+            editHighLimitBx.Value = editStock.UpperLimit;
+        }
+
+        private void panel4_Click(object sender, EventArgs e)
+        {
+            var editStock = _dataService.FetchStockAlertRangeByName(symbol4Bx.Text);
             editSymbolBx.Text = editStock.StockSymbol.SymbolName;
             editLowLimitBx.Value = editStock.LowerLimit;
             editHighLimitBx.Value = editStock.UpperLimit;

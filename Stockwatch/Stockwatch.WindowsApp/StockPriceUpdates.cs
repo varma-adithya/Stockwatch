@@ -30,15 +30,15 @@ namespace Stockwatch.WindowsApp
                 return currentprice;
             else return null;
         }
-        public string GetComments(IntraStockPrice currentprice, StockAlertRange stockAlertRange)
+        public string GetComments(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
         {
-            if (currentprice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
+            if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
             {
-                return "Stock in profit!";
+                return "Stock Price Surge"+currentPrice.GlobalQuote.Symbol + " stock price value has surged above the Upper Limit";
             }
-            else if (currentprice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
+            else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
             {
-                return "Stock in Loss!";
+                return "Stock Price Fall"+currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit";
             }
             else
             {
