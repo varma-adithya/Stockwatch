@@ -30,6 +30,7 @@ namespace Stockwatch.WindowsApp
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
                         services.AddTransient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockPriceUpdates, StockPriceUpdates>();
+                        services.AddTransient<IStockAlertRangeDisplayService, StockAlertRangeDisplayService>();
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {

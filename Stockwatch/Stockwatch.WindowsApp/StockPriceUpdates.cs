@@ -34,11 +34,11 @@ namespace Stockwatch.WindowsApp
         {
             if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
             {
-                return "Stock Price Surge"+currentPrice.GlobalQuote.Symbol + " stock price value has surged above the Upper Limit";
+                return "Stock Price Surge "+currentPrice.GlobalQuote.Symbol + " stock price value has surged above the Upper Limit";
             }
             else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
             {
-                return "Stock Price Fall"+currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit";
+                return "Stock Price Fall "+currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit";
             }
             else
             {
