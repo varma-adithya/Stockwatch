@@ -34,7 +34,7 @@ namespace Stockwatch.WindowsApp
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {
-                            options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");
+                            options.UseSqlite("Data Source=../../../../stock_database.db");
                         });
                     })
                     .ConfigureAppConfiguration(context =>

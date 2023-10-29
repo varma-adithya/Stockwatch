@@ -38,9 +38,8 @@ namespace Stockwatch.Background
             {
                 NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
             }
-            else
-                NotifyStockRange("Stock Price in Range", currentPrice.GlobalQuote.Symbol + " stock price value is in range");
-
+            //else
+            //    NotifyStockRange("Stock Price in Range", currentPrice.GlobalQuote.Symbol + " stock price value is in range");
         }
 
         private void NotifyStockRange(string head, string content)

@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
         services.AddDbContext<StockwatchDbContext>(options =>
         {
-            options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");
+            options.UseSqlite("Data Source=../stock_database.db");
         });
 
     })

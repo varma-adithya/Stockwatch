@@ -10,6 +10,7 @@ namespace Stockwatch.WindowsApp
         private IStockAlertRangeService _dataService;
         private IStockPriceUpdates _stockPriceUpdates;
         private IStockAlertRangeDisplayService _stockAlertRangeDisplayService;
+        DataGridViewRow selectedRow = null;
         public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice)
         {
             InitializeComponent();
@@ -42,11 +43,11 @@ namespace Stockwatch.WindowsApp
         {
             if (upperLimitNbx.Value < lowerLimitNbx.Value)
             {
-                createStockAlert.Text = "Lower Limit value greater than Upper Limit value";
+                MessageBox.Show("Lower limit value greater than upper limit value", "Add Stock Validations", MessageBoxButtons.OK);
             }
             else if (_dataService.FetchStockAlertRangeByName(symbolDropDown.Text) != null)
             {
-                createStockAlert.Text = "Stock Alert already exists for this Stock Symbol";
+                MessageBox.Show("Stock alert already exists for this stock symbol", "Add Stock Validations", MessageBoxButtons.OK);
             }
             else
             {
@@ -58,7 +59,78 @@ namespace Stockwatch.WindowsApp
                 };
                 _dataService.AddStockAlertRange(newStock);
                 DataGrid_Load();
+                MessageBox.Show("New stock range created!", "Add Stock Validations", MessageBoxButtons.OK);
+
             }
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            if (selectedRow != null)
+            {
+                int newUpperLimit = Convert.ToInt32(selectedRow.Cells[0].Value);
+                int newLowerLimit = Convert.ToInt32(selectedRow.Cells[1].Value);
+                StockAlertRange editStockAlert = _dataService.FetchStockAlertRangeByName(selectedRow.Cells[2].Value.ToString());
+                if (editStockAlert != null && (editStockAlert.UpperLimit != newUpperLimit || editStockAlert.LowerLimit != newLowerLimit))
+                {
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        editStockAlert.LowerLimit = newLowerLimit;
+                        editStockAlert.UpperLimit = newUpperLimit;
+                        _dataService.UpdateStockAlertRange(editStockAlert);
+                        DataGrid_Load();
+                        selectedRow = null;
+                        MessageBox.Show("Stock range updated!", "Update Stock", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    selectedRow = null;
+                    MessageBox.Show("No change made on selected stock range", "Stock Alert Update", MessageBoxButtons.OK);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
+            }
+        }
+
+        private void dataGridViewAlertRange_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            selectedRow = dataGridViewAlertRange.Rows[index];
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            if (selectedRow != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete stock alert?", "Stock Alert Delete", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    StockAlertRange editStockAlert = _dataService.FetchStockAlertRangeByName(selectedRow.Cells[2].Value.ToString());
+                    _dataService.RemoveStockAlertRange(editStockAlert);
+                    DataGrid_Load();
+                    selectedRow = null;
+                    MessageBox.Show("Stock range deleted!", "Update Stock", MessageBoxButtons.OK);
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
+            }
+        }
+
+        private void resetBtn_Click(object sender, EventArgs e)
+        {
+            DataGrid_Load();
         }
     }
 }

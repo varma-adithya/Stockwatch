@@ -41,9 +41,9 @@ namespace Stockwatch.WindowsApp
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            createStockAlert = new Label();
             editBtn = new Button();
             deleteBtn = new Button();
+            resetBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlertRange).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)lowerLimitNbx).BeginInit();
@@ -53,26 +53,28 @@ namespace Stockwatch.WindowsApp
             // dataGridViewAlertRange
             // 
             dataGridViewAlertRange.AllowUserToAddRows = false;
-            dataGridViewAlertRange.AllowUserToDeleteRows = false;
+            dataGridViewAlertRange.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewAlertRange.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewAlertRange.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridViewAlertRange.BackgroundColor = SystemColors.ActiveCaption;
             dataGridViewAlertRange.BorderStyle = BorderStyle.Fixed3D;
             dataGridViewAlertRange.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlertRange.GridColor = SystemColors.ControlLight;
+            dataGridViewAlertRange.GridColor = Color.SteelBlue;
             dataGridViewAlertRange.Location = new Point(35, 27);
+            dataGridViewAlertRange.MultiSelect = false;
             dataGridViewAlertRange.Name = "dataGridViewAlertRange";
-            dataGridViewAlertRange.ReadOnly = true;
             dataGridViewAlertRange.RowHeadersWidth = 20;
             dataGridViewAlertRange.RowTemplate.Height = 29;
-            dataGridViewAlertRange.Size = new Size(953, 403);
+            dataGridViewAlertRange.Size = new Size(960, 403);
             dataGridViewAlertRange.TabIndex = 2;
+            dataGridViewAlertRange.CellClick += dataGridViewAlertRange_CellClick;
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(595, 433);
+            label11.Location = new Point(641, 433);
             label11.Name = "label11";
             label11.Size = new Size(298, 29);
             label11.TabIndex = 9;
@@ -80,6 +82,7 @@ namespace Stockwatch.WindowsApp
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(lowerLimitNbx);
             panel1.Controls.Add(upperLimitNbx);
@@ -90,29 +93,30 @@ namespace Stockwatch.WindowsApp
             panel1.Controls.Add(label2);
             panel1.Location = new Point(44, 459);
             panel1.Name = "panel1";
-            panel1.Size = new Size(468, 227);
+            panel1.Size = new Size(493, 255);
             panel1.TabIndex = 10;
             // 
             // lowerLimitNbx
             // 
-            lowerLimitNbx.Location = new Point(147, 118);
+            lowerLimitNbx.Location = new Point(147, 136);
             lowerLimitNbx.Name = "lowerLimitNbx";
-            lowerLimitNbx.Size = new Size(241, 27);
+            lowerLimitNbx.Size = new Size(294, 27);
             lowerLimitNbx.TabIndex = 14;
             // 
             // upperLimitNbx
             // 
-            upperLimitNbx.Location = new Point(147, 71);
+            upperLimitNbx.Location = new Point(147, 84);
             upperLimitNbx.Name = "upperLimitNbx";
-            upperLimitNbx.Size = new Size(241, 27);
+            upperLimitNbx.Size = new Size(294, 27);
             upperLimitNbx.TabIndex = 13;
             // 
             // addBtn
             // 
             addBtn.Font = new Font("Dubai", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            addBtn.Location = new Point(197, 168);
+            addBtn.Location = new Point(188, 186);
+            addBtn.Margin = new Padding(4);
             addBtn.Name = "addBtn";
-            addBtn.Size = new Size(94, 29);
+            addBtn.Size = new Size(125, 36);
             addBtn.TabIndex = 6;
             addBtn.Text = "Add";
             addBtn.UseVisualStyleBackColor = true;
@@ -123,41 +127,42 @@ namespace Stockwatch.WindowsApp
             symbolDropDown.FormattingEnabled = true;
             symbolDropDown.Location = new Point(147, 27);
             symbolDropDown.Name = "symbolDropDown";
-            symbolDropDown.Size = new Size(241, 28);
+            symbolDropDown.Size = new Size(294, 28);
             symbolDropDown.TabIndex = 5;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Dubai", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(29, 119);
+            label4.Font = new Font("Dubai", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(30, 137);
             label4.Name = "label4";
-            label4.Size = new Size(85, 25);
+            label4.Size = new Size(96, 29);
             label4.TabIndex = 2;
             label4.Text = "Lower Limit";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Dubai", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(29, 72);
+            label3.Font = new Font("Dubai", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(30, 85);
             label3.Name = "label3";
-            label3.Size = new Size(85, 25);
+            label3.Size = new Size(96, 29);
             label3.TabIndex = 1;
             label3.Text = "Upper Limit";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Dubai", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Dubai", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(29, 29);
             label2.Name = "label2";
-            label2.Size = new Size(86, 25);
+            label2.Size = new Size(98, 29);
             label2.TabIndex = 0;
             label2.Text = "Select Stock";
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Dubai", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(48, 445);
@@ -166,47 +171,58 @@ namespace Stockwatch.WindowsApp
             label1.TabIndex = 11;
             label1.Text = "Add Stock";
             // 
-            // createStockAlert
-            // 
-            createStockAlert.AutoSize = true;
-            createStockAlert.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            createStockAlert.Location = new Point(75, 700);
-            createStockAlert.Name = "createStockAlert";
-            createStockAlert.Size = new Size(0, 29);
-            createStockAlert.TabIndex = 12;
-            // 
             // editBtn
             // 
-            editBtn.Location = new Point(595, 482);
+            editBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            editBtn.BackColor = SystemColors.Control;
+            editBtn.Location = new Point(602, 482);
+            editBtn.Margin = new Padding(5);
             editBtn.Name = "editBtn";
             editBtn.Size = new Size(112, 39);
             editBtn.TabIndex = 13;
             editBtn.Text = "Edit";
-            editBtn.UseVisualStyleBackColor = true;
+            editBtn.UseVisualStyleBackColor = false;
+            editBtn.Click += editBtn_Click;
             // 
             // deleteBtn
             // 
-            deleteBtn.Location = new Point(781, 482);
+            deleteBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deleteBtn.Location = new Point(730, 482);
             deleteBtn.Name = "deleteBtn";
             deleteBtn.Size = new Size(112, 39);
             deleteBtn.TabIndex = 14;
             deleteBtn.Text = "Delete";
             deleteBtn.UseVisualStyleBackColor = true;
+            deleteBtn.Click += deleteBtn_Click;
+            // 
+            // resetBtn
+            // 
+            resetBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            resetBtn.Location = new Point(859, 482);
+            resetBtn.Name = "resetBtn";
+            resetBtn.Size = new Size(112, 39);
+            resetBtn.TabIndex = 15;
+            resetBtn.Text = "Refresh";
+            resetBtn.UseVisualStyleBackColor = true;
+            resetBtn.Click += resetBtn_Click;
             // 
             // StockPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1022, 737);
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BackColor = SystemColors.InactiveCaption;
+            ClientSize = new Size(1029, 737);
+            Controls.Add(resetBtn);
             Controls.Add(deleteBtn);
             Controls.Add(editBtn);
-            Controls.Add(createStockAlert);
             Controls.Add(label1);
             Controls.Add(panel1);
             Controls.Add(label11);
             Controls.Add(dataGridViewAlertRange);
             Name = "StockPage";
-            Text = "Form1";
+            Text = "Stock Watch";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlertRange).EndInit();
             panel1.ResumeLayout(false);
@@ -227,10 +243,10 @@ namespace Stockwatch.WindowsApp
         private Label label2;
         private ComboBox symbolDropDown;
         private Button addBtn;
-        private Label createStockAlert;
         private NumericUpDown lowerLimitNbx;
         private NumericUpDown upperLimitNbx;
         private Button editBtn;
         private Button deleteBtn;
+        private Button resetBtn;
     }
 }
