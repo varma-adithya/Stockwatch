@@ -22,43 +22,43 @@ namespace Stockwatch.Business
             {
                 try
                 {
-                    //HttpResponseMessage response = await client.GetAsync(url);
-                    //if (response.IsSuccessStatusCode)
-                    //{
-                    //    string jsonContent = await response.Content.ReadAsStringAsync();
-                    //    var serializeOptions = new JsonSerializerOptions
-                    //    {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonContent = await response.Content.ReadAsStringAsync();
+                        var serializeOptions = new JsonSerializerOptions
+                        {
 
-                    //        NumberHandling = JsonNumberHandling.AllowReadingFromString,
-                    //        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    //        PropertyNameCaseInsensitive = true,
-                    //    };
+                            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                            PropertyNameCaseInsensitive = true,
+                        };
 
-                    //    IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
-                    //    return stockPrice;
-                    //}
-                    //else
-                    //{
-                    //    return null;
-                    //}
+                        IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
+                        return stockPrice;
+                    }
+                    else
+                    {
+                        return null;
+                    }
 
                     //For Debug Puposes - API request limit
-                    return new IntraStockPrice
-                    {
-                        GlobalQuote = new GlobalQuote
-                        {
-                            Symbol = "AAPL",
-                            Open = 10,
-                            High = 100,
-                            Low = 5,
-                            Price = 35,
-                            Volume = 10000,
-                            LatestTradingDay = DateTime.Now,
-                            PreviousClose = 10,
-                            Change = 12,
-                            PercentChange = "0.8%"
-                        }
-                    };
+                    //return new IntraStockPrice
+                    //{
+                    //    GlobalQuote = new GlobalQuote
+                    //    {
+                    //        Symbol = "AAPL",
+                    //        Open = 10,
+                    //        High = 100,
+                    //        Low = 5,
+                    //        Price = 35,
+                    //        Volume = 10000,
+                    //        LatestTradingDay = DateTime.Now,
+                    //        PreviousClose = 10,
+                    //        Change = 12,
+                    //        PercentChange = "0.8%"
+                    //    }
+                    //};
 
                 }
                 catch (Exception ex)

@@ -2,7 +2,6 @@ using Microsoft.Extensions.Options;
 using Stockwatch.Business;
 using Stockwatch.Model;
 using Stockwatch.Model.Dto;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Stockwatch.Background
 {
@@ -46,9 +45,6 @@ namespace Stockwatch.Background
                 {
                     _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
                     var stockPrice = _priceService.GetStockPrice(_options);
-
-                    //For Debug Purposes
-                    Console.WriteLine(stockPrice.Result.GlobalQuote.Symbol + "  " + stockPrice.Result.GlobalQuote.Price);
                     
                     if (stockPrice.Result != null)
                     {

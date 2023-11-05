@@ -1,6 +1,5 @@
 using Stockwatch.Business;
 using Stockwatch.Model;
-using System.Windows.Forms;
 
 namespace Stockwatch.WindowsApp
 {

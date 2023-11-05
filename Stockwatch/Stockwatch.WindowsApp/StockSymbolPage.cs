@@ -1,10 +1,5 @@
 ﻿using Stockwatch.Business;
 using Stockwatch.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stockwatch.WindowsApp
 {
