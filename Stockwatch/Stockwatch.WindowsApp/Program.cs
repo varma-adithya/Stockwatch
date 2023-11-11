@@ -16,9 +16,18 @@ namespace Stockwatch.WindowsApp
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             ApplicationConfiguration.Initialize();
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string stockWatchFolder = Path.Combine(appDataPath, "StockWatch");
+            string stockDatabasePath = Path.Combine(stockWatchFolder, "stock_database.db");
+
+            if (!Directory.Exists(stockWatchFolder))
+            {
+                Directory.CreateDirectory(stockWatchFolder);
+            }
 
             CurrentHost = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
@@ -34,7 +43,7 @@ namespace Stockwatch.WindowsApp
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {
-                            options.UseSqlite("Data Source=../../../../stock_database.db");
+                            options.UseSqlite($"Data Source={stockDatabasePath}");
                         });
                     })
                     .ConfigureAppConfiguration(context =>
@@ -46,6 +55,10 @@ namespace Stockwatch.WindowsApp
                     .Build();
 
             using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<StockwatchDbContext>();
+                await dbContext.Database.MigrateAsync();
+            }
             Application.Run(serviceScope.ServiceProvider.GetRequiredService<StockPage>());
         }
     }

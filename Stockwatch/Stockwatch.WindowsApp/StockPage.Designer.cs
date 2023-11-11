@@ -99,6 +99,7 @@ namespace Stockwatch.WindowsApp
             // lowerLimitNbx
             // 
             lowerLimitNbx.Location = new Point(147, 136);
+            lowerLimitNbx.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             lowerLimitNbx.Name = "lowerLimitNbx";
             lowerLimitNbx.Size = new Size(294, 27);
             lowerLimitNbx.TabIndex = 14;
@@ -106,6 +107,7 @@ namespace Stockwatch.WindowsApp
             // upperLimitNbx
             // 
             upperLimitNbx.Location = new Point(147, 84);
+            upperLimitNbx.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             upperLimitNbx.Name = "upperLimitNbx";
             upperLimitNbx.Size = new Size(294, 27);
             upperLimitNbx.TabIndex = 13;

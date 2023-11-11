@@ -28,6 +28,7 @@ namespace Stockwatch.WindowsApp
 
         private async Task DataGrid_Load()
         {
+            selectedRow = null;
             var stockDisplays = new List<StockAlertRangeDisplay>();
             var stockData = _dataService.GetAll();
             foreach (var item in stockData)
@@ -42,11 +43,11 @@ namespace Stockwatch.WindowsApp
         {
             if (upperLimitNbx.Value < lowerLimitNbx.Value)
             {
-                MessageBox.Show("Lower limit value greater than upper limit value", "Add Stock Validations", MessageBoxButtons.OK);
+                MessageBox.Show("Lower limit value greater than upper limit value", "New Stock", MessageBoxButtons.OK);
             }
             else if (_dataService.FetchStockAlertRangeByName(symbolDropDown.Text) != null)
             {
-                MessageBox.Show("Stock alert already exists for this stock symbol", "Add Stock Validations", MessageBoxButtons.OK);
+                MessageBox.Show("Stock alert already exists for this stock symbol", "New Stock", MessageBoxButtons.OK);
             }
             else
             {
@@ -58,7 +59,7 @@ namespace Stockwatch.WindowsApp
                 };
                 _dataService.AddStockAlertRange(newStock);
                 DataGrid_Load();
-                MessageBox.Show("New stock range created!", "Add Stock Validations", MessageBoxButtons.OK);
+                MessageBox.Show("New stock range created!", "New Stock", MessageBoxButtons.OK);
 
             }
         }
@@ -79,8 +80,7 @@ namespace Stockwatch.WindowsApp
                         editStockAlert.UpperLimit = newUpperLimit;
                         _dataService.UpdateStockAlertRange(editStockAlert);
                         DataGrid_Load();
-                        selectedRow = null;
-                        MessageBox.Show("Stock range updated!", "Update Stock", MessageBoxButtons.OK);
+                        MessageBox.Show("Stock range updated!", "Stock Alert Update", MessageBoxButtons.OK);
                     }
                     else
                     {
@@ -114,8 +114,7 @@ namespace Stockwatch.WindowsApp
                     StockAlertRange editStockAlert = _dataService.FetchStockAlertRangeByName(selectedRow.Cells[2].Value.ToString());
                     _dataService.RemoveStockAlertRange(editStockAlert);
                     DataGrid_Load();
-                    selectedRow = null;
-                    MessageBox.Show("Stock range deleted!", "Update Stock", MessageBoxButtons.OK);
+                    MessageBox.Show("Stock range deleted!", "Stock Alert Delete", MessageBoxButtons.OK);
                 }
                 else
                 {
@@ -123,7 +122,7 @@ namespace Stockwatch.WindowsApp
             }
             else
             {
-                MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
+                MessageBox.Show("No stock range selected", "Stock Alert Delete", MessageBoxButtons.OK);
             }
         }
 

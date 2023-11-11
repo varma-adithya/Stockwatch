@@ -27,7 +27,19 @@ namespace Stockwatch.WindowsApp
             {
                 _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "IBM" });
             }
-        
+            if (_stockSymbolService.FetchStockSymbolByName("BAC") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "BAC" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("GOOGL") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "GOOGL" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("AMZN") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "AMZN" });
+            }
+
         }
 
         public StockSymbol FetchStockSymbolById(int id)

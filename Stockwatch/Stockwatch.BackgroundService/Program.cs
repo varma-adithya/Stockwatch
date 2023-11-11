@@ -3,8 +3,11 @@ using Stockwatch.Background;
 using Stockwatch.Business;
 using Stockwatch.Model;
 
-IHost host = Host.CreateDefaultBuilder(args)
+string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+string stockWatchFolder = Path.Combine(appDataPath, "StockWatch");
+string stockDatabasePath = Path.Combine(stockWatchFolder, "stock_database.db");
 
+IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();
@@ -14,7 +17,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
         services.AddDbContext<StockwatchDbContext>(options =>
         {
-            options.UseSqlite("Data Source=../stock_database.db");
+            options.UseSqlite($"Data Source={stockDatabasePath}");
         });
 
     })
@@ -28,5 +31,7 @@ IHost host = Host.CreateDefaultBuilder(args)
      })
      .Build();
 
+CancellationTokenSource cts = new CancellationTokenSource();
+CancellationToken cancellationToken = cts.Token;
 
-await host.RunAsync();
+await host.RunAsync(cancellationToken);

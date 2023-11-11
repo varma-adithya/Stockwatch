@@ -41,21 +41,28 @@ namespace Stockwatch.Background
                 _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var checkSymbolList = _workerService.GetAll();
-                foreach (var checkSymbol in checkSymbolList)
+                if (checkSymbolList.Count != 0)
                 {
-                    _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
-                    var stockPrice = _priceService.GetStockPrice(_options);
-                    
-                    if (stockPrice.Result != null)
+                    _logger.LogInformation("Stock Ranges found");
+                    foreach (var checkSymbol in checkSymbolList)
                     {
-                        IntraStockPrice currentPrice = stockPrice.Result;
-                        _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
+                        _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
+                        var stockPrice = _priceService.GetStockPrice(_options);
+
+                        if (stockPrice.Result != null)
+                        {
+                            IntraStockPrice currentPrice = stockPrice.Result;
+                            _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
+                        }
                     }
+                    await Task.Delay(300000, stoppingToken);
+                }
+                else
+                {
+                    _logger.LogInformation("No Stock Range in database! Please add stock range to get alerts");
+                    await Task.Delay(100000, stoppingToken);
                 }
 
-
-
-                await Task.Delay(300000, stoppingToken);
             }
         }
     }
