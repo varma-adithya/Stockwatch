@@ -8,6 +8,10 @@ string stockWatchFolder = Path.Combine(appDataPath, "StockWatch");
 string stockDatabasePath = Path.Combine(stockWatchFolder, "stock_database.db");
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostingContext, config) =>
+    {
+     config.AddUserSecrets<Program>();
+    })
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();

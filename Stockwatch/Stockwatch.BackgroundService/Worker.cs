@@ -30,7 +30,7 @@ namespace Stockwatch.Background
         
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger?.LogInformation("Ticker has stopped!");
+            _logger.LogInformation("Ticker has stopped!");
             await base.StopAsync(cancellationToken);
         }
 
@@ -41,23 +41,32 @@ namespace Stockwatch.Background
                 _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var checkSymbolList = _workerService.GetAll();
-                if (checkSymbolList.Count != 0)
+                while (checkSymbolList.Count != 0)
                 {
                     _logger.LogInformation("Stock Ranges found");
                     foreach (var checkSymbol in checkSymbolList)
                     {
                         _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
-                        var stockPrice = _priceService.GetStockPrice(_options);
-
-                        if (stockPrice.Result != null)
+                        var stockPrice = await _priceService.GetStockPrice(_options);
+                        _logger.LogInformation($"Stock price for stock symbol {checkSymbol.StockSymbol.SymbolName} requested");;
+                        if (stockPrice != null)
                         {
-                            IntraStockPrice currentPrice = stockPrice.Result;
-                            _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
+                            IntraStockPrice currentPrice = stockPrice;
+                            if(currentPrice.GlobalQuote != null)
+                            {
+                                _logger.LogInformation($"Stock price request for {checkSymbol.StockSymbol.SymbolName} successful"); ;
+                                _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
+                                _logger.LogInformation($"Checked and notified for stock symbol {checkSymbol.StockSymbol.SymbolName} if required");
+                            }
+                            else
+                                _logger.LogInformation($"Stock price request for {checkSymbol.StockSymbol.SymbolName} failed"); ;
                         }
+                        else
+                            _logger.LogInformation($"Stock price request for {checkSymbol.StockSymbol.SymbolName} request failed"); ;
                     }
                     await Task.Delay(300000, stoppingToken);
                 }
-                else
+                if(checkSymbolList.Count == 0)
                 {
                     _logger.LogInformation("No Stock Range in database! Please add stock range to get alerts");
                     await Task.Delay(100000, stoppingToken);

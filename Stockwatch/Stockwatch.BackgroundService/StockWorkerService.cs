@@ -30,16 +30,14 @@ namespace Stockwatch.Background
 
         public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
         {
-            if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
-            {
-                NotifyStockRange("Stock Price Surge",currentPrice.GlobalQuote.Symbol+" stock price value has surged above the Upper Limit");
-            }
-            else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
-            {
-                NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
-            }
-            //else
-            //    NotifyStockRange("Stock Price in Range", currentPrice.GlobalQuote.Symbol + " stock price value is in range");
+                if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
+                {
+                    NotifyStockRange("Stock Price Surge", currentPrice.GlobalQuote.Symbol + " stock price value has surged above the Upper Limit");
+                }
+                else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
+                {
+                    NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
+                }
         }
 
         private void NotifyStockRange(string head, string content)
