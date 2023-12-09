@@ -35,13 +35,31 @@ namespace Stockwatch.Business
                         };
 
                         IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
-                        Console.WriteLine(stockPrice.GlobalQuote.High);
                         return stockPrice;
                     }
                     else
                     {
                         return null;
                     }
+
+                    //For Debug Puposes - API request limit
+                    //return new IntraStockPrice
+                    //{
+                    //    GlobalQuote = new GlobalQuote
+                    //    {
+                    //        Symbol = "AAPL",
+                    //        Open = 10,
+                    //        High = 100,
+                    //        Low = 5,
+                    //        Price = 35,
+                    //        Volume = 10000,
+                    //        LatestTradingDay = DateTime.Now,
+                    //        PreviousClose = 10,
+                    //        Change = 12,
+                    //        PercentChange = "0.8%"
+                    //    }
+                    //};
+
                 }
                 catch (Exception ex)
                 {

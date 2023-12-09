@@ -17,18 +17,18 @@ namespace Stockwatch.Business
         
         public StockAlertRangeService(StockwatchDbContext context) => _context = context;
         
-        public void AddStockAlertRange(StockAlertRange stockAlertRange)
+        public async void AddStockAlertRange(StockAlertRange stockAlertRange)
         {
             _context.StockAlertRanges.Add(stockAlertRange);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         
-        public void UpdateStockAlertRange(StockAlertRange stockAlertRange)
+        public async void UpdateStockAlertRange(StockAlertRange stockAlertRange)
         {
             _context.Update(stockAlertRange);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        
+
         public StockAlertRange FetchStockAlertRangeByName(string name)
         {
             return _context.StockAlertRanges.FirstOrDefault(x => x.StockSymbol.SymbolName == name);
@@ -44,10 +44,10 @@ namespace Stockwatch.Business
             return _context.StockAlertRanges.Include(x => x.StockSymbol).ToList();
         }
 
-        public void RemoveStockAlertRange(StockAlertRange stockAlertRange)
+        public async void RemoveStockAlertRange(StockAlertRange stockAlertRange)
         {
             _context.Remove(stockAlertRange);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }

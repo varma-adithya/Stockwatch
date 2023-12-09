@@ -16,10 +16,10 @@ namespace Stockwatch.Business
         
         public StockSymbolService(StockwatchDbContext context) { _context = context; }
         
-        public void AddStockSymbol(StockSymbol stockSymbol)
+        public async void AddStockSymbol(StockSymbol stockSymbol)
         {
             _context.StockSymbols.Add(stockSymbol);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         
         public StockSymbol FetchStockSymbolByName(string name)
@@ -32,9 +32,10 @@ namespace Stockwatch.Business
             return _context.StockSymbols.Find(id);
         }
         
-        public void DeleteStockSymbol(StockSymbol stockSymbol)
+        public async void DeleteStockSymbol(StockSymbol stockSymbol)
         {
             _context.Remove(stockSymbol);
+            await _context.SaveChangesAsync();
         }
         
         public List<StockSymbol> GetAll()

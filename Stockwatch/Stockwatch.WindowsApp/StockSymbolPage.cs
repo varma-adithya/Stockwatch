@@ -1,18 +1,14 @@
 ﻿using Stockwatch.Business;
 using Stockwatch.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stockwatch.WindowsApp
 {
     public interface IStockSymbolPage
     {
-        void AddSymbol(string symbol);
-
+        void AddSymbol();
         List<string> GetSymbolList();
+        StockSymbol FetchStockSymbolById(int id);
+        StockSymbol FetchStockSymbolByName(string name);
     }
     public class StockSymbolPage : IStockSymbolPage
     {
@@ -21,10 +17,39 @@ namespace Stockwatch.WindowsApp
         public StockSymbolPage(IStockSymbolService stocksymbolservice) {
             _stockSymbolService = stocksymbolservice;
         }
-        
-        public void AddSymbol(string symbol)
+        public void AddSymbol()
         {
-            _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = symbol });
+            if (_stockSymbolService.FetchStockSymbolByName("AAPL") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "AAPL" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("IBM") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "IBM" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("BAC") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "BAC" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("GOOGL") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "GOOGL" });
+            }
+            if (_stockSymbolService.FetchStockSymbolByName("AMZN") == null)
+            {
+                _stockSymbolService.AddStockSymbol(new StockSymbol { SymbolName = "AMZN" });
+            }
+
+        }
+
+        public StockSymbol FetchStockSymbolById(int id)
+        {
+            return _stockSymbolService.FetchStockSymbolById(id);
+        }
+
+        public StockSymbol FetchStockSymbolByName(string name)
+        {
+        return _stockSymbolService.FetchStockSymbolByName(name);
         }
 
         public List<string> GetSymbolList() 
