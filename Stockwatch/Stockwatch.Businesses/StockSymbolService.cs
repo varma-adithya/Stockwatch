@@ -1,46 +1,48 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Stockwatch.Model;
 
 namespace Stockwatch.Business
 {
     public interface IStockSymbolService
     {
-        void AddStockSymbol(StockSymbol stockSymbol);
-        StockSymbol FetchStockSymbolById(int id);
-        StockSymbol FetchStockSymbolByName(string name);
-        List<StockSymbol> GetAll();
-        void DeleteStockSymbol(StockSymbol stockSymbol);
+        Task AddStockSymbolAsync(StockSymbol stockSymbol);
+        Task<StockSymbol?> FetchStockSymbolByIdAsync(int id);
+        Task<StockSymbol?> FetchStockSymbolByNameAsync(string name);
+        Task<List<StockSymbol>> GetAllAsync();
+        Task DeleteStockSymbolAsync(StockSymbol stockSymbol);
     }
+
     public class StockSymbolService : IStockSymbolService
     {
         private readonly StockwatchDbContext _context;
         
         public StockSymbolService(StockwatchDbContext context) { _context = context; }
         
-        public async void AddStockSymbol(StockSymbol stockSymbol)
+        public async Task AddStockSymbolAsync(StockSymbol stockSymbol)
         {
             _context.StockSymbols.Add(stockSymbol);
             await _context.SaveChangesAsync();
         }
         
-        public StockSymbol FetchStockSymbolByName(string name)
+        public Task<StockSymbol?> FetchStockSymbolByNameAsync(string name)
         {
-            return GetAll().Find(s => s.SymbolName == name);
+            return _context.StockSymbols.SingleOrDefaultAsync(s => s.SymbolName == name);
         }
         
-        public StockSymbol FetchStockSymbolById(int id)
+        public Task<StockSymbol?> FetchStockSymbolByIdAsync(int id)
         {
-            return _context.StockSymbols.Find(id);
+            return _context.StockSymbols.SingleOrDefaultAsync(x=> x.Id == id);
         }
         
-        public async void DeleteStockSymbol(StockSymbol stockSymbol)
+        public async Task DeleteStockSymbolAsync(StockSymbol stockSymbol)
         {
             _context.Remove(stockSymbol);
             await _context.SaveChangesAsync();
         }
         
-        public List<StockSymbol> GetAll()
+        public Task<List<StockSymbol>> GetAllAsync()
         {
-            return _context.StockSymbols.ToList();
+            return _context.StockSymbols.ToListAsync();
         }
     }
 }

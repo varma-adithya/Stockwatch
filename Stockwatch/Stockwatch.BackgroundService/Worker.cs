@@ -40,7 +40,7 @@ namespace Stockwatch.Background
             {
                 _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var checkSymbolList = _workerService.GetAll();
+                var checkSymbolList = _workerService.GetAllAsync();
                 while (checkSymbolList.Count != 0)
                 {
                     _logger.LogInformation("Stock Ranges found");

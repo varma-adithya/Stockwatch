@@ -1,4 +1,5 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.Extensions.Logging;
+using Stockwatch.Model;
 using Stockwatch.Model.Dto;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -9,16 +10,21 @@ namespace Stockwatch.Business
     {
         public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions);
     }
+
     public class StockPriceService: IStockPriceService
     {
-        public IntraStockPrice _intraStockPrice { get; set; }
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger _logger;
+        public StockPriceService(IHttpClientFactory httpClientFactory, ILogger<StockPriceService> logger)
+        {
+          _logger = logger;   
+          _httpClientFactory = httpClientFactory;
+        }
 
         public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions)
         {
-            string url = urlOptions.ApiUrl
-                    .Replace("YOUR_SYMBOL_NAME", urlOptions.SymbolName)
-                    .Replace("YOUR_API_KEY", urlOptions.ApiKey);
-            using (HttpClient client = new HttpClient())
+            string url = string.Format(urlOptions.ApiUrl, urlOptions.SymbolName, urlOptions.ApiKey);
+            using (HttpClient client = _httpClientFactory.CreateClient())
             {
                 try
                 {
@@ -26,44 +32,34 @@ namespace Stockwatch.Business
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonContent = await response.Content.ReadAsStringAsync();
-                        var serializeOptions = new JsonSerializerOptions
+                        if (jsonContent != null)
                         {
+                            var serializeOptions = new JsonSerializerOptions
+                            {
 
-                            NumberHandling = JsonNumberHandling.AllowReadingFromString,
-                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                            PropertyNameCaseInsensitive = true,
-                        };
+                                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                                PropertyNameCaseInsensitive = true,
+                            };
 
-                        IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
-                        return stockPrice;
+                            IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
+                            return stockPrice;
+                        }
+                        else
+                            _logger.LogInformation("API response is Null");
+                            return null;
                     }
                     else
                     {
+                        _logger.LogInformation("API request has failed");
                         return null;
                     }
-
-                    //For Debug Puposes - API request limit
-                    //return new IntraStockPrice
-                    //{
-                    //    GlobalQuote = new GlobalQuote
-                    //    {
-                    //        Symbol = "AAPL",
-                    //        Open = 10,
-                    //        High = 100,
-                    //        Low = 5,
-                    //        Price = 35,
-                    //        Volume = 10000,
-                    //        LatestTradingDay = DateTime.Now,
-                    //        PreviousClose = 10,
-                    //        Change = 12,
-                    //        PercentChange = "0.8%"
-                    //    }
-                    //};
 
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    _logger.LogInformation($"Error: {ex}");
+                    throw;
                 }
             }
         }

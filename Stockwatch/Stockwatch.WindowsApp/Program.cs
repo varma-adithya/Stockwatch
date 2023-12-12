@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Stockwatch.Business;
 using Stockwatch.Model;
+using System.Net.Sockets;
 using System.Reflection;
 
 namespace Stockwatch.WindowsApp
@@ -35,12 +37,17 @@ namespace Stockwatch.WindowsApp
 
                         services.Configure<AlphaVantageAPI>(context.Configuration.GetSection(nameof(AlphaVantageAPI)));
                         services.AddTransient<StockPage>();
+                        services.AddHttpClient();
                         services.AddTransient<IStockSymbolPage, StockSymbolPage>();
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
                         services.AddTransient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockPriceUpdates, StockPriceUpdates>();
                         services.AddTransient<IStockAlertRangeDisplayService, StockAlertRangeDisplayService>();
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
+                        services.AddLogging(builder =>
+                        {
+                            builder.AddEventLog();
+                        });
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {
                             options.UseSqlite($"Data Source={stockDatabasePath}");

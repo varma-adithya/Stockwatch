@@ -9,7 +9,7 @@ namespace Stockwatch.Background
     {
         public List<string> GetStockSymbols();
         public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange);
-        public List<StockAlertRange> GetAll();
+        public List<StockAlertRange> GetAllAsync();
     }
 
     public class StockWorkerService : IStockWorkerService
@@ -20,11 +20,11 @@ namespace Stockwatch.Background
             _stockAlertRangeService = stockAlertRangeService;
         }
 
-        public List<StockAlertRange> GetAll() { return _stockAlertRangeService.GetAll(); }
+        public List<StockAlertRange> GetAllAsync() { return _stockAlertRangeService.GetAllAsync().Result; }
 
         public List<string> GetStockSymbols()
         {
-            var allstocks = _stockAlertRangeService.GetAll();
+            var allstocks = _stockAlertRangeService.GetAllAsync().Result;
             return allstocks.Select(stock => stock.StockSymbol.SymbolName).ToList();
         }
 
