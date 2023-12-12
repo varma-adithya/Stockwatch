@@ -10,10 +10,10 @@ namespace Stockwatch.Background
 
         private ILogger<Worker> _logger;
         private IConfiguration _configuration;
-        private AlphaVantageAPI _options;
+        private ApiOptions _options;
         private IStockWorkerService _workerService;
         private IStockPriceService _priceService;
-        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<AlphaVantageAPI> options)
+        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<ApiOptions> options)
         {
             _priceService = priceService;
             _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
@@ -46,8 +46,7 @@ namespace Stockwatch.Background
                     _logger.LogInformation("Stock Ranges found");
                     foreach (var checkSymbol in checkSymbolList)
                     {
-                        _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
-                        var stockPrice = await _priceService.GetStockPrice(_options);
+                        var stockPrice = await _priceService.GetStockPriceAsync(_options, checkSymbol.StockSymbol);
                         _logger.LogInformation($"Stock price for stock symbol {checkSymbol.StockSymbol.SymbolName} requested");;
                         if (stockPrice != null)
                         {

@@ -8,27 +8,25 @@ namespace Stockwatch.Business
 {
     public interface IStockPriceService 
     {
-        public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions);
+        public Task<IntraStockPrice> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol);
     }
 
     public class StockPriceService: IStockPriceService
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
         private readonly ILogger _logger;
-        public StockPriceService(IHttpClientFactory httpClientFactory, ILogger<StockPriceService> logger)
+        public StockPriceService(HttpClient httpClient, ILogger<StockPriceService> logger)
         {
           _logger = logger;   
-          _httpClientFactory = httpClientFactory;
+          _httpClient = httpClient;
         }
 
-        public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions)
+        public async Task<IntraStockPrice> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol)
         {
-            string url = string.Format(urlOptions.ApiUrl, urlOptions.SymbolName, urlOptions.ApiKey);
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            string url = string.Format(urlOptions.ApiUrl, Symbol.SymbolName, urlOptions.ApiKey);
+            try
             {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(url);
+                    HttpResponseMessage response = await _httpClient.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonContent = await response.Content.ReadAsStringAsync();
@@ -47,20 +45,19 @@ namespace Stockwatch.Business
                         }
                         else
                             _logger.LogInformation("API response is Null");
-                            return null;
+                        return default;
                     }
                     else
                     {
                         _logger.LogInformation("API request has failed");
-                        return null;
+                        var error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+                        throw new HttpRequestException(error);
                     }
-
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogInformation($"Error: {ex}");
-                    throw;
-                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Error: {ex}");
+                throw;
             }
         }
 

@@ -15,8 +15,8 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();
-        services.Configure<AlphaVantageAPI>(hostContext.Configuration.GetSection(nameof(AlphaVantageAPI)));
-        services.AddHttpClient();
+        services.Configure<ApiOptions>(hostContext.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
+        services.AddHttpClient<IStockPriceService,StockPriceService>();
         services.AddTransient<IStockPriceService, StockPriceService>();
         services.AddTransient<IStockWorkerService, StockWorkerService>();
         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();

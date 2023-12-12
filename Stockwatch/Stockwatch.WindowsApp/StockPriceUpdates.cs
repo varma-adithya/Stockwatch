@@ -15,8 +15,8 @@ namespace Stockwatch.WindowsApp
     {
         private IStockPriceService _stockpriceservice;
         private IConfiguration _Configuration;
-        private AlphaVantageAPI _options;
-        public StockPriceUpdates(IOptions<AlphaVantageAPI> options, IConfiguration Configuration,IStockPriceService stockPriceService)
+        private ApiOptions _options;
+        public StockPriceUpdates(IOptions<ApiOptions> options, IConfiguration Configuration,IStockPriceService stockPriceService)
         {
             _options = options.Value;
             _Configuration = Configuration;
@@ -24,8 +24,7 @@ namespace Stockwatch.WindowsApp
         }
         public async Task<IntraStockPrice> GetCurrentPrice(StockSymbol symbol)
         {
-            _options.SymbolName = symbol.SymbolName;
-            var currentprice = await _stockpriceservice.GetStockPrice(_options);
+            var currentprice = await _stockpriceservice.GetStockPriceAsync(_options, symbol);
             if (currentprice != null)
                 return currentprice;
             else return null;
