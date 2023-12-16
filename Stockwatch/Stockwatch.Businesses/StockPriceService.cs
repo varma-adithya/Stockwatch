@@ -23,9 +23,9 @@ namespace Stockwatch.Business
 
         public async Task<IntraStockPrice?> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol)
         {
-            string url = string.Format(urlOptions.ApiUrl, Symbol.SymbolName, urlOptions.ApiKey);
             try
             {
+                string url = string.Format(urlOptions.ApiUrl, Symbol.SymbolName, urlOptions.ApiKey);
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
