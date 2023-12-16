@@ -38,7 +38,6 @@ namespace Stockwatch.Background
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var checkSymbolList = _workerService.GetAllAsync();
                 while (checkSymbolList.Count != 0)
