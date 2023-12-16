@@ -23,16 +23,15 @@ namespace Stockwatch.Business
 
         public async Task<IntraStockPrice?> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol symbol)
         {
-            if(symbol == null) 
-                throw new ArgumentNullException(nameof(symbol));
-
-            if(urlOptions.ApiKey == null ||urlOptions.ApiUrl == null)
+            if (urlOptions?.ApiKey == null || urlOptions?.ApiUrl == null)
                 throw new ArgumentNullException(nameof(urlOptions));
+
+            if (symbol == null) 
+                throw new ArgumentNullException(nameof(symbol));
 
             try
             {
-                string url = string.Format(urlOptions.ApiUrl, symbol.SymbolName, urlOptions.ApiKey);
-                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                HttpResponseMessage response = await _httpClient.GetAsync(string.Format(urlOptions.ApiUrl, symbol.SymbolName, urlOptions.ApiKey));
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonContent = await response.Content.ReadAsStringAsync();
