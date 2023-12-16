@@ -21,11 +21,17 @@ namespace Stockwatch.Business
             _httpClient = httpClient;
         }
 
-        public async Task<IntraStockPrice?> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol)
+        public async Task<IntraStockPrice?> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol symbol)
         {
+            if(symbol == null) 
+                throw new ArgumentNullException(nameof(symbol));
+
+            if(urlOptions.ApiKey == null ||urlOptions.ApiUrl == null)
+                throw new ArgumentNullException(nameof(urlOptions));
+
             try
             {
-                string url = string.Format(urlOptions.ApiUrl, Symbol.SymbolName, urlOptions.ApiKey);
+                string url = string.Format(urlOptions.ApiUrl, symbol.SymbolName, urlOptions.ApiKey);
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
