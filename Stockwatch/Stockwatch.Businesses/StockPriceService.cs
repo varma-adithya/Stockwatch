@@ -8,7 +8,7 @@ namespace Stockwatch.Business
 {
     public interface IStockPriceService
     {
-        public Task<IntraStockPrice> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol);
+        public Task<IntraStockPrice?> GetStockPriceAsync(ApiOptions urlOptions, StockSymbol Symbol);
     }
 
     public class StockPriceService : IStockPriceService
