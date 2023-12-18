@@ -15,6 +15,7 @@ namespace Stockwatch.Background
     public class StockWorkerService : IStockWorkerService
     {
         private IStockAlertRangeService _stockAlertRangeService;
+
         public StockWorkerService(IStockAlertRangeService stockAlertRangeService)
         {
             _stockAlertRangeService = stockAlertRangeService;

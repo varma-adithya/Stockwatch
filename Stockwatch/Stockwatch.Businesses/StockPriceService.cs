@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Stockwatch.Model;
 using Stockwatch.Model.Dto;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -17,6 +19,7 @@ namespace Stockwatch.Business
         private readonly ApiOptions _urlOptions;
         private readonly HttpClient _httpClient;
         private readonly ILogger _logger;
+
         public StockPriceService(IOptions<ApiOptions> urlOptions, HttpClient httpClient, ILogger<StockPriceService> logger)
         {
             _urlOptions = urlOptions.Value;
@@ -49,25 +52,23 @@ namespace Stockwatch.Business
                         return JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
                     }
                     else
-                    {
-                        _logger.LogInformation("API response is Null");
-                        return default;
-                    }
+                        _logger.LogWarning("API response is Null");
                 }
                 else
                 {
                     var error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
-                    _logger.LogInformation($"API request has failed: {error}");
+                    _logger.LogError($"API request has failed: {error}");
                     throw new AlphaVantageException(error);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Error: {ex}");
+                _logger.LogError(ex,"Failure in StockPriceService");
                 throw;
             }
+
+            return default;
+
         }
-
-
     }
 }

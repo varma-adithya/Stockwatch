@@ -1,6 +1,4 @@
-using Microsoft.Extensions.Options;
 using Stockwatch.Business;
-using Stockwatch.Model;
 using Stockwatch.Model.Dto;
 
 namespace Stockwatch.Background
@@ -9,16 +7,13 @@ namespace Stockwatch.Background
     {
 
         private ILogger<Worker> _logger;
-        private IConfiguration _configuration;
-        private ApiOptions _options;
         private IStockWorkerService _workerService;
         private IStockPriceService _priceService;
-        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<ApiOptions> options)
+
+        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, ILogger<Worker> logger)
         {
             _priceService = priceService;
             _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
-            _options = options.Value;
-            _configuration = configuration;
             _logger = logger;
         }
         
