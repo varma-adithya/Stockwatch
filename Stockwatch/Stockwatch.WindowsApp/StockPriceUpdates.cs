@@ -24,7 +24,7 @@ namespace Stockwatch.WindowsApp
         }
         public async Task<IntraStockPrice> GetCurrentPrice(StockSymbol symbol)
         {
-            var currentprice = await _stockpriceservice.GetStockPriceAsync(_options, symbol);
+            var currentprice = await _stockpriceservice.GetStockPriceAsync(symbol);
             if (currentprice != null)
                 return currentprice;
             else return null;

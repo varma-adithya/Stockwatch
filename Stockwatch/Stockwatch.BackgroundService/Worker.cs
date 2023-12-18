@@ -39,13 +39,12 @@ namespace Stockwatch.Background
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var checkSymbolList = _workerService.GetAllAsync();
+                var checkSymbolList = await _workerService.GetAllAsync();
                 while (checkSymbolList.Count != 0)
                 {
-                    _logger.LogInformation("Stock Ranges found");
                     foreach (var checkSymbol in checkSymbolList)
                     {
-                        var stockPrice = await _priceService.GetStockPriceAsync(_options, checkSymbol.StockSymbol);
+                        var stockPrice = await _priceService.GetStockPriceAsync(checkSymbol.StockSymbol);
                         _logger.LogInformation($"Stock price for stock symbol {checkSymbol.StockSymbol.SymbolName} requested");;
                         if (stockPrice != null)
                         {
