@@ -63,7 +63,7 @@ namespace Stockwatch.Business
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Failure in StockPriceService");
+                _logger.LogError(ex, "Failure in GetStockPriceAsync");
                 throw;
             }
 

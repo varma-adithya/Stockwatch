@@ -8,7 +8,7 @@ namespace Stockwatch.Background
     public interface IStockWorkerService
     {
         public Task<List<string>> GetStockSymbols();
-        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange);
+        public void CheckStockRangeVariance(GlobalQuote globalQuote, StockAlertRange stockAlertRange);
         public Task<List<StockAlertRange>> GetAllAsync();
     }
 
@@ -29,15 +29,15 @@ namespace Stockwatch.Background
             return allstocks.Select(stock => stock.StockSymbol.SymbolName).ToList();
         }
 
-        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
+        public void CheckStockRangeVariance(GlobalQuote globalQuote, StockAlertRange stockAlertRange)
         {
-                if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
+                if (globalQuote.Price >= stockAlertRange.UpperLimit)
                 {
-                    NotifyStockRange("Stock Price Surge", currentPrice.GlobalQuote.Symbol + " stock price value has surged above the Upper Limit");
+                    NotifyStockRange("Stock Price Surge", globalQuote.Symbol + " stock price value has surged above the Upper Limit");
                 }
-                else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
+                else if (globalQuote.Price <= stockAlertRange.LowerLimit)
                 {
-                    NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
+                    NotifyStockRange("Stock Price Fall", globalQuote.Symbol + " stock price value has fallen below the Lower Limit");
                 }
         }
 
