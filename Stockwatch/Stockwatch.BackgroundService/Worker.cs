@@ -1,5 +1,4 @@
 using Stockwatch.Business;
-using Stockwatch.Model.Dto;
 
 namespace Stockwatch.Background
 {
@@ -10,10 +9,10 @@ namespace Stockwatch.Background
         private IStockWorkerService _workerService;
         private IStockPriceService _priceService;
 
-        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, ILogger<Worker> logger)
+        public Worker(IStockPriceService priceService, ILogger<Worker> logger, IStockWorkerService stockWorkerService)
         {
             _priceService = priceService;
-            _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
+            _workerService = stockWorkerService;
             _logger = logger;
         }
         
@@ -34,32 +33,33 @@ namespace Stockwatch.Background
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var checkSymbolList = await _workerService.GetAllAsync();
-                while (checkSymbolList.Count != 0)
+                var stockAlertRangeList = await _workerService.GetAllStockAlertRangesAsync();
+
+                while (true)
                 {
-                    foreach (var checkSymbol in checkSymbolList)
+                    if (stockAlertRangeList.Count == 0)
                     {
-                        var currentPrice = await _priceService.GetStockPriceAsync(checkSymbol.StockSymbol);
-                        _logger.LogInformation($"Stock price for stock symbol {checkSymbol.StockSymbol.SymbolName} requested");
-
-                        if (currentPrice?.GlobalQuote != null)
-                        {
-                            _logger.LogInformation($"Stock price request for {checkSymbol.StockSymbol.SymbolName} successful"); ;
-                            _workerService.CheckStockRangeVariance(currentPrice.GlobalQuote, checkSymbol);
-                            _logger.LogInformation($"Checked and notified for stock symbol {checkSymbol.StockSymbol.SymbolName} if required");
-                        }
-                        else
-                            _logger.LogWarning($"Stock price request for {checkSymbol.StockSymbol.SymbolName} failed"); ;
+                        _logger.LogWarning("No Stock Range in database! Please add stock range to get alerts");
                     }
-                    await Task.Delay(300000, stoppingToken);
-                    checkSymbolList = await _workerService.GetAllAsync();
-                }
-                if(checkSymbolList.Count == 0)
-                {
-                    _logger.LogWarning("No Stock Range in database! Please add stock range to get alerts");
-                    await Task.Delay(100000, stoppingToken);
-                }
+                    else
+                    {
+                        foreach (var stockAlertRange in stockAlertRangeList)
+                        {
+                            var currentPrice = await _priceService.GetStockPriceAsync(stockAlertRange.StockSymbol);
+                            _logger.LogInformation($"Stock price for stock symbol {stockAlertRange.StockSymbol.SymbolName} requested");
 
+                            if (currentPrice?.GlobalQuote != null)
+                            {
+                                _workerService.CheckStockRangeVariance(currentPrice.GlobalQuote, stockAlertRange);
+                            }
+                            else
+                                _logger.LogWarning($"Stock price request for {stockAlertRange.StockSymbol.SymbolName} failed"); ;
+                        }
+                    }
+
+                    await Task.Delay(300000, stoppingToken);
+                    stockAlertRangeList = await _workerService.GetAllStockAlertRangesAsync();
+                }
             }
         }
     }

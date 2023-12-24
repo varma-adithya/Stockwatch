@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Stockwatch.Model;
 using Stockwatch.Model.Dto;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -29,9 +27,6 @@ namespace Stockwatch.Business
 
         public async Task<IntraStockPrice?> GetStockPriceAsync(StockSymbol symbol)
         {
-            if (_urlOptions?.ApiKey == null || _urlOptions?.ApiUrl == null)
-                throw new ArgumentNullException(nameof(_urlOptions));
-
             if (symbol == null) 
                 throw new ArgumentNullException(nameof(symbol));
 

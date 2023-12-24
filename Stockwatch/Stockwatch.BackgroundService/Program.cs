@@ -20,6 +20,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IStockPriceService, StockPriceService>();
         services.AddTransient<IStockWorkerService, StockWorkerService>();
         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
+        services.AddTransient<IStockNotificationService, StockNotificationService>();
         services.AddDbContext<StockwatchDbContext>(options =>
         {
             options.UseSqlite($"Data Source={stockDatabasePath}");
@@ -36,7 +37,4 @@ IHost host = Host.CreateDefaultBuilder(args)
      })
      .Build();
 
-CancellationTokenSource cts = new CancellationTokenSource();
-CancellationToken cancellationToken = cts.Token;
-
-await host.RunAsync(cancellationToken);
+await host.RunAsync();
