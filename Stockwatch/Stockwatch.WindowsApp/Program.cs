@@ -22,15 +22,6 @@ namespace Stockwatch.WindowsApp
         {
             ApplicationConfiguration.Initialize();
 
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string stockWatchFolder = Path.Combine(appDataPath, "StockWatch");
-            string stockDatabasePath = Path.Combine(stockWatchFolder, "stock_database.db");
-
-            if (!Directory.Exists(stockWatchFolder))
-            {
-                Directory.CreateDirectory(stockWatchFolder);
-            }
-
             CurrentHost = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
@@ -50,7 +41,7 @@ namespace Stockwatch.WindowsApp
                         });
                         services.AddDbContext<StockwatchDbContext>(options =>
                         {
-                            options.UseSqlite($"Data Source={stockDatabasePath}");
+                            options.UseSqlite($"Data Source={DbFileLocation.GetDbFileLocation()}");
                         });
                     })
                     .ConfigureAppConfiguration(context =>
@@ -61,12 +52,11 @@ namespace Stockwatch.WindowsApp
                     })
                     .Build();
 
-            using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<StockwatchDbContext>();
-                await dbContext.Database.MigrateAsync();
-            }
-            Application.Run(serviceScope.ServiceProvider.GetRequiredService<StockPage>());
+            //using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
+            //{
+            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<StockwatchDbContext>();
+            //}
+            Application.Run(CurrentHost.Services.CreateScope().ServiceProvider.GetRequiredService<StockPage>());
         }
     }
 }
