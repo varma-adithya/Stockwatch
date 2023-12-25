@@ -7,7 +7,7 @@
         public decimal UpperLimit { get; set; }
         public decimal LowerLimit { get; set; }
 
-        public virtual StockSymbol StockSymbol { get; set; }
+        public StockSymbol StockSymbol { get; set; }
 
     }
 
