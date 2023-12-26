@@ -4,10 +4,6 @@ using Stockwatch.Business;
 using Stockwatch.Model;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((hostingContext, config) =>
-    {
-     config.AddUserSecrets<Program>();
-    })
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();

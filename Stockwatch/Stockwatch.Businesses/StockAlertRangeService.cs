@@ -27,8 +27,6 @@ namespace Stockwatch.Business
             }
             catch (Exception ex)
             {
-                // Log or handle the exception
-                Console.WriteLine($"Error: {ex.Message}");
                 Console.WriteLine(ex);
             }
         }

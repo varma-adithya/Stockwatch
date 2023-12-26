@@ -34,6 +34,7 @@ namespace Stockwatch.WindowsApp
             selectedRow = null;
             var stockDisplays = new List<StockAlertRangeDisplay>();
             var stockData = await _dataService.GetAllAsync();
+            
             if (stockData.Count != 0)
             {
                 foreach (var item in stockData)
@@ -74,18 +75,22 @@ namespace Stockwatch.WindowsApp
                 _dataService.AddStockAlertRangeAsync(newStock);
                 DataGrid_Load();
             }
+
         }
         
         private async void editBtn_Click(object sender, EventArgs e)
         {
+
             if (selectedRow != null)
             {
                 int newUpperLimit = Convert.ToInt32(selectedRow.Cells[0].Value);
                 int newLowerLimit = Convert.ToInt32(selectedRow.Cells[1].Value);
                 StockAlertRange? editStockAlert = _dataService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
+                
                 if (editStockAlert != null && (editStockAlert.UpperLimit != newUpperLimit || editStockAlert.LowerLimit != newLowerLimit))
                 {
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
+                    
                     if (dialogResult == DialogResult.Yes)
                     {
                         editStockAlert.LowerLimit = newLowerLimit;
@@ -98,6 +103,7 @@ namespace Stockwatch.WindowsApp
                     {
                         _logger.LogInformation("Update dialog box confirmation rejected. Hence Update failed.");
                     }
+
                 }
                 else if(editStockAlert != null)
                 {
@@ -111,12 +117,14 @@ namespace Stockwatch.WindowsApp
                     _logger.LogInformation($"{selectedRow.Cells[2].Value.ToString()} not found in database.");
                     MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
                 }
+
             }
             else
             {
                 _logger.LogInformation("No stock range selected for update.");
                 MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
             }
+
         }
         
         private void dataGridViewAlertRange_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -130,9 +138,11 @@ namespace Stockwatch.WindowsApp
             if (selectedRow != null)
             {
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete stock alert?", "Stock Alert Delete", MessageBoxButtons.YesNo);
+                
                 if (dialogResult == DialogResult.Yes)
                 {
                     StockAlertRange? delStockAlert = _dataService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
+                    
                     if (delStockAlert != null) 
                     {
                         _dataService.DeleteStockAlertRangeAsync(delStockAlert);
@@ -145,17 +155,20 @@ namespace Stockwatch.WindowsApp
                         _logger.LogInformation($"{selectedRow.Cells[2].Value.ToString()} not found in database.");
                         MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
+
                 }
                 else
                 {
                     _logger.LogInformation("Delete dialog box confirmation rejected. Hence Delete failed.");
                 }
+
             }
             else
             {
                 _logger.LogInformation("No stock range selected for delete.");
                 MessageBox.Show("No stock range selected", "Stock Alert Delete", MessageBoxButtons.OK);
             }
+
         }
         
         private void resetBtn_Click(object sender, EventArgs e)
