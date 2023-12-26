@@ -11,6 +11,7 @@ namespace Stockwatch.WindowsApp
         private IStockAlertRangeDisplayService _stockAlertRangeDisplayService;
         private readonly ILogger _logger;
         DataGridViewRow? selectedRow = null;
+
         public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice, ILogger<StockPage> logger)
         {
             InitializeComponent();
@@ -19,10 +20,11 @@ namespace Stockwatch.WindowsApp
             _stockAlertRangeDisplayService = stockAlertRangeDisplayService;
             _logger = logger;
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             _stockSymbolPage.AddSymbol();
-            symbolDropDown.DataSource = _stockSymbolPage.GetSymbolList();
+            symbolDropDown.DataSource = _stockSymbolPage.GetSymbolListAsync().Result;
             this.dataGridViewAlertRange.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             DataGrid_Load();
         }
@@ -32,12 +34,12 @@ namespace Stockwatch.WindowsApp
             selectedRow = null;
             var stockDisplays = new List<StockAlertRangeDisplay>();
             var stockData = await _dataService.GetAllAsync();
-            if(stockData != null)
+            if (stockData.Count != 0)
             {
                 foreach (var item in stockData)
                 {
                     //Null ref exception
-                    var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRange(item);
+                    var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRangeAsync(item);
                     stockDisplays.Add(stockDisplay);
                 }
                 dataGridViewAlertRange.DataSource = stockDisplays;
@@ -50,14 +52,14 @@ namespace Stockwatch.WindowsApp
             }
 
         }
-
+        
         private void AddBtn_Click(object sender, EventArgs e)
         {
             if (upperLimitNbx.Value < lowerLimitNbx.Value)
             {
                 MessageBox.Show("Lower limit value greater than upper limit value", "New Stock", MessageBoxButtons.OK);
             }
-            else if (_dataService.FetchStockAlertRangeByNameAsync(symbolDropDown.Text) != null)
+            else if (_dataService.FetchStockAlertRangeByNameAsync(symbolDropDown.Text).Result != null)
             {
                 MessageBox.Show("Stock alert already exists for this stock symbol", "New Stock", MessageBoxButtons.OK);
             }
@@ -65,17 +67,15 @@ namespace Stockwatch.WindowsApp
             {
                 var newStock = new StockAlertRange
                 {
-                    StockSymbolId = _stockSymbolPage.FetchStockSymbolByNameAsync(symbolDropDown.Text).Id,
+                    StockSymbolId = _stockSymbolPage.FetchStockSymbolByNameAsync(symbolDropDown.Text).Result.Id,
                     LowerLimit = lowerLimitNbx.Value,
                     UpperLimit = upperLimitNbx.Value,
                 };
                 _dataService.AddStockAlertRangeAsync(newStock);
                 DataGrid_Load();
-                MessageBox.Show("New stock range created!", "New Stock", MessageBoxButtons.OK);
-
             }
         }
-
+        
         private async void editBtn_Click(object sender, EventArgs e)
         {
             if (selectedRow != null)
@@ -118,13 +118,13 @@ namespace Stockwatch.WindowsApp
                 MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
             }
         }
-
+        
         private void dataGridViewAlertRange_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
             selectedRow = dataGridViewAlertRange.Rows[index];
         }
-
+        
         private void deleteBtn_Click(object sender, EventArgs e)
         {
             if (selectedRow != null)
@@ -157,10 +157,11 @@ namespace Stockwatch.WindowsApp
                 MessageBox.Show("No stock range selected", "Stock Alert Delete", MessageBoxButtons.OK);
             }
         }
-
+        
         private void resetBtn_Click(object sender, EventArgs e)
         {
             DataGrid_Load();
         }
+
     }
 }

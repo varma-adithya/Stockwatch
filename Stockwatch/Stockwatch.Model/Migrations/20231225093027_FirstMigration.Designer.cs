@@ -10,7 +10,7 @@ using Stockwatch.Model;
 namespace Stockwatch.Model.Migrations
 {
     [DbContext(typeof(StockwatchDbContext))]
-    [Migration("20231225020113_FirstMigration")]
+    [Migration("20231225093027_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />

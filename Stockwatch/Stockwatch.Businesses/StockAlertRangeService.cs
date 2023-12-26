@@ -20,8 +20,17 @@ namespace Stockwatch.Business
         
         public async Task AddStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
-            _context.StockAlertRanges.Add(stockAlertRange);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.StockAlertRanges.AddAsync(stockAlertRange);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine(ex);
+            }
         }
         
         public async Task UpdateStockAlertRangeAsync(StockAlertRange stockAlertRange)

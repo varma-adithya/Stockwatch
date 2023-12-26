@@ -5,8 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Stockwatch.Business;
 using Stockwatch.Model;
-using System.Net.Sockets;
-using System.Reflection;
 
 namespace Stockwatch.WindowsApp
 {
@@ -18,14 +16,13 @@ namespace Stockwatch.WindowsApp
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static async Task Main()
+        static void Main()
         {
             ApplicationConfiguration.Initialize();
 
             CurrentHost = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
-
                         services.Configure<ApiOptions>(context.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
                         services.AddTransient<StockPage>();
                         services.AddHttpClient<IStockPriceService,StockPriceService>();

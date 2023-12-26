@@ -5,11 +5,12 @@ namespace Stockwatch.WindowsApp
 {
     public interface IStockSymbolPage
     {
-        void AddSymbol();
-        List<string> GetSymbolList();
-        StockSymbol FetchStockSymbolByIdAsync(int id);
-        StockSymbol FetchStockSymbolByNameAsync(string name);
+        Task AddSymbol();
+        Task<List<string>?> GetSymbolListAsync();
+        Task<StockSymbol?> FetchStockSymbolByIdAsync(int id);
+        Task<StockSymbol?> FetchStockSymbolByNameAsync(string name);
     }
+
     public class StockSymbolPage : IStockSymbolPage
     {
         public IStockSymbolService _stockSymbolService;
@@ -17,77 +18,47 @@ namespace Stockwatch.WindowsApp
         public StockSymbolPage(IStockSymbolService stocksymbolservice) {
             _stockSymbolService = stocksymbolservice;
         }
-        public void AddSymbol()
-        {
-            if (_stockSymbolService.FetchStockSymbolByNameAsync("AAPL") == null)
-            {
-                _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "AAPL" });
-            }
-            if (_stockSymbolService.FetchStockSymbolByNameAsync("IBM") == null)
-            {
-                _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "IBM" });
-            }
-            if (_stockSymbolService.FetchStockSymbolByNameAsync("BAC") == null)
-            {
-                _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "BAC" });
-            }
-            if (_stockSymbolService.FetchStockSymbolByNameAsync("GOOGL") == null)
-            {
-                _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "GOOGL" });
-            }
-            if (_stockSymbolService.FetchStockSymbolByNameAsync("AMZN") == null)
-            {
-                _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "AMZN" });
-            }
 
+        public async Task AddSymbol()
+        {
+            if (await _stockSymbolService.FetchStockSymbolByNameAsync("AAPL") == null)
+            {
+                await _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "AAPL" });
+            }
+            if (await _stockSymbolService.FetchStockSymbolByNameAsync("IBM") == null)
+            {
+                await _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "IBM" });
+            }
+            if (await _stockSymbolService.FetchStockSymbolByNameAsync("BAC") == null)
+            {
+                await _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "BAC" });
+            }
+            if (await _stockSymbolService.FetchStockSymbolByNameAsync("GOOGL") == null)
+            {
+                await _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "GOOGL" });
+            }
+            if (await _stockSymbolService.FetchStockSymbolByNameAsync("AMZN") == null)
+            {
+                await _stockSymbolService.AddStockSymbolAsync(new StockSymbol { SymbolName = "AMZN" });
+            }
         }
 
-        public StockSymbol FetchStockSymbolByIdAsync(int id)
+        public async Task<StockSymbol?> FetchStockSymbolByIdAsync(int id)
         {
-            if (id != null)
-            {
-                var stockSymbol = _stockSymbolService.FetchStockSymbolByIdAsync(id).Result;
-                if (stockSymbol != null)
-                {
-                    return stockSymbol;
-                }
-                else
-                    return null;
-                //No stock with given id found
-            }
-            else
-                return null;
-            //Id not valid
+            var stockSymbol = await _stockSymbolService.FetchStockSymbolByIdAsync(id);
+            return stockSymbol ?? null;
         }
 
-        public StockSymbol FetchStockSymbolByNameAsync(string name)
+        public async Task<StockSymbol?> FetchStockSymbolByNameAsync(string name)
         {
-            if (name != null)
-            {
-                var stockSymbol = _stockSymbolService.FetchStockSymbolByNameAsync(name).Result;
-                if (stockSymbol != null)
-                {
-                    return stockSymbol;
-                }
-                else
-                    return null;
-                //No stock with given name found
-            }
-            else
-                return null;
-            //Name not valid
+            var stockSymbol = await _stockSymbolService.FetchStockSymbolByNameAsync(name);
+            return stockSymbol ?? null;
         }
 
-        public List<string> GetSymbolList() 
+        public async  Task<List<string>?> GetSymbolListAsync() 
         {
-            var stockSymbols = _stockSymbolService.GetAllAsync().Result;
-            if(!stockSymbols.Any())
-            {
-                return null;
-                //List is empty
-            }
-            else
-            return stockSymbols.Select(ss => ss.SymbolName).ToList();
+            var stockSymbols = await _stockSymbolService.GetAllAsync();
+            return stockSymbols?.Select(ss => ss.SymbolName).ToList();
         }
     }
 }

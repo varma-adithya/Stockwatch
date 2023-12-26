@@ -6,26 +6,28 @@ namespace Stockwatch.WindowsApp
 {
     public interface IStockAlertRangeDisplayService
     {
-        public Task<StockAlertRangeDisplay> GetStockAlertRange(StockAlertRange stockAlertRange);
+        public Task<StockAlertRangeDisplay> GetStockAlertRangeAsync(StockAlertRange stockAlertRange);
     }
+
     public class StockAlertRangeDisplayService:IStockAlertRangeDisplayService
     {
-
         private IStockPriceUpdates _stockPriceUpdates;
+
         public StockAlertRangeDisplayService(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice)
         {
             _stockPriceUpdates = stockPriceUpdates;
         }
-        public async Task<StockAlertRangeDisplay> GetStockAlertRange(StockAlertRange stockAlertRange)
+
+        public async Task<StockAlertRangeDisplay> GetStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
-            var stockCurrentPrice = await _stockPriceUpdates.GetCurrentPrice(stockAlertRange.StockSymbol);
+            var stockCurrentPrice = await _stockPriceUpdates.GetCurrentPriceAsync(stockAlertRange.StockSymbol);
             var stockAlertRangeDisplay = new StockAlertRangeDisplay();
             stockAlertRangeDisplay.UpperLimit = stockAlertRange.UpperLimit;
             stockAlertRangeDisplay.LowerLimit = stockAlertRange.LowerLimit;
             stockAlertRangeDisplay.StockSymbolName = stockAlertRange.StockSymbol.SymbolName;
             stockAlertRangeDisplay.CurrentPrice = stockCurrentPrice.GlobalQuote.Price;
-            
             stockAlertRangeDisplay.Comments = _stockPriceUpdates.GetComments(stockCurrentPrice, stockAlertRange);
+            
             return stockAlertRangeDisplay;
         }
     }
