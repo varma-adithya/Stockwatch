@@ -6,13 +6,13 @@ namespace Stockwatch.Background
     {
 
         private ILogger<Worker> _logger;
-        private IStockWorkerService _workerService;
-        private IStockPriceService _priceService;
+        private IStockWorkerService _stockWorkerService;
+        private IStockPriceService _stockPriceService;
 
-        public Worker(IServiceProvider serviceProvider, IStockPriceService priceService, ILogger<Worker> logger)
+        public Worker(IServiceProvider serviceProvider, IStockPriceService stockPriceService, ILogger<Worker> logger)
         {
-            _priceService = priceService;
-            _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
+            _stockPriceService = stockPriceService;
+            _stockWorkerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
             _logger = logger;
         }
         
@@ -33,7 +33,7 @@ namespace Stockwatch.Background
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var stockAlertRangeList = await _workerService.GetAllStockAlertRangesAsync();
+                var stockAlertRangeList = await _stockWorkerService.GetAllStockAlertRangesAsync();
 
                 if (stockAlertRangeList.Count == 0)
                 {
@@ -43,12 +43,12 @@ namespace Stockwatch.Background
                 {
                     foreach (var stockAlertRange in stockAlertRangeList)
                     {
-                        var currentPrice = await _priceService.GetStockPriceAsync(stockAlertRange.StockSymbol);
+                        var currentPrice = await _stockPriceService.GetStockPriceAsync(stockAlertRange.StockSymbol);
                         _logger.LogInformation($"Stock price for stock symbol {stockAlertRange.StockSymbol.SymbolName} requested");
 
                         if (currentPrice?.GlobalQuote != null)
                         {
-                            _workerService.CheckStockRangeVariance(currentPrice.GlobalQuote, stockAlertRange);                           
+                            _stockWorkerService.CheckStockRangeVariance(currentPrice.GlobalQuote, stockAlertRange);                           
                         }
                         else
                             _logger.LogWarning($"Stock price request for {stockAlertRange.StockSymbol.SymbolName} failed"); ;
@@ -57,7 +57,7 @@ namespace Stockwatch.Background
 
                 _logger.LogInformation("Checks for all Stock Alerts ended! Next check in 5 minutes from now");
                 await Task.Delay(300000, stoppingToken);
-                stockAlertRangeList = await _workerService.GetAllStockAlertRangesAsync();
+                stockAlertRangeList = await _stockWorkerService.GetAllStockAlertRangesAsync();
             }
         }
     }

@@ -11,9 +11,9 @@ namespace Stockwatch.WindowsApp
 
     public class StockAlertRangeDisplayService:IStockAlertRangeDisplayService
     {
-        private IStockPriceUpdates _stockPriceUpdates;
+        private IStockPriceService _stockPriceUpdates;
 
-        public StockAlertRangeDisplayService(IStockPriceUpdates stockPriceUpdates, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice)
+        public StockAlertRangeDisplayService(IStockPriceService stockPriceUpdates)
         {
             _stockPriceUpdates = stockPriceUpdates;
         }

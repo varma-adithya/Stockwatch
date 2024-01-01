@@ -25,11 +25,11 @@ namespace Stockwatch.WindowsApp
                     {
                         services.Configure<ApiOptions>(context.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
                         services.AddTransient<StockPage>();
-                        services.AddHttpClient<IStockPriceService,StockPriceService>();
-                        services.AddTransient<IStockSymbolPage, StockSymbolPage>();
+                        services.AddHttpClient<Business.IStockPriceService, Business.StockPriceService>();
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
+                        services.AddTransient<Business.IStockSymbolService, Business.StockSymbolService>();
+                        services.AddTransient<Business.IStockPriceService, Business.StockPriceService>();
                         services.AddTransient<IStockPriceService, StockPriceService>();
-                        services.AddTransient<IStockPriceUpdates, StockPriceUpdates>();
                         services.AddTransient<IStockAlertRangeDisplayService, StockAlertRangeDisplayService>();
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
                         services.AddLogging(builder =>

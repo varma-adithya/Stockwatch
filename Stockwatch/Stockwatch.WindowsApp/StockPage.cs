@@ -6,34 +6,34 @@ namespace Stockwatch.WindowsApp
 {
     public partial class StockPage : Form
     {
-        private IStockSymbolPage _stockSymbolPage;
-        private IStockAlertRangeService _dataService;
+        private IStockSymbolService _stockSymbolPage;
+        private IStockAlertRangeService _stockAlertRangeService;
         private IStockAlertRangeDisplayService _stockAlertRangeDisplayService;
         private readonly ILogger _logger;
         DataGridViewRow? selectedRow = null;
 
-        public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolPage stockSymbolPage, IStockAlertRangeService dataservice, ILogger<StockPage> logger)
+        public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolService stockSymbolPage, IStockAlertRangeService stockAlertRangeService, ILogger<StockPage> logger)
         {
             InitializeComponent();
-            _dataService = dataservice;
+            _stockAlertRangeService = stockAlertRangeService;
             _stockSymbolPage = stockSymbolPage;
             _stockAlertRangeDisplayService = stockAlertRangeDisplayService;
             _logger = logger;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            _stockSymbolPage.AddSymbol();
-            symbolDropDown.DataSource = _stockSymbolPage.GetSymbolListAsync().Result;
+            await _stockSymbolPage.AddSymbol();
+            symbolDropDown.DataSource = await _stockSymbolPage.GetSymbolListAsync();
             this.dataGridViewAlertRange.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            DataGrid_Load();
+            await DataGrid_Load();
         }
 
         private async Task DataGrid_Load()
         {
             selectedRow = null;
             var stockDisplays = new List<StockAlertRangeDisplay>();
-            var stockData = await _dataService.GetAllAsync();
+            var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
             
             if (stockData.Count != 0)
             {
@@ -54,13 +54,13 @@ namespace Stockwatch.WindowsApp
 
         }
         
-        private void AddBtn_Click(object sender, EventArgs e)
+        private async void AddBtn_Click(object sender, EventArgs e)
         {
             if (upperLimitNbx.Value < lowerLimitNbx.Value)
             {
                 MessageBox.Show("Lower limit value greater than upper limit value", "New Stock", MessageBoxButtons.OK);
             }
-            else if (_dataService.FetchStockAlertRangeByNameAsync(symbolDropDown.Text).Result != null)
+            else if (await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(symbolDropDown.Text) != null)
             {
                 MessageBox.Show("Stock alert already exists for this stock symbol", "New Stock", MessageBoxButtons.OK);
             }
@@ -68,12 +68,12 @@ namespace Stockwatch.WindowsApp
             {
                 var newStock = new StockAlertRange
                 {
-                    StockSymbolId = _stockSymbolPage.FetchStockSymbolByNameAsync(symbolDropDown.Text).Result.Id,
+                    StockSymbolId = (await _stockSymbolPage.FetchStockSymbolByNameAsync(symbolDropDown.Text)).Id,
                     LowerLimit = lowerLimitNbx.Value,
                     UpperLimit = upperLimitNbx.Value,
                 };
-                _dataService.AddStockAlertRangeAsync(newStock);
-                DataGrid_Load();
+                await _stockAlertRangeService.AddStockAlertRangeAsync(newStock);
+                await DataGrid_Load();
             }
 
         }
@@ -85,7 +85,7 @@ namespace Stockwatch.WindowsApp
             {
                 int newUpperLimit = Convert.ToInt32(selectedRow.Cells[0].Value);
                 int newLowerLimit = Convert.ToInt32(selectedRow.Cells[1].Value);
-                StockAlertRange? editStockAlert = _dataService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
+                StockAlertRange? editStockAlert = _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
                 
                 if (editStockAlert != null && (editStockAlert.UpperLimit != newUpperLimit || editStockAlert.LowerLimit != newLowerLimit))
                 {
@@ -95,12 +95,13 @@ namespace Stockwatch.WindowsApp
                     {
                         editStockAlert.LowerLimit = newLowerLimit;
                         editStockAlert.UpperLimit = newUpperLimit;
-                        await _dataService.UpdateStockAlertRangeAsync(editStockAlert);                        
+                        await _stockAlertRangeService.UpdateStockAlertRangeAsync(editStockAlert);                        
                         await DataGrid_Load();
                         MessageBox.Show("Stock range updated!", "Stock Alert Update", MessageBoxButtons.OK);
                     }
                     else
                     {
+                        await DataGrid_Load();
                         _logger.LogInformation("Update dialog box confirmation rejected. Hence Update failed.");
                     }
 
@@ -133,7 +134,7 @@ namespace Stockwatch.WindowsApp
             selectedRow = dataGridViewAlertRange.Rows[index];
         }
         
-        private void deleteBtn_Click(object sender, EventArgs e)
+        private async void deleteBtn_Click(object sender, EventArgs e)
         {
             if (selectedRow != null)
             {
@@ -141,12 +142,12 @@ namespace Stockwatch.WindowsApp
                 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    StockAlertRange? delStockAlert = _dataService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
+                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString());
                     
                     if (delStockAlert != null) 
                     {
-                        _dataService.DeleteStockAlertRangeAsync(delStockAlert);
-                        DataGrid_Load();
+                        await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
+                        await DataGrid_Load();
                         _logger.LogInformation($"{delStockAlert.StockSymbol.SymbolName} stock range deleted");
                         MessageBox.Show($"{delStockAlert.StockSymbol.SymbolName} stock range deleted", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
@@ -171,9 +172,9 @@ namespace Stockwatch.WindowsApp
 
         }
         
-        private void resetBtn_Click(object sender, EventArgs e)
+        private async void resetBtn_Click(object sender, EventArgs e)
         {
-            DataGrid_Load();
+            await DataGrid_Load();
         }
 
     }

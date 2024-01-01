@@ -6,17 +6,17 @@ using Stockwatch.Model.Dto;
 
 namespace Stockwatch.WindowsApp
 {
-    public interface IStockPriceUpdates 
+    public interface IStockPriceService 
     {
         public Task<IntraStockPrice?> GetCurrentPriceAsync(StockSymbol symbol);
         public string GetComments(IntraStockPrice currentprice, StockAlertRange stockAlertRange);
     }
 
-    public class StockPriceUpdates:IStockPriceUpdates
+    public class StockPriceService:IStockPriceService
     {
-        private IStockPriceService _stockpriceservice;
+        private Business.IStockPriceService _stockpriceservice;
 
-        public StockPriceUpdates(IStockPriceService stockPriceService)
+        public StockPriceService(Business.IStockPriceService stockPriceService)
         {
             _stockpriceservice = stockPriceService;
         }

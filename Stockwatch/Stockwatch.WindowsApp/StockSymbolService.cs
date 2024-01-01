@@ -3,7 +3,7 @@ using Stockwatch.Model;
 
 namespace Stockwatch.WindowsApp
 {
-    public interface IStockSymbolPage
+    public interface IStockSymbolService
     {
         Task AddSymbol();
         Task<List<string>?> GetSymbolListAsync();
@@ -11,11 +11,11 @@ namespace Stockwatch.WindowsApp
         Task<StockSymbol?> FetchStockSymbolByNameAsync(string name);
     }
 
-    public class StockSymbolPage : IStockSymbolPage
+    public class StockSymbolService : IStockSymbolService
     {
-        public IStockSymbolService _stockSymbolService;
+        public Business.IStockSymbolService _stockSymbolService;
         
-        public StockSymbolPage(IStockSymbolService stocksymbolservice) {
+        public StockSymbolService(Business.IStockSymbolService stocksymbolservice) {
             _stockSymbolService = stocksymbolservice;
         }
 
@@ -57,7 +57,7 @@ namespace Stockwatch.WindowsApp
 
         public async  Task<List<string>?> GetSymbolListAsync() 
         {
-            var stockSymbols = await _stockSymbolService.GetAllAsync();
+            var stockSymbols = await _stockSymbolService.GetAllStockSymbolAsync();
             return stockSymbols?.Select(ss => ss.SymbolName).ToList();
         }
     }

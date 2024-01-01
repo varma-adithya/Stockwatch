@@ -39,11 +39,11 @@ namespace Stockwatch.Background
             _stockNotificationService = stockNotificationService;
         }
 
-        public async Task<List<StockAlertRange>> GetAllStockAlertRangesAsync() { return await _stockAlertRangeService.GetAllAsync(); }
+        public async Task<List<StockAlertRange>> GetAllStockAlertRangesAsync() { return await _stockAlertRangeService.GetAllStockAlertRangesAsync(); }
 
         public async Task<List<string>> GetStockSymbolsAsync()
         {
-            var allstocks = await _stockAlertRangeService.GetAllAsync();
+            var allstocks = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
             return allstocks.Select(stock => stock.StockSymbol.SymbolName).ToList();
         }
 

@@ -9,7 +9,7 @@ namespace Stockwatch.Business
         Task DeleteStockAlertRangeAsync(StockAlertRange stockAlertRange);
         Task<StockAlertRange?> FetchStockAlertRangeByNameAsync(string name);
         Task<StockAlertRange?> FetchStockAlertRangeByIdAsync(int id);
-        Task<List<StockAlertRange>> GetAllAsync();
+        Task<List<StockAlertRange>> GetAllStockAlertRangesAsync();
     }
 
     public class StockAlertRangeService: IStockAlertRangeService
@@ -47,7 +47,7 @@ namespace Stockwatch.Business
             return _context.StockAlertRanges.SingleOrDefaultAsync(x=> x.StockSymbol.Id == id);
         }
 
-        public Task<List<StockAlertRange>> GetAllAsync()
+        public Task<List<StockAlertRange>> GetAllStockAlertRangesAsync()
         {
             return _context.StockAlertRanges.Include(x => x.StockSymbol).ToListAsync();
         }
