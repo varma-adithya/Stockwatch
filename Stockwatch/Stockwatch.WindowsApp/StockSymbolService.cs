@@ -57,7 +57,7 @@ namespace Stockwatch.WindowsApp
 
         public async  Task<List<string>?> GetSymbolListAsync() 
         {
-            var stockSymbols = await _stockSymbolService.GetAllStockSymbolAsync();
+            var stockSymbols = await _stockSymbolService.GetAllAsync();
             return stockSymbols?.Select(ss => ss.SymbolName).ToList();
         }
     }
