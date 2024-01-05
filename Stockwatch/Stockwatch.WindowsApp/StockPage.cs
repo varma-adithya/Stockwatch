@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Stockwatch.Business;
 using Stockwatch.Model;
-using System.Data;
 using System.Windows.Forms;
 
 namespace Stockwatch.WindowsApp
@@ -64,9 +63,9 @@ namespace Stockwatch.WindowsApp
         private async void DataGridView_Edit(object? sender, DataGridViewCellEventArgs e)
         {
             dataGridViewAlertRange.EndEdit();
-            if (e.RowIndex != dataGridViewAlertRange.NewRowIndex && e.RowIndex != dataGridViewAlertRange.NewRowIndex-1)
+            if (e.RowIndex != dataGridViewAlertRange.NewRowIndex && e.RowIndex != dataGridViewAlertRange.NewRowIndex - 1)
             {
-                var  rowView = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
+                var rowView = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
 
                 if (rowView?.StockSymbolName == originalStockSymbolName)
                 {
@@ -116,15 +115,15 @@ namespace Stockwatch.WindowsApp
         private async void AddBtn_Click(object sender, EventArgs e)
         {
 
-            var newSymbolName = Convert.ToString(dataGridViewAlertRange.Rows[dataGridViewAlertRange.NewRowIndex-1].Cells["StockSymbolName"].Value);
-            var newUpperLimit = Convert.ToInt32(dataGridViewAlertRange.Rows[dataGridViewAlertRange.NewRowIndex-1].Cells["UpperLimit"].Value);
+            var newSymbolName = Convert.ToString(dataGridViewAlertRange.Rows[dataGridViewAlertRange.NewRowIndex - 1].Cells["StockSymbolName"].Value);
+            var newUpperLimit = Convert.ToInt32(dataGridViewAlertRange.Rows[dataGridViewAlertRange.NewRowIndex - 1].Cells["UpperLimit"].Value);
             var newLowerLimit = Convert.ToInt32(dataGridViewAlertRange.Rows[dataGridViewAlertRange.NewRowIndex - 1].Cells["LowerLimit"].Value);
 
             if (newUpperLimit < newLowerLimit)
             {
                 MessageBox.Show("Lower limit value greater than upper limit value", "New Stock", MessageBoxButtons.OK);
             }
-            else if(newSymbolName == null)
+            else if (newSymbolName == null)
             {
                 MessageBox.Show("Please select StockSymbol", "New Stock", MessageBoxButtons.OK);
             }
@@ -145,7 +144,7 @@ namespace Stockwatch.WindowsApp
             }
 
         }
-        
+
         //private async void editBtn_Click(object sender, EventArgs e)
         //{
 
@@ -154,11 +153,11 @@ namespace Stockwatch.WindowsApp
         //        int newUpperLimit = Convert.ToInt32(selectedRow.Cells[0].Value);
         //        int newLowerLimit = Convert.ToInt32(selectedRow.Cells[1].Value);
         //        StockAlertRange? editStockAlert = _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
-                
+
         //        if (editStockAlert != null && (editStockAlert.UpperLimit != newUpperLimit || editStockAlert.LowerLimit != newLowerLimit))
         //        {
         //            DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
-                    
+
         //            if (dialogResult == DialogResult.Yes)
         //            {
         //                editStockAlert.LowerLimit = newLowerLimit;
@@ -195,24 +194,24 @@ namespace Stockwatch.WindowsApp
         //    }
 
         //}
-        
+
         private void dataGridViewAlertRange_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
             selectedRow = dataGridViewAlertRange.Rows[index];
         }
-        
+
         private async void deleteBtn_Click(object sender, EventArgs e)
         {
             if (selectedRow != null)
             {
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete stock alert?", "Stock Alert Delete", MessageBoxButtons.YesNo);
-                
+
                 if (dialogResult == DialogResult.Yes)
                 {
                     StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString());
-                    
-                    if (delStockAlert != null) 
+
+                    if (delStockAlert != null)
                     {
                         await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
                         await DataGrid_Load();
@@ -239,11 +238,50 @@ namespace Stockwatch.WindowsApp
             }
 
         }
-        
+
         private async void resetBtn_Click(object sender, EventArgs e)
         {
             await DataGrid_Load();
         }
 
+        private async void dataGridViewAlertRange_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Delete") 
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete stock alert?", "Stock Alert Delete", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var delStockAlertDisplay = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
+                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(delStockAlertDisplay.StockSymbolName);
+
+                    if (delStockAlert != null)
+                    {
+                        await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
+                        await DataGrid_Load();
+                        _logger.LogInformation($"{delStockAlert.StockSymbol.SymbolName} stock range deleted");
+                        MessageBox.Show($"{delStockAlert.StockSymbol.SymbolName} stock range deleted", "Stock Alert Delete", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"{selectedRow.Cells[2].Value.ToString()} not found in database.");
+                        MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
+                    }
+
+                }
+                else
+                {
+                    _logger.LogInformation("Delete dialog box confirmation rejected. Hence Delete failed.");
+                }
+
+            }
+            else
+            {
+                _logger.LogInformation("No stock range selected for delete.");
+                MessageBox.Show("No stock range selected", "Stock Alert Delete", MessageBoxButtons.OK);
+            }
+
+            await DataGrid_Load();
+        }
     }
 }

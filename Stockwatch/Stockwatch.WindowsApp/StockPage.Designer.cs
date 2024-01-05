@@ -37,11 +37,11 @@ namespace Stockwatch.WindowsApp
             deleteBtn = new Button();
             resetBtn = new Button();
             StockSymbolName = new DataGridViewComboBoxColumn();
-            Delete = new DataGridViewButtonColumn();
             UpperLimit = new DataGridViewTextBoxColumn();
             LowerLimit = new DataGridViewTextBoxColumn();
             CurrentPrice = new DataGridViewTextBoxColumn();
             Comments = new DataGridViewTextBoxColumn();
+            Delete = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAlertRange).BeginInit();
             SuspendLayout();
             // 
@@ -55,7 +55,7 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.BorderStyle = BorderStyle.Fixed3D;
             dataGridViewAlertRange.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridViewAlertRange.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlertRange.Columns.AddRange(new DataGridViewColumn[] { StockSymbolName, Delete, UpperLimit, LowerLimit, CurrentPrice, Comments });
+            dataGridViewAlertRange.Columns.AddRange(new DataGridViewColumn[] { StockSymbolName, UpperLimit, LowerLimit, CurrentPrice, Comments, Delete });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -70,9 +70,10 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.Name = "dataGridViewAlertRange";
             dataGridViewAlertRange.RowHeadersWidth = 20;
             dataGridViewAlertRange.RowTemplate.Height = 29;
-            dataGridViewAlertRange.Size = new Size(960, 575);
+            dataGridViewAlertRange.Size = new Size(955, 575);
             dataGridViewAlertRange.TabIndex = 2;
             dataGridViewAlertRange.CellClick += dataGridViewAlertRange_CellClick;
+            dataGridViewAlertRange.CellContentClick += dataGridViewAlertRange_CellContentClick;
             // 
             // label11
             // 
@@ -126,12 +127,6 @@ namespace Stockwatch.WindowsApp
             StockSymbolName.MinimumWidth = 6;
             StockSymbolName.Name = "StockSymbolName";
             // 
-            // Delete
-            // 
-            Delete.HeaderText = "Delete";
-            Delete.MinimumWidth = 6;
-            Delete.Name = "Delete";
-            // 
             // UpperLimit
             // 
             UpperLimit.DataPropertyName = "UpperLimit";
@@ -162,6 +157,12 @@ namespace Stockwatch.WindowsApp
             Comments.Name = "Comments";
             Comments.ReadOnly = true;
             // 
+            // Delete
+            // 
+            Delete.HeaderText = "Delete";
+            Delete.MinimumWidth = 6;
+            Delete.Name = "Delete";
+            // 
             // StockPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -190,10 +191,10 @@ namespace Stockwatch.WindowsApp
         private Button deleteBtn;
         private Button resetBtn;
         private DataGridViewComboBoxColumn StockSymbolName;
-        private DataGridViewButtonColumn Delete;
         private DataGridViewTextBoxColumn UpperLimit;
         private DataGridViewTextBoxColumn LowerLimit;
         private DataGridViewTextBoxColumn CurrentPrice;
         private DataGridViewTextBoxColumn Comments;
+        private DataGridViewButtonColumn Delete;
     }
 }
