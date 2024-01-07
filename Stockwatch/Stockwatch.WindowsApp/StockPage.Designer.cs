@@ -33,8 +33,6 @@ namespace Stockwatch.WindowsApp
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dataGridViewAlertRange = new DataGridView();
             label11 = new Label();
-            addBtn = new Button();
-            deleteBtn = new Button();
             resetBtn = new Button();
             StockSymbolName = new DataGridViewComboBoxColumn();
             UpperLimit = new DataGridViewTextBoxColumn();
@@ -47,7 +45,8 @@ namespace Stockwatch.WindowsApp
             // 
             // dataGridViewAlertRange
             // 
-            dataGridViewAlertRange.AllowUserToOrderColumns = true;
+            dataGridViewAlertRange.AllowUserToResizeColumns = false;
+            dataGridViewAlertRange.AllowUserToResizeRows = false;
             dataGridViewAlertRange.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewAlertRange.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewAlertRange.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
@@ -64,55 +63,36 @@ namespace Stockwatch.WindowsApp
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewAlertRange.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewAlertRange.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridViewAlertRange.GridColor = Color.SteelBlue;
             dataGridViewAlertRange.Location = new Point(35, 27);
             dataGridViewAlertRange.MultiSelect = false;
             dataGridViewAlertRange.Name = "dataGridViewAlertRange";
             dataGridViewAlertRange.RowHeadersWidth = 20;
             dataGridViewAlertRange.RowTemplate.Height = 29;
-            dataGridViewAlertRange.Size = new Size(955, 575);
+            dataGridViewAlertRange.Size = new Size(955, 639);
             dataGridViewAlertRange.TabIndex = 2;
             dataGridViewAlertRange.CellClick += dataGridViewAlertRange_CellClick;
             dataGridViewAlertRange.CellContentClick += dataGridViewAlertRange_CellContentClick;
+            dataGridViewAlertRange.CellValueChanged += dataGridViewAlertRange_CellValueChanged;
+            dataGridViewAlertRange.EditingControlShowing += dataGridViewAlertRange_EditingControlShowing;
             // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Dubai", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(373, 605);
+            label11.Location = new Point(372, 686);
             label11.Name = "label11";
-            label11.Size = new Size(298, 29);
+            label11.Size = new Size(282, 29);
             label11.TabIndex = 9;
-            label11.Text = "Select the row to Edit/Delete Stock Alert";
-            // 
-            // addBtn
-            // 
-            addBtn.Font = new Font("Dubai", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            addBtn.Location = new Point(114, 652);
-            addBtn.Margin = new Padding(4);
-            addBtn.Name = "addBtn";
-            addBtn.Size = new Size(125, 36);
-            addBtn.TabIndex = 6;
-            addBtn.Text = "Add";
-            addBtn.UseVisualStyleBackColor = true;
-            addBtn.Click += AddBtn_Click;
-            // 
-            // deleteBtn
-            // 
-            deleteBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            deleteBtn.Location = new Point(578, 649);
-            deleteBtn.Name = "deleteBtn";
-            deleteBtn.Size = new Size(112, 39);
-            deleteBtn.TabIndex = 14;
-            deleteBtn.Text = "Delete";
-            deleteBtn.UseVisualStyleBackColor = true;
-            deleteBtn.Click += deleteBtn_Click;
+            label11.Text = "Type / Choose a value and press Enter";
+            label11.TextAlign = ContentAlignment.BottomCenter;
             // 
             // resetBtn
             // 
             resetBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            resetBtn.Location = new Point(839, 649);
+            resetBtn.Location = new Point(878, 680);
             resetBtn.Name = "resetBtn";
             resetBtn.Size = new Size(112, 39);
             resetBtn.TabIndex = 15;
@@ -162,6 +142,7 @@ namespace Stockwatch.WindowsApp
             Delete.HeaderText = "Delete";
             Delete.MinimumWidth = 6;
             Delete.Name = "Delete";
+            Delete.Text = "Del this Row";
             // 
             // StockPage
             // 
@@ -171,9 +152,7 @@ namespace Stockwatch.WindowsApp
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.InactiveCaption;
             ClientSize = new Size(1029, 737);
-            Controls.Add(addBtn);
             Controls.Add(resetBtn);
-            Controls.Add(deleteBtn);
             Controls.Add(label11);
             Controls.Add(dataGridViewAlertRange);
             Name = "StockPage";
@@ -187,8 +166,6 @@ namespace Stockwatch.WindowsApp
         #endregion
         private DataGridView dataGridViewAlertRange;
         private Label label11;
-        private Button addBtn;
-        private Button deleteBtn;
         private Button resetBtn;
         private DataGridViewComboBoxColumn StockSymbolName;
         private DataGridViewTextBoxColumn UpperLimit;
