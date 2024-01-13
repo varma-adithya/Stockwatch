@@ -31,16 +31,16 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.CellValidating += dataGridViewAlertRange_CellValidating;
             dataGridViewAlertRange.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridViewAlertRange.RowValidating += dataGridView1_RowValidating;
-            dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
+            //dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
 
             await _stockSymbolService.AddSymbol();
             await DataGrid_Load();
         }
 
-        private void dataGridViewAlertRange_DataError(object? sender, DataGridViewDataErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void dataGridViewAlertRange_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private async void dataGridViewAlertRange_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -51,7 +51,7 @@ namespace Stockwatch.WindowsApp
                 if (dialogResult == DialogResult.Yes)
                 {
                     var delStockAlertDisplay = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
-                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(delStockAlertDisplay.StockSymbolName);
+                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(delStockAlertDisplay.SymbolName);
 
                     if (delStockAlert != null)
                     {
@@ -217,12 +217,18 @@ namespace Stockwatch.WindowsApp
 
         private async Task BindSymbolCombo()
         {
-            // Suggest changes to bind value & display value to the combo box here
             var comboBox = (DataGridViewComboBoxColumn)dataGridViewAlertRange.Columns["StockSymbolName"];
-            comboBox.DataSource = await _stockSymbolService.GetSymbolListAsync();
-            //comboBox.ValueMember = "Id";
-            //comboBox.DisplayMember = "SymbolName";
+            comboBox.DataSource = await FilterStockSymbol();
+            comboBox.ValueMember = "Id";
+            comboBox.DisplayMember = "SymbolName";
             //comboBindingSource.DataSource = await _stockSymbolService.GetSymbolListAsync();
+        }
+        private async Task<List<StockSymbol>> FilterStockSymbol()
+        {
+            var symbolList = await _stockSymbolService.GetSymbolListAsync();
+            var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
+            var stockSymbolsInAlertRanges = stockData.Select(s => s.StockSymbol).ToList();
+            return symbolList.Where(i => !stockSymbolsInAlertRanges.Contains(i)).ToList();
         }
 
         private async Task<List<StockAlertRangeDisplay>> GetStockDisplays()

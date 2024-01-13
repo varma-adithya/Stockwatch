@@ -25,7 +25,7 @@ namespace Stockwatch.WindowsApp
             var stockAlertRangeDisplay = new StockAlertRangeDisplay();
             stockAlertRangeDisplay.UpperLimit = stockAlertRange.UpperLimit;
             stockAlertRangeDisplay.LowerLimit = stockAlertRange.LowerLimit;
-            stockAlertRangeDisplay.StockSymbolName = stockAlertRange.StockSymbol.SymbolName;
+            stockAlertRangeDisplay.SymbolName = stockAlertRange.StockSymbol.SymbolName;
             stockAlertRangeDisplay.CurrentPrice = stockCurrentPrice.GlobalQuote.Price;
             stockAlertRangeDisplay.Comments = _stockPriceUpdates.GetComments(stockCurrentPrice, stockAlertRange);
             
