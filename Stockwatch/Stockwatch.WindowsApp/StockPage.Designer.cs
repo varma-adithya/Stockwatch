@@ -34,7 +34,7 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange = new DataGridView();
             label11 = new Label();
             resetBtn = new Button();
-            StockSymbolName = new DataGridViewComboBoxColumn();
+            Symbol = new DataGridViewComboBoxColumn();
             UpperLimit = new DataGridViewTextBoxColumn();
             LowerLimit = new DataGridViewTextBoxColumn();
             CurrentPrice = new DataGridViewTextBoxColumn();
@@ -54,7 +54,7 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.BorderStyle = BorderStyle.Fixed3D;
             dataGridViewAlertRange.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridViewAlertRange.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAlertRange.Columns.AddRange(new DataGridViewColumn[] { StockSymbolName, UpperLimit, LowerLimit, CurrentPrice, Comments, Delete });
+            dataGridViewAlertRange.Columns.AddRange(new DataGridViewColumn[] { Symbol, UpperLimit, LowerLimit, CurrentPrice, Comments, Delete });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -64,12 +64,13 @@ namespace Stockwatch.WindowsApp
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewAlertRange.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAlertRange.GridColor = Color.SteelBlue;
-            dataGridViewAlertRange.Location = new Point(35, 27);
+            dataGridViewAlertRange.Location = new Point(31, 20);
+            dataGridViewAlertRange.Margin = new Padding(3, 2, 3, 2);
             dataGridViewAlertRange.MultiSelect = false;
             dataGridViewAlertRange.Name = "dataGridViewAlertRange";
             dataGridViewAlertRange.RowHeadersWidth = 20;
             dataGridViewAlertRange.RowTemplate.Height = 29;
-            dataGridViewAlertRange.Size = new Size(955, 639);
+            dataGridViewAlertRange.Size = new Size(836, 479);
             dataGridViewAlertRange.TabIndex = 2;
             // 
             // label11
@@ -77,9 +78,9 @@ namespace Stockwatch.WindowsApp
             label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(373, 685);
+            label11.Location = new Point(326, 514);
             label11.Name = "label11";
-            label11.Size = new Size(299, 20);
+            label11.Size = new Size(255, 17);
             label11.TabIndex = 9;
             label11.Text = "Type / Choose a value and press Enter";
             label11.TextAlign = ContentAlignment.BottomCenter;
@@ -87,19 +88,20 @@ namespace Stockwatch.WindowsApp
             // resetBtn
             // 
             resetBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            resetBtn.Location = new Point(878, 680);
+            resetBtn.Location = new Point(768, 510);
+            resetBtn.Margin = new Padding(3, 2, 3, 2);
             resetBtn.Name = "resetBtn";
-            resetBtn.Size = new Size(112, 39);
+            resetBtn.Size = new Size(98, 29);
             resetBtn.TabIndex = 15;
             resetBtn.Text = "Refresh";
             resetBtn.UseVisualStyleBackColor = true;
             resetBtn.Click += resetBtn_Click;
             // 
-            // StockSymbolName
+            // Symbol
             // 
-            StockSymbolName.HeaderText = "StockSymbolName";
-            StockSymbolName.MinimumWidth = 6;
-            StockSymbolName.Name = "StockSymbolName";
+            Symbol.HeaderText = "Symbol";
+            Symbol.MinimumWidth = 6;
+            Symbol.Name = "Symbol";
             // 
             // UpperLimit
             // 
@@ -140,15 +142,16 @@ namespace Stockwatch.WindowsApp
             // 
             // StockPage
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.InactiveCaption;
-            ClientSize = new Size(1029, 737);
+            ClientSize = new Size(900, 553);
             Controls.Add(resetBtn);
             Controls.Add(label11);
             Controls.Add(dataGridViewAlertRange);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "StockPage";
             Text = "Stock Watch";
             Load += Form1_Load;
@@ -161,7 +164,7 @@ namespace Stockwatch.WindowsApp
         private DataGridView dataGridViewAlertRange;
         private Label label11;
         private Button resetBtn;
-        private DataGridViewComboBoxColumn StockSymbolName;
+        private DataGridViewComboBoxColumn Symbol;
         private DataGridViewTextBoxColumn UpperLimit;
         private DataGridViewTextBoxColumn LowerLimit;
         private DataGridViewTextBoxColumn CurrentPrice;

@@ -11,7 +11,7 @@ namespace Stockwatch.WindowsApp
         private IStockAlertRangeDisplayService _stockAlertRangeDisplayService;
         private readonly ILogger _logger;
         private BindingSource? bindingSource = new BindingSource();
-        private BindingSource? comboBindingSource = new BindingSource();
+        private List<StockSymbol> stockSymbolList = new List<StockSymbol>();
         private string originalStockSymbolName;
         private bool unsavedChanges = false;
 
@@ -31,16 +31,62 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.CellValidating += dataGridViewAlertRange_CellValidating;
             dataGridViewAlertRange.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridViewAlertRange.RowValidating += dataGridView1_RowValidating;
-            //dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
+            dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
+            dataGridViewAlertRange.CellParsing += dataGridViewAlertRange_CellParsing;
+            dataGridViewAlertRange.CellFormatting += dataGridViewAlertRange_CellFormatting;
 
             await _stockSymbolService.AddSymbol();
             await DataGrid_Load();
         }
 
-        //private void dataGridViewAlertRange_DataError(object? sender, DataGridViewDataErrorEventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private void dataGridViewAlertRange_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewAlertRange.Columns["Symbol"].Index && e.RowIndex >= 0
+                    && dataGridViewAlertRange.Rows[e.RowIndex].Cells["Symbol"].Value != null)
+            {
+                var id = (int)dataGridViewAlertRange.Rows[e.RowIndex].Cells["Symbol"].Value;
+                e.Value = stockSymbolList.FirstOrDefault(i => i.Id == id)?.SymbolName;
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void dataGridViewAlertRange_CellParsing(object? sender, DataGridViewCellParsingEventArgs e)
+        {
+            if (dataGridViewAlertRange.CurrentCell.OwningColumn is DataGridViewComboBoxColumn)
+            {
+                var editingControl = (DataGridViewComboBoxEditingControl)dataGridViewAlertRange.EditingControl;
+                e.Value = editingControl.SelectedItem;
+                e.ParsingApplied = true;
+            };
+        }
+
+        private async Task DataGrid_Load()
+        {
+            await BindSymbolCombo();
+            await BindDataGridView();
+        }
+
+        private async Task BindDataGridView()
+        {
+            dataGridViewAlertRange.AutoGenerateColumns = false;
+            dataGridViewAlertRange.DataSource = bindingSource;
+            bindingSource.DataSource = await GetStockDisplays();
+        }
+
+        private async Task BindSymbolCombo()
+        {
+            var comboBox = (DataGridViewComboBoxColumn)dataGridViewAlertRange.Columns["Symbol"];
+            comboBox.ValueMember = "Id";
+            comboBox.DisplayMember = "SymbolName";
+            comboBox.DataPropertyName = "SymbolId";
+            comboBox.DataSource = await FilterStockSymbol();
+            stockSymbolList = await _stockSymbolService.GetSymbolListAsync();
+        }
+
+        private void dataGridViewAlertRange_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
 
         private async void dataGridViewAlertRange_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -51,7 +97,7 @@ namespace Stockwatch.WindowsApp
                 if (dialogResult == DialogResult.Yes)
                 {
                     var delStockAlertDisplay = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
-                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(delStockAlertDisplay.SymbolName);
+                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByIdAsync(delStockAlertDisplay.SymbolId);
 
                     if (delStockAlert != null)
                     {
@@ -70,7 +116,7 @@ namespace Stockwatch.WindowsApp
 
         private void dataGridViewAlertRange_CellBeginEdit(object? sender, DataGridViewCellCancelEventArgs e)
         {
-            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "StockSymbolName" && e.RowIndex != dataGridViewAlertRange.NewRowIndex)
+            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Symbol" && e.RowIndex != dataGridViewAlertRange.NewRowIndex)
             {
                 e.Cancel = true;
             }
@@ -119,7 +165,7 @@ namespace Stockwatch.WindowsApp
                 {
                     if (row.Index == dataGridViewAlertRange.NewRowIndex)
                     {
-                        if (row.Cells["StockSymbolName"]?.Value == null)
+                        if (row.Cells["Symbol"]?.Value == null)
                         {
                             MessageBox.Show("Please select StockSymbol", "New Stock", MessageBoxButtons.OK);
                         }
@@ -130,7 +176,7 @@ namespace Stockwatch.WindowsApp
                             {
                                 var newStockAlertRange = new StockAlertRange
                                 {
-                                    StockSymbolId = (int)row.Cells["StockSymbolName"].Value,
+                                    StockSymbolId = (int)row.Cells["Symbol"].Value,
                                     UpperLimit = newUpperLimit,
                                     LowerLimit = newLowerLimit
                                 };
@@ -151,7 +197,7 @@ namespace Stockwatch.WindowsApp
                             //Update
                             if (newUpperLimit > newLowerLimit)
                             {
-                                if (originalStockSymbolName == row.Cells["StockSymbolName"].Value.ToString())
+                                if (originalStockSymbolName == row.Cells["Symbol"].Value.ToString())
                                 {
                                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
                                     if (dialogResult == DialogResult.Yes)
@@ -202,27 +248,6 @@ namespace Stockwatch.WindowsApp
             }
         }
 
-        private async Task DataGrid_Load()
-        {
-            await BindSymbolCombo();
-            await BindDataGridView();
-        }
-
-        private async Task BindDataGridView()
-        {
-            dataGridViewAlertRange.AutoGenerateColumns = false;
-            dataGridViewAlertRange.DataSource = bindingSource;
-            bindingSource.DataSource = await GetStockDisplays();
-        }
-
-        private async Task BindSymbolCombo()
-        {
-            var comboBox = (DataGridViewComboBoxColumn)dataGridViewAlertRange.Columns["StockSymbolName"];
-            comboBox.DataSource = await FilterStockSymbol();
-            comboBox.ValueMember = "Id";
-            comboBox.DisplayMember = "SymbolName";
-            //comboBindingSource.DataSource = await _stockSymbolService.GetSymbolListAsync();
-        }
         private async Task<List<StockSymbol>> FilterStockSymbol()
         {
             var symbolList = await _stockSymbolService.GetSymbolListAsync();
@@ -248,10 +273,5 @@ namespace Stockwatch.WindowsApp
         {
             await DataGrid_Load();
         }
-
-       
-
-        
-
     }
 }
