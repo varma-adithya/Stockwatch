@@ -114,9 +114,15 @@ namespace Stockwatch.WindowsApp
             }
         }
 
+        private bool IsNewRow(int rowIndex)
+        {
+            var datasource = bindingSource.DataSource as List<StockAlertRangeDisplay>;
+            return datasource != null && datasource.Count > rowIndex && datasource[rowIndex].StockAlertRangeId == 0;
+        }
+
         private void dataGridViewAlertRange_CellBeginEdit(object? sender, DataGridViewCellCancelEventArgs e)
         {
-            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Symbol" && e.RowIndex != dataGridViewAlertRange.NewRowIndex)
+            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Symbol" && !IsNewRow(e.RowIndex))
             {
                 e.Cancel = true;
             }
@@ -163,7 +169,7 @@ namespace Stockwatch.WindowsApp
 
                 if (result == DialogResult.Yes)
                 {
-                    if (row.Index == dataGridViewAlertRange.NewRowIndex)
+                    if (IsNewRow(row.Index))
                     {
                         if (row.Cells["Symbol"]?.Value == null)
                         {

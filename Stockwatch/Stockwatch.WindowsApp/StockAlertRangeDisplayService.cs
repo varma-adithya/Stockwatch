@@ -23,6 +23,7 @@ namespace Stockwatch.WindowsApp
         {
             var stockCurrentPrice = new IntraStockPrice { GlobalQuote = new GlobalQuote() { Price = 50 } }; //await _stockPriceUpdates.GetCurrentPriceAsync(stockAlertRange.StockSymbol);
             var stockAlertRangeDisplay = new StockAlertRangeDisplay();
+            stockAlertRangeDisplay.StockAlertRangeId = stockAlertRange.Id;
             stockAlertRangeDisplay.UpperLimit = stockAlertRange.UpperLimit;
             stockAlertRangeDisplay.LowerLimit = stockAlertRange.LowerLimit;
             stockAlertRangeDisplay.SymbolId = stockAlertRange.StockSymbol.Id;
