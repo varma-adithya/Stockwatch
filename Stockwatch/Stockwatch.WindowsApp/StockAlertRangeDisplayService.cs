@@ -1,7 +1,5 @@
-﻿using Stockwatch.Business;
-using Stockwatch.Model;
+﻿using Stockwatch.Model;
 using Stockwatch.Model.Dto;
-using System.Xml.Linq;
 
 namespace Stockwatch.WindowsApp
 {

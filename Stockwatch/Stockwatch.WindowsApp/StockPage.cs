@@ -12,6 +12,7 @@ namespace Stockwatch.WindowsApp
         private readonly ILogger _logger;
         private BindingSource? bindingSource = new BindingSource();
         private List<StockSymbol> stockSymbolList = new List<StockSymbol>();
+        private List<StockAlertRangeDisplay> stockDisplays = new List<StockAlertRangeDisplay>();
         private string originalStockSymbolName;
         private bool unsavedChanges = false;
 
@@ -68,9 +69,10 @@ namespace Stockwatch.WindowsApp
 
         private async Task BindDataGridView()
         {
+            await GetStockDisplays();
             dataGridViewAlertRange.AutoGenerateColumns = false;
             dataGridViewAlertRange.DataSource = bindingSource;
-            bindingSource.DataSource = await GetStockDisplays();
+            bindingSource.DataSource = stockDisplays;
         }
 
         private async Task BindSymbolCombo()
@@ -102,14 +104,17 @@ namespace Stockwatch.WindowsApp
                     if (delStockAlert != null)
                     {
                         await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
-                        await DataGrid_Load();
+                        if (stockDisplays.Find(s=>s.SymbolId == delStockAlertDisplay.SymbolId) != null)
+                        {
+                            stockDisplays.Remove(stockDisplays.Find(s => s.SymbolId == delStockAlertDisplay.SymbolId));
+                        }
+
                         MessageBox.Show($"{delStockAlert.StockSymbol.SymbolName} stock range deleted", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
                     else
                     {
                         MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
-
                 }
             }
         }
@@ -187,13 +192,12 @@ namespace Stockwatch.WindowsApp
                                     LowerLimit = newLowerLimit
                                 };
                                 await _stockAlertRangeService.AddStockAlertRangeAsync(newStockAlertRange);
-
                             }
                         }
                     }
                     else
                     {
-                        var editStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(originalStockSymbolName);
+                        var editStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByIdAsync(Convert.ToInt32(row.Cells["Symbol"].Value));
                         if (editStockAlert == null)
                         {
                             // Show alert
@@ -203,37 +207,26 @@ namespace Stockwatch.WindowsApp
                             //Update
                             if (newUpperLimit > newLowerLimit)
                             {
-                                if (originalStockSymbolName == row.Cells["Symbol"].Value.ToString())
+                                DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
                                 {
-                                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
-                                    if (dialogResult == DialogResult.Yes)
-                                    {
-                                        editStockAlert.LowerLimit = newLowerLimit;
-                                        editStockAlert.UpperLimit = newUpperLimit;
-                                        await _stockAlertRangeService.UpdateStockAlertRangeAsync(editStockAlert);
-                                        await DataGrid_Load();
+                                    editStockAlert.LowerLimit = newLowerLimit;
+                                    editStockAlert.UpperLimit = newUpperLimit;
+                                    await _stockAlertRangeService.UpdateStockAlertRangeAsync(editStockAlert);
 
-                                    }
-                                    else
-                                    {
-                                        await DataGrid_Load();
-                                        _logger.LogInformation("Update cancelled. Hence Update failed.");
-                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Cannot Edit Stock Alert Range Symbol", "Stock Alert Range Values", MessageBoxButtons.OK);
-                                    await DataGrid_Load();
+                                    _logger.LogInformation("Update cancelled. Hence Update failed.");
                                 }
                             }
                             else
                             {
                                 MessageBox.Show("Please enter proper UpperLimit value and LowerLimit values (UpperLimit>LowerLimit)", "Stock Alert Range Values", MessageBoxButtons.OK);
-                                await DataGrid_Load();
                             }
                         }
                     }
-
+                    await DataGrid_Load();
                     // Reset the flag
                     unsavedChanges = false;
                 }
@@ -262,17 +255,23 @@ namespace Stockwatch.WindowsApp
             return symbolList.Where(i => !stockSymbolsInAlertRanges.Contains(i)).ToList();
         }
 
-        private async Task<List<StockAlertRangeDisplay>> GetStockDisplays()
+        private async Task GetStockDisplays()
         {
-            var stockDisplays = new List<StockAlertRangeDisplay>();
             var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
             foreach (var item in stockData)
             {
                 var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRangeAsync(item);
-                stockDisplays.Add(stockDisplay);
+                if(stockDisplays.Find(s=>s.SymbolId == stockDisplay.SymbolId) != null)
+                {
+                    var updateStock = stockDisplays.Find(s => s.SymbolId == stockDisplay.SymbolId);
+                    updateStock.CurrentPrice = stockDisplay.CurrentPrice;
+                    updateStock.Comments = stockDisplay.Comments;
+                }
+                else
+                {
+                    stockDisplays.Add(stockDisplay);
+                }
             }
-
-            return stockDisplays;
         }
 
         private async void resetBtn_Click(object sender, EventArgs e)
