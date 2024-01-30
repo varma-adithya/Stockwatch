@@ -154,8 +154,8 @@ namespace Stockwatch.WindowsApp
                 DialogResult result = MessageBox.Show("There are unsaved changes. Do you want to save them?", "Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
                 DataGridViewRow row = dataGridViewAlertRange.CurrentRow;
-                var newUpperLimit = Convert.ToInt32(row.Cells["UpperLimit"]?.Value);
-                var newLowerLimit = Convert.ToInt32(row.Cells["LowerLimit"]?.Value);
+                var newUpperLimit = Convert.ToDecimal(row.Cells["UpperLimit"]?.Value);
+                var newLowerLimit = Convert.ToDecimal(row.Cells["LowerLimit"]?.Value);
 
                 if (result == DialogResult.Yes)
                 {
@@ -220,10 +220,9 @@ namespace Stockwatch.WindowsApp
                 else if (result == DialogResult.No)
                 {
                     // If the user selects 'No', continue without saving
-                    dataGridViewAlertRange.CancelEdit();
-
                     // Reset the flag
                     unsavedChanges = false;
+                    await DataGrid_Load();
                 }
                 else
                 {
