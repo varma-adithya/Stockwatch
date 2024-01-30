@@ -64,13 +64,12 @@ namespace Stockwatch.WindowsApp
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewAlertRange.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAlertRange.GridColor = Color.SteelBlue;
-            dataGridViewAlertRange.Location = new Point(31, 20);
-            dataGridViewAlertRange.Margin = new Padding(3, 2, 3, 2);
+            dataGridViewAlertRange.Location = new Point(35, 27);
             dataGridViewAlertRange.MultiSelect = false;
             dataGridViewAlertRange.Name = "dataGridViewAlertRange";
             dataGridViewAlertRange.RowHeadersWidth = 20;
             dataGridViewAlertRange.RowTemplate.Height = 29;
-            dataGridViewAlertRange.Size = new Size(836, 479);
+            dataGridViewAlertRange.Size = new Size(955, 639);
             dataGridViewAlertRange.TabIndex = 2;
             // 
             // label11
@@ -78,9 +77,9 @@ namespace Stockwatch.WindowsApp
             label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label11.Location = new Point(326, 514);
+            label11.Location = new Point(373, 685);
             label11.Name = "label11";
-            label11.Size = new Size(255, 17);
+            label11.Size = new Size(299, 20);
             label11.TabIndex = 9;
             label11.Text = "Type / Choose a value and press Enter";
             label11.TextAlign = ContentAlignment.BottomCenter;
@@ -88,10 +87,9 @@ namespace Stockwatch.WindowsApp
             // resetBtn
             // 
             resetBtn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            resetBtn.Location = new Point(768, 510);
-            resetBtn.Margin = new Padding(3, 2, 3, 2);
+            resetBtn.Location = new Point(878, 680);
             resetBtn.Name = "resetBtn";
-            resetBtn.Size = new Size(98, 29);
+            resetBtn.Size = new Size(112, 39);
             resetBtn.TabIndex = 15;
             resetBtn.Text = "Refresh";
             resetBtn.UseVisualStyleBackColor = true;
@@ -135,23 +133,24 @@ namespace Stockwatch.WindowsApp
             // 
             // Delete
             // 
+            Delete.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             Delete.HeaderText = "Delete";
             Delete.MinimumWidth = 6;
             Delete.Name = "Delete";
-            Delete.Text = "Del this Row";
+            Delete.Text = "Del";
+            Delete.Width = 155;
             // 
             // StockPage
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.InactiveCaption;
-            ClientSize = new Size(900, 553);
+            ClientSize = new Size(1029, 737);
             Controls.Add(resetBtn);
             Controls.Add(label11);
             Controls.Add(dataGridViewAlertRange);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "StockPage";
             Text = "Stock Watch";
             Load += Form1_Load;

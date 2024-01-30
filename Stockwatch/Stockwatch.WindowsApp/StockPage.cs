@@ -12,8 +12,6 @@ namespace Stockwatch.WindowsApp
         private readonly ILogger _logger;
         private BindingSource? bindingSource = new BindingSource();
         private List<StockSymbol> stockSymbolList = new List<StockSymbol>();
-        private List<StockAlertRangeDisplay> stockDisplays = new List<StockAlertRangeDisplay>();
-        private string originalStockSymbolName;
         private bool unsavedChanges = false;
 
         public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolService stockSymbolService, IStockAlertRangeService stockAlertRangeService, ILogger<StockPage> logger)
@@ -33,7 +31,6 @@ namespace Stockwatch.WindowsApp
             dataGridViewAlertRange.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridViewAlertRange.RowValidating += dataGridView1_RowValidating;
             dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
-            dataGridViewAlertRange.CellParsing += dataGridViewAlertRange_CellParsing;
             dataGridViewAlertRange.CellFormatting += dataGridViewAlertRange_CellFormatting;
 
             await _stockSymbolService.AddSymbol();
@@ -51,16 +48,6 @@ namespace Stockwatch.WindowsApp
             }
         }
 
-        private void dataGridViewAlertRange_CellParsing(object? sender, DataGridViewCellParsingEventArgs e)
-        {
-            if (dataGridViewAlertRange.CurrentCell.OwningColumn is DataGridViewComboBoxColumn)
-            {
-                var editingControl = (DataGridViewComboBoxEditingControl)dataGridViewAlertRange.EditingControl;
-                e.Value = editingControl.SelectedItem;
-                e.ParsingApplied = true;
-            };
-        }
-
         private async Task DataGrid_Load()
         {
             await BindSymbolCombo();
@@ -69,7 +56,7 @@ namespace Stockwatch.WindowsApp
 
         private async Task BindDataGridView()
         {
-            await GetStockDisplays();
+            var stockDisplays = await GetStockDisplays();
             dataGridViewAlertRange.AutoGenerateColumns = false;
             dataGridViewAlertRange.DataSource = bindingSource;
             bindingSource.DataSource = stockDisplays;
@@ -104,17 +91,14 @@ namespace Stockwatch.WindowsApp
                     if (delStockAlert != null)
                     {
                         await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
-                        if (stockDisplays.Find(s=>s.SymbolId == delStockAlertDisplay.SymbolId) != null)
-                        {
-                            stockDisplays.Remove(stockDisplays.Find(s => s.SymbolId == delStockAlertDisplay.SymbolId));
-                        }
-
+                        await DataGrid_Load();
                         MessageBox.Show($"{delStockAlert.StockSymbol.SymbolName} stock range deleted", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
                     else
                     {
                         MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
+                    
                 }
             }
         }
@@ -139,8 +123,9 @@ namespace Stockwatch.WindowsApp
             {
                 if (!decimal.TryParse(e.FormattedValue.ToString(), out var newInteger))
                 {
-                    dataGridViewAlertRange.Rows[e.RowIndex].ErrorText = "Please enter a positive integer value";
-                    e.Cancel = true;
+                    MessageBox.Show("Please enter a positive integer value", "Stock Alert Range Values", MessageBoxButtons.OK);
+                    dataGridViewAlertRange.CancelEdit();
+                    return;
                 }
 
                 var upperLimit = e.ColumnIndex == 1 ? Convert.ToDecimal(e.FormattedValue) : Convert.ToDecimal(dataGridViewAlertRange.Rows[e.RowIndex].Cells[1].Value);
@@ -201,6 +186,7 @@ namespace Stockwatch.WindowsApp
                         if (editStockAlert == null)
                         {
                             // Show alert
+                            MessageBox.Show("Stock not found! Please refresh and try again.", "Stock Alert Update", MessageBoxButtons.OK);
                         }
                         else
                         {
@@ -226,9 +212,10 @@ namespace Stockwatch.WindowsApp
                             }
                         }
                     }
-                    await DataGrid_Load();
                     // Reset the flag
                     unsavedChanges = false;
+                    await DataGrid_Load();
+
                 }
                 else if (result == DialogResult.No)
                 {
@@ -243,7 +230,6 @@ namespace Stockwatch.WindowsApp
                     // Cancel the row validation to prevent moving to the next row
                     e.Cancel = true;
                 }
-
             }
         }
 
@@ -255,23 +241,16 @@ namespace Stockwatch.WindowsApp
             return symbolList.Where(i => !stockSymbolsInAlertRanges.Contains(i)).ToList();
         }
 
-        private async Task GetStockDisplays()
+        private async Task<List<StockAlertRangeDisplay>> GetStockDisplays()
         {
+         List<StockAlertRangeDisplay> stockDisplays = new List<StockAlertRangeDisplay>();
             var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
             foreach (var item in stockData)
             {
                 var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRangeAsync(item);
-                if(stockDisplays.Find(s=>s.SymbolId == stockDisplay.SymbolId) != null)
-                {
-                    var updateStock = stockDisplays.Find(s => s.SymbolId == stockDisplay.SymbolId);
-                    updateStock.CurrentPrice = stockDisplay.CurrentPrice;
-                    updateStock.Comments = stockDisplay.Comments;
-                }
-                else
-                {
-                    stockDisplays.Add(stockDisplay);
-                }
+                stockDisplays.Add(stockDisplay);
             }
+            return stockDisplays;
         }
 
         private async void resetBtn_Click(object sender, EventArgs e)
