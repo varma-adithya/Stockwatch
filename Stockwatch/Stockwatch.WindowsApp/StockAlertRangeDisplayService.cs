@@ -1,6 +1,5 @@
-﻿using Stockwatch.Business;
-using Stockwatch.Model;
-using System.Xml.Linq;
+﻿using Stockwatch.Model;
+using Stockwatch.Model.Dto;
 
 namespace Stockwatch.WindowsApp
 {
@@ -20,11 +19,12 @@ namespace Stockwatch.WindowsApp
 
         public async Task<StockAlertRangeDisplay> GetStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
-            var stockCurrentPrice = await _stockPriceUpdates.GetCurrentPriceAsync(stockAlertRange.StockSymbol);
+            var stockCurrentPrice = new IntraStockPrice { GlobalQuote = new GlobalQuote() { Price = 50 } }; //await _stockPriceUpdates.GetCurrentPriceAsync(stockAlertRange.StockSymbol);
             var stockAlertRangeDisplay = new StockAlertRangeDisplay();
+            stockAlertRangeDisplay.StockAlertRangeId = stockAlertRange.Id;
             stockAlertRangeDisplay.UpperLimit = stockAlertRange.UpperLimit;
             stockAlertRangeDisplay.LowerLimit = stockAlertRange.LowerLimit;
-            stockAlertRangeDisplay.StockSymbolName = stockAlertRange.StockSymbol.SymbolName;
+            stockAlertRangeDisplay.SymbolId = stockAlertRange.StockSymbol.Id;
             stockAlertRangeDisplay.CurrentPrice = stockCurrentPrice.GlobalQuote.Price;
             stockAlertRangeDisplay.Comments = _stockPriceUpdates.GetComments(stockCurrentPrice, stockAlertRange);
             
