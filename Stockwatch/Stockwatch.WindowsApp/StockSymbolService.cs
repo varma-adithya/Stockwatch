@@ -6,7 +6,7 @@ namespace Stockwatch.WindowsApp
     public interface IStockSymbolService
     {
         Task AddSymbol();
-        Task<List<StockSymbol>> GetSymbolListAsync();
+        Task<List<string>?> GetSymbolListAsync();
         Task<StockSymbol?> FetchStockSymbolByIdAsync(int id);
         Task<StockSymbol?> FetchStockSymbolByNameAsync(string name);
     }
@@ -55,6 +55,10 @@ namespace Stockwatch.WindowsApp
             return stockSymbol ?? null;
         }
 
-        public async Task<List<StockSymbol>> GetSymbolListAsync() => await _stockSymbolService.GetAllAsync();
+        public async  Task<List<string>?> GetSymbolListAsync() 
+        {
+            var stockSymbols = await _stockSymbolService.GetAllStockSymbolAsync();
+            return stockSymbols?.Select(ss => ss.SymbolName).ToList();
+        }
     }
 }

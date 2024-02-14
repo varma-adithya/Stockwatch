@@ -6,255 +6,176 @@ namespace Stockwatch.WindowsApp
 {
     public partial class StockPage : Form
     {
-        private IStockSymbolService _stockSymbolService;
+        private IStockSymbolService _stockSymbolPage;
         private IStockAlertRangeService _stockAlertRangeService;
         private IStockAlertRangeDisplayService _stockAlertRangeDisplayService;
         private readonly ILogger _logger;
-        private BindingSource? bindingSource = new BindingSource();
-        private List<StockSymbol> stockSymbolList = new List<StockSymbol>();
-        private bool unsavedChanges = false;
+        DataGridViewRow? selectedRow = null;
 
-        public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolService stockSymbolService, IStockAlertRangeService stockAlertRangeService, ILogger<StockPage> logger)
+        public StockPage(IStockAlertRangeDisplayService stockAlertRangeDisplayService, IStockSymbolService stockSymbolPage, IStockAlertRangeService stockAlertRangeService, ILogger<StockPage> logger)
         {
             InitializeComponent();
             _stockAlertRangeService = stockAlertRangeService;
-            _stockSymbolService = stockSymbolService;
+            _stockSymbolPage = stockSymbolPage;
             _stockAlertRangeDisplayService = stockAlertRangeDisplayService;
             _logger = logger;
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            dataGridViewAlertRange.CellContentClick += dataGridViewAlertRange_CellContentClick;
-            dataGridViewAlertRange.CellBeginEdit += dataGridViewAlertRange_CellBeginEdit;
-            dataGridViewAlertRange.CellValidating += dataGridViewAlertRange_CellValidating;
-            dataGridViewAlertRange.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridViewAlertRange.RowValidating += dataGridView1_RowValidating;
-            dataGridViewAlertRange.DataError += dataGridViewAlertRange_DataError;
-            dataGridViewAlertRange.CellFormatting += dataGridViewAlertRange_CellFormatting;
-
-            await _stockSymbolService.AddSymbol();
+            await _stockSymbolPage.AddSymbol();
+            symbolDropDown.DataSource = await _stockSymbolPage.GetSymbolListAsync();
+            this.dataGridViewAlertRange.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             await DataGrid_Load();
-        }
-
-        private void dataGridViewAlertRange_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == dataGridViewAlertRange.Columns["Symbol"].Index && e.RowIndex >= 0
-                    && dataGridViewAlertRange.Rows[e.RowIndex].Cells["Symbol"].Value != null)
-            {
-                var id = (int)dataGridViewAlertRange.Rows[e.RowIndex].Cells["Symbol"].Value;
-                e.Value = stockSymbolList.FirstOrDefault(i => i.Id == id)?.SymbolName;
-                e.FormattingApplied = true;
-            }
         }
 
         private async Task DataGrid_Load()
         {
-            await BindSymbolCombo();
-            await BindDataGridView();
-        }
+            selectedRow = null;
+            var stockDisplays = new List<StockAlertRangeDisplay>();
+            var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
+            
+            if (stockData.Count != 0)
+            {
+                foreach (var item in stockData)
+                {
+                    //Null ref exception
+                    var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRangeAsync(item);
+                    stockDisplays.Add(stockDisplay);
+                }
+                dataGridViewAlertRange.DataSource = stockDisplays;
+            }
+            else
+            {
+                _logger.LogInformation("No stock alert ranges saved in database.");
+                MessageBox.Show("No stock alert ranges saved. Please add new Stock ranges", "Stock Alert Range", MessageBoxButtons.OK);
+                dataGridViewAlertRange.DataSource = null;
+            }
 
-        private async Task BindDataGridView()
-        {
-            var stockDisplays = await GetStockDisplays();
-            dataGridViewAlertRange.AutoGenerateColumns = false;
-            dataGridViewAlertRange.DataSource = bindingSource;
-            bindingSource.DataSource = stockDisplays;
         }
-
-        private async Task BindSymbolCombo()
+        
+        private async void AddBtn_Click(object sender, EventArgs e)
         {
-            var comboBox = (DataGridViewComboBoxColumn)dataGridViewAlertRange.Columns["Symbol"];
-            comboBox.ValueMember = "Id";
-            comboBox.DisplayMember = "SymbolName";
-            comboBox.DataPropertyName = "SymbolId";
-            comboBox.DataSource = await FilterStockSymbol();
-            stockSymbolList = await _stockSymbolService.GetSymbolListAsync();
+            if (upperLimitNbx.Value < lowerLimitNbx.Value)
+            {
+                MessageBox.Show("Lower limit value greater than upper limit value", "New Stock", MessageBoxButtons.OK);
+            }
+            else if (await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(symbolDropDown.Text) != null)
+            {
+                MessageBox.Show("Stock alert already exists for this stock symbol", "New Stock", MessageBoxButtons.OK);
+            }
+            else
+            {
+                var newStock = new StockAlertRange
+                {
+                    StockSymbolId = (await _stockSymbolPage.FetchStockSymbolByNameAsync(symbolDropDown.Text)).Id,
+                    LowerLimit = lowerLimitNbx.Value,
+                    UpperLimit = upperLimitNbx.Value,
+                };
+                await _stockAlertRangeService.AddStockAlertRangeAsync(newStock);
+                await DataGrid_Load();
+            }
+
         }
-
-        private void dataGridViewAlertRange_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        
+        private async void editBtn_Click(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+
+            if (selectedRow != null)
+            {
+                int newUpperLimit = Convert.ToInt32(selectedRow.Cells[0].Value);
+                int newLowerLimit = Convert.ToInt32(selectedRow.Cells[1].Value);
+                StockAlertRange? editStockAlert = _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString()).Result;
+                
+                if (editStockAlert != null && (editStockAlert.UpperLimit != newUpperLimit || editStockAlert.LowerLimit != newLowerLimit))
+                {
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
+                    
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        editStockAlert.LowerLimit = newLowerLimit;
+                        editStockAlert.UpperLimit = newUpperLimit;
+                        await _stockAlertRangeService.UpdateStockAlertRangeAsync(editStockAlert);                        
+                        await DataGrid_Load();
+                        MessageBox.Show("Stock range updated!", "Stock Alert Update", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        await DataGrid_Load();
+                        _logger.LogInformation("Update dialog box confirmation rejected. Hence Update failed.");
+                    }
+
+                }
+                else if(editStockAlert != null)
+                {
+                    selectedRow = null;
+                    _logger.LogInformation("No change made on selected stock range for update.");
+                    MessageBox.Show("No change made on selected stock range", "Stock Alert Update", MessageBoxButtons.OK);
+
+                }
+                else
+                {
+                    _logger.LogInformation($"{selectedRow.Cells[2].Value.ToString()} not found in database.");
+                    MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
+                }
+
+            }
+            else
+            {
+                _logger.LogInformation("No stock range selected for update.");
+                MessageBox.Show("No stock range selected", "Stock Alert Update", MessageBoxButtons.OK);
+            }
+
         }
-
-        private async void dataGridViewAlertRange_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        
+        private void dataGridViewAlertRange_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Delete")
+            int index = e.RowIndex;
+            selectedRow = dataGridViewAlertRange.Rows[index];
+        }
+        
+        private async void deleteBtn_Click(object sender, EventArgs e)
+        {
+            if (selectedRow != null)
             {
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete stock alert?", "Stock Alert Delete", MessageBoxButtons.YesNo);
-
+                
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var delStockAlertDisplay = dataGridViewAlertRange.Rows[e.RowIndex].DataBoundItem as StockAlertRangeDisplay;
-                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByIdAsync(delStockAlertDisplay.SymbolId);
-
-                    if (delStockAlert != null)
+                    StockAlertRange? delStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByNameAsync(selectedRow.Cells[2].Value.ToString());
+                    
+                    if (delStockAlert != null) 
                     {
                         await _stockAlertRangeService.DeleteStockAlertRangeAsync(delStockAlert);
                         await DataGrid_Load();
+                        _logger.LogInformation($"{delStockAlert.StockSymbol.SymbolName} stock range deleted");
                         MessageBox.Show($"{delStockAlert.StockSymbol.SymbolName} stock range deleted", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
                     else
                     {
+                        _logger.LogInformation($"{selectedRow.Cells[2].Value.ToString()} not found in database.");
                         MessageBox.Show("Please refresh and try again.", "Stock Alert Delete", MessageBoxButtons.OK);
                     }
-                    
-                }
-            }
-        }
 
-        private bool IsNewRow(int rowIndex)
-        {
-            var datasource = bindingSource.DataSource as List<StockAlertRangeDisplay>;
-            return datasource != null && datasource.Count > rowIndex && datasource[rowIndex].StockAlertRangeId == 0;
-        }
-
-        private void dataGridViewAlertRange_CellBeginEdit(object? sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (dataGridViewAlertRange.Columns[e.ColumnIndex].Name == "Symbol" && !IsNewRow(e.RowIndex))
-            {
-                e.Cancel = true;
-            }
-        }
-
-        private void dataGridViewAlertRange_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2)
-            {
-                if (!decimal.TryParse(e.FormattedValue.ToString(), out var newInteger))
-                {
-                    MessageBox.Show("Please enter a positive integer value", "Stock Alert Range Values", MessageBoxButtons.OK);
-                    dataGridViewAlertRange.CancelEdit();
-                    return;
-                }
-
-                var upperLimit = e.ColumnIndex == 1 ? Convert.ToDecimal(e.FormattedValue) : Convert.ToDecimal(dataGridViewAlertRange.Rows[e.RowIndex].Cells[1].Value);
-                var lowerLimit = e.ColumnIndex == 2 ? Convert.ToDecimal(e.FormattedValue) : Convert.ToDecimal(dataGridViewAlertRange.Rows[e.RowIndex].Cells[2].Value);
-
-                if (upperLimit < lowerLimit)
-                {
-                    MessageBox.Show($"UpperLimit should be greater than LowerLimit, Either fix the {dataGridViewAlertRange.Columns[e.ColumnIndex].Name} value or press Esc to undo.", "Stock Alert Range Values", MessageBoxButtons.OK);
-                    e.Cancel = true;
-                }
-            }
-        }
-
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            // Set the flag indicating that there are unsaved changes
-            unsavedChanges = true;
-        }
-
-        private async void dataGridView1_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            // Check for unsaved changes before moving to the next row
-            if (unsavedChanges)
-            {
-                // Prompt the user to save changes
-                DialogResult result = MessageBox.Show("There are unsaved changes. Do you want to save them?", "Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-
-                DataGridViewRow row = dataGridViewAlertRange.CurrentRow;
-                var newUpperLimit = Convert.ToDecimal(row.Cells["UpperLimit"]?.Value);
-                var newLowerLimit = Convert.ToDecimal(row.Cells["LowerLimit"]?.Value);
-
-                if (result == DialogResult.Yes)
-                {
-                    if (IsNewRow(row.Index))
-                    {
-                        if (row.Cells["Symbol"]?.Value == null)
-                        {
-                            MessageBox.Show("Please select StockSymbol", "New Stock", MessageBoxButtons.OK);
-                        }
-                        else
-                        {
-                            //Create
-                            if (newUpperLimit > newLowerLimit)
-                            {
-                                var newStockAlertRange = new StockAlertRange
-                                {
-                                    StockSymbolId = (int)row.Cells["Symbol"].Value,
-                                    UpperLimit = newUpperLimit,
-                                    LowerLimit = newLowerLimit
-                                };
-                                await _stockAlertRangeService.AddStockAlertRangeAsync(newStockAlertRange);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var editStockAlert = await _stockAlertRangeService.FetchStockAlertRangeByIdAsync(Convert.ToInt32(row.Cells["Symbol"].Value));
-                        if (editStockAlert == null)
-                        {
-                            // Show alert
-                            MessageBox.Show("Stock not found! Please refresh and try again.", "Stock Alert Update", MessageBoxButtons.OK);
-                        }
-                        else
-                        {
-                            //Update
-                            if (newUpperLimit > newLowerLimit)
-                            {
-                                DialogResult dialogResult = MessageBox.Show("Are you sure you want to update stock alert?", "Stock Alert Update", MessageBoxButtons.YesNo);
-                                if (dialogResult == DialogResult.Yes)
-                                {
-                                    editStockAlert.LowerLimit = newLowerLimit;
-                                    editStockAlert.UpperLimit = newUpperLimit;
-                                    await _stockAlertRangeService.UpdateStockAlertRangeAsync(editStockAlert);
-
-                                }
-                                else
-                                {
-                                    _logger.LogInformation("Update cancelled. Hence Update failed.");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Please enter proper UpperLimit value and LowerLimit values (UpperLimit>LowerLimit)", "Stock Alert Range Values", MessageBoxButtons.OK);
-                            }
-                        }
-                    }
-                    // Reset the flag
-                    unsavedChanges = false;
-                    await DataGrid_Load();
-
-                }
-                else if (result == DialogResult.No)
-                {
-                    // If the user selects 'No', continue without saving
-                    // Reset the flag
-                    unsavedChanges = false;
-                    await DataGrid_Load();
                 }
                 else
                 {
-                    // Cancel the row validation to prevent moving to the next row
-                    e.Cancel = true;
+                    _logger.LogInformation("Delete dialog box confirmation rejected. Hence Delete failed.");
                 }
+
             }
-        }
-
-        private async Task<List<StockSymbol>> FilterStockSymbol()
-        {
-            var symbolList = await _stockSymbolService.GetSymbolListAsync();
-            var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
-            var stockSymbolsInAlertRanges = stockData.Select(s => s.StockSymbol).ToList();
-            return symbolList.Where(i => !stockSymbolsInAlertRanges.Contains(i)).ToList();
-        }
-
-        private async Task<List<StockAlertRangeDisplay>> GetStockDisplays()
-        {
-         List<StockAlertRangeDisplay> stockDisplays = new List<StockAlertRangeDisplay>();
-            var stockData = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
-            foreach (var item in stockData)
+            else
             {
-                var stockDisplay = await _stockAlertRangeDisplayService.GetStockAlertRangeAsync(item);
-                stockDisplays.Add(stockDisplay);
+                _logger.LogInformation("No stock range selected for delete.");
+                MessageBox.Show("No stock range selected", "Stock Alert Delete", MessageBoxButtons.OK);
             }
-            return stockDisplays;
-        }
 
+        }
+        
         private async void resetBtn_Click(object sender, EventArgs e)
         {
             await DataGrid_Load();
         }
+
     }
 }

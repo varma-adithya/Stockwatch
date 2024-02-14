@@ -8,7 +8,7 @@ namespace Stockwatch.Business
         Task AddStockSymbolAsync(StockSymbol stockSymbol);
         Task<StockSymbol?> FetchStockSymbolByIdAsync(int id);
         Task<StockSymbol?> FetchStockSymbolByNameAsync(string name);
-        Task<List<StockSymbol>> GetAllAsync();
+        Task<List<StockSymbol>> GetAllStockSymbolAsync();
         Task DeleteStockSymbolAsync(StockSymbol stockSymbol);
     }
 
@@ -40,7 +40,7 @@ namespace Stockwatch.Business
             await _context.SaveChangesAsync();
         }
         
-        public Task<List<StockSymbol>> GetAllAsync()
+        public Task<List<StockSymbol>> GetAllStockSymbolAsync()
         {
             return _context.StockSymbols.ToListAsync();
         }
