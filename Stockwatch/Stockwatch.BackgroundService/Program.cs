@@ -4,14 +4,14 @@ using Stockwatch.Business;
 using Stockwatch.Model;
 
 IHost host = Host.CreateDefaultBuilder(args)
-        .ConfigureAppConfiguration((hostingContext, config) =>
-        {
-            config.AddUserSecrets<Program>();
-        })
         .ConfigureServices((hostContext, services) =>
         {
             services.AddHostedService<Worker>();
-            services.Configure<ApiOptions>(hostContext.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
+            services.Configure<ApiOptions>(options =>
+            {
+                options.ApiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
+                options.ApiUrl = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_URL");
+            });
             services.AddHttpClient<IStockPriceService,StockPriceService>();
             services.AddTransient<IStockPriceService, StockPriceService>();
             services.AddTransient<IStockWorkerService, StockWorkerService>();

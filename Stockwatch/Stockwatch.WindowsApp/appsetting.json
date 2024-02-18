@@ -1,8 +1,4 @@
 {
-  "AlphaVantageAPI": {
-    "ApiKey": "EO4BB53HAZMW6TDW",
-    "ApiUrl": "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={0}&apikey={1}"
-  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",

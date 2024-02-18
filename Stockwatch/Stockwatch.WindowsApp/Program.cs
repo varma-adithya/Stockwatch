@@ -23,12 +23,15 @@ namespace Stockwatch.WindowsApp
             CurrentHost = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
-                        services.Configure<ApiOptions>(context.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
+                        services.Configure<ApiOptions>(options =>
+                        {
+                            options.ApiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
+                            options.ApiUrl = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_URL");
+                        });
                         services.AddTransient<StockPage>();
-                        services.AddHttpClient<Business.IStockPriceService, Business.StockPriceService>();
+                        services.AddHttpClient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
                         services.AddTransient<Business.IStockSymbolService, Business.StockSymbolService>();
-                        services.AddTransient<Business.IStockPriceService, Business.StockPriceService>();
                         services.AddTransient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockAlertRangeDisplayService, StockAlertRangeDisplayService>();
                         services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
@@ -44,15 +47,10 @@ namespace Stockwatch.WindowsApp
                     .ConfigureAppConfiguration(context =>
                     {
                         context.AddEnvironmentVariables();
-                         context.AddUserSecrets<StockPage>();
                         context.AddJsonFile("appsetting.json", optional: false, reloadOnChange: true);
                     })
                     .Build();
 
-            //using IServiceScope serviceScope = CurrentHost.Services.CreateScope();
-            //{
-            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<StockwatchDbContext>();
-            //}
             Application.Run(CurrentHost.Services.CreateScope().ServiceProvider.GetRequiredService<StockPage>());
         }
     }
