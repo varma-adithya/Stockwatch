@@ -1,8 +1,8 @@
 ﻿namespace Stockwatch.Model
 {
-    public class AlphaVantageAPI
+    public class ApiOptions
     {
-        public string SymbolName { get; set; }
+        public const string AlphaVantageAPI = "AlphaVantageAPI";
         public string ApiUrl { get; set; }
         public string ApiKey { get; set; }
     }

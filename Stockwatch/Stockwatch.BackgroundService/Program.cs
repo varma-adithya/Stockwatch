@@ -4,29 +4,33 @@ using Stockwatch.Business;
 using Stockwatch.Model;
 
 IHost host = Host.CreateDefaultBuilder(args)
-
-    .ConfigureServices((hostContext, services) =>
-    {
-        services.AddHostedService<Worker>();
-        services.Configure<AlphaVantageAPI>(hostContext.Configuration.GetSection(nameof(AlphaVantageAPI)));
-        services.AddTransient<IStockPriceService, StockPriceService>();
-        services.AddTransient<IStockWorkerService, StockWorkerService>();
-        services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
-        services.AddDbContext<StockwatchDbContext>(options =>
+        .ConfigureServices((hostContext, services) =>
         {
-            options.UseSqlite("Data Source=D:/Projects/Random/StockTicker/Stockwatch/Stockwatch/stock_database.db");
-        });
+            services.AddHostedService<Worker>();
+            services.Configure<ApiOptions>(options =>
+            {
+                options.ApiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
+                options.ApiUrl = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_URL");
+            });
+            services.AddHttpClient<IStockPriceService,StockPriceService>();
+            services.AddTransient<IStockPriceService, StockPriceService>();
+            services.AddTransient<IStockWorkerService, StockWorkerService>();
+            services.AddTransient<IStockAlertRangeService, StockAlertRangeService>();
+            services.AddTransient<IStockNotificationService, StockNotificationService>();
+            services.AddDbContext<StockwatchDbContext>(options =>
+            {
+                options.UseSqlite($"Data Source={DbFileLocation.GetDbFileLocation()}");
+            });
 
-    })
-     .ConfigureLogging(logging =>
-     {
-         logging.AddEventLog(config =>
+        })
+         .ConfigureLogging(logging =>
          {
-             config.SourceName = "Stockwatch";
-             config.LogName = "Stockwatch log";
-         });
-     })
-     .Build();
-
+             logging.AddEventLog(config =>
+             {
+                 config.SourceName = "Stockwatch";
+                 config.LogName = "Stockwatch log";
+             });
+         })
+         .Build();
 
 await host.RunAsync();

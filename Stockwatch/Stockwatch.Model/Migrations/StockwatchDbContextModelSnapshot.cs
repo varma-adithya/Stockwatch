@@ -22,29 +22,24 @@ namespace Stockwatch.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Lowerlimit")
+                    b.Property<decimal>("LowerLimit")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StocksymbolId")
+                    b.Property<int>("StockSymbolId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SymbolId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("Upperlimit")
+                    b.Property<decimal>("UpperLimit")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StocksymbolId");
-
-                    b.HasIndex("SymbolId")
+                    b.HasIndex("StockSymbolId")
                         .IsUnique();
 
                     b.ToTable("StockAlertRanges");
                 });
 
-            modelBuilder.Entity("Stockwatch.Model.Stocksymbol", b =>
+            modelBuilder.Entity("Stockwatch.Model.StockSymbol", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,13 +59,13 @@ namespace Stockwatch.Model.Migrations
 
             modelBuilder.Entity("Stockwatch.Model.StockAlertRange", b =>
                 {
-                    b.HasOne("Stockwatch.Model.Stocksymbol", "Stocksymbol")
+                    b.HasOne("Stockwatch.Model.StockSymbol", "StockSymbol")
                         .WithMany()
-                        .HasForeignKey("StocksymbolId")
+                        .HasForeignKey("StockSymbolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Stocksymbol");
+                    b.Navigation("StockSymbol");
                 });
 #pragma warning restore 612, 618
         }

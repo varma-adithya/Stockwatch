@@ -5,7 +5,7 @@
 namespace Stockwatch.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace Stockwatch.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stocksymbols", x => x.Id);
+                    table.PrimaryKey("PK_StockSymbols", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,35 +29,29 @@ namespace Stockwatch.Model.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    SymbolId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Upperlimit = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Lowerlimit = table.Column<decimal>(type: "TEXT", nullable: false),
-                    StocksymbolId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StockSymbolId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UpperLimit = table.Column<decimal>(type: "TEXT", nullable: false),
+                    LowerLimit = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StockAlertRanges", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StockAlertRanges_Stocksymbols_StocksymbolId",
-                        column: x => x.StocksymbolId,
+                        name: "FK_StockAlertRanges_StockSymbols_StockSymbolId",
+                        column: x => x.StockSymbolId,
                         principalTable: "StockSymbols",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StockAlertRanges_StocksymbolId",
+                name: "IX_StockAlertRanges_StockSymbolId",
                 table: "StockAlertRanges",
-                column: "StocksymbolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StockAlertRanges_SymbolId",
-                table: "StockAlertRanges",
-                column: "SymbolId",
+                column: "StockSymbolId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stocksymbols_SymbolName",
+                name: "IX_StockSymbols_SymbolName",
                 table: "StockSymbols",
                 column: "SymbolName",
                 unique: true);

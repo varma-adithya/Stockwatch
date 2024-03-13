@@ -4,50 +4,58 @@ using Stockwatch.Model;
 namespace Stockwatch.Business
 {
     public interface IStockAlertRangeService {
-        void AddStockAlertRange(StockAlertRange stockAlertRange);
-        void UpdateStockAlertRange(StockAlertRange stockAlertRange);
-        void RemoveStockAlertRange(StockAlertRange stockAlertRange);
-        StockAlertRange FetchStockAlertRangeByName(string name);
-        StockAlertRange FetchStockAlertRangeById(int id);
-        List<StockAlertRange> GetAll();
+        Task AddStockAlertRangeAsync(StockAlertRange stockAlertRange);
+        Task UpdateStockAlertRangeAsync(StockAlertRange stockAlertRange);
+        Task DeleteStockAlertRangeAsync(StockAlertRange stockAlertRange);
+        Task<StockAlertRange?> FetchStockAlertRangeByNameAsync(string name);
+        Task<StockAlertRange?> FetchStockAlertRangeByIdAsync(int id);
+        Task<List<StockAlertRange>> GetAllStockAlertRangesAsync();
     }
+
     public class StockAlertRangeService: IStockAlertRangeService
     {
         private readonly StockwatchDbContext _context;
         
         public StockAlertRangeService(StockwatchDbContext context) => _context = context;
         
-        public void AddStockAlertRange(StockAlertRange stockAlertRange)
+        public async Task AddStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
-            _context.StockAlertRanges.Add(stockAlertRange);
-            _context.SaveChanges();
+            try
+            {
+                await _context.StockAlertRanges.AddAsync(stockAlertRange);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
         
-        public void UpdateStockAlertRange(StockAlertRange stockAlertRange)
+        public async Task UpdateStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
             _context.Update(stockAlertRange);
-            _context.SaveChanges();
-        }
-        
-        public StockAlertRange FetchStockAlertRangeByName(string name)
-        {
-            return _context.StockAlertRanges.FirstOrDefault(x => x.StockSymbol.SymbolName == name);
-        }
-        
-        public StockAlertRange FetchStockAlertRangeById(int id)
-        {
-            return _context.StockAlertRanges.Find(id);
+            await _context.SaveChangesAsync();
         }
 
-        public List<StockAlertRange> GetAll()
+        public Task<StockAlertRange?> FetchStockAlertRangeByNameAsync(string name)
         {
-            return _context.StockAlertRanges.Include(x => x.StockSymbol).ToList();
+            return _context.StockAlertRanges.SingleOrDefaultAsync(x => x.StockSymbol.SymbolName == name);
+        }
+        
+        public Task<StockAlertRange?> FetchStockAlertRangeByIdAsync(int id)
+        {
+            return _context.StockAlertRanges.SingleOrDefaultAsync(x=> x.StockSymbol.Id == id);
         }
 
-        public void RemoveStockAlertRange(StockAlertRange stockAlertRange)
+        public Task<List<StockAlertRange>> GetAllStockAlertRangesAsync()
+        {
+            return _context.StockAlertRanges.Include(x => x.StockSymbol).ToListAsync();
+        }
+
+        public async Task DeleteStockAlertRangeAsync(StockAlertRange stockAlertRange)
         {
             _context.Remove(stockAlertRange);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }

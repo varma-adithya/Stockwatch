@@ -7,50 +7,56 @@ namespace Stockwatch.Background
 {
     public interface IStockWorkerService
     {
-        public List<string> GetStockSymbols();
-        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange);
-        public List<StockAlertRange> GetAll();
+        public Task<List<string>> GetStockSymbolsAsync();
+        public void CheckStockRangeVariance(GlobalQuote globalQuote, StockAlertRange stockAlertRange);
+        public Task<List<StockAlertRange>> GetAllStockAlertRangesAsync();
+    }
+
+    public interface IStockNotificationService
+    {
+        void NotifyStockRange(string header, string content);
+    }
+
+    public class StockNotificationService : IStockNotificationService
+    {
+        public void NotifyStockRange(string header, string content)
+        {
+            new ToastContentBuilder()
+                .AddText(header)
+                .AddText(content)
+                .Show();
+        }
     }
 
     public class StockWorkerService : IStockWorkerService
     {
         private IStockAlertRangeService _stockAlertRangeService;
-        public StockWorkerService(IStockAlertRangeService stockAlertRangeService)
+        private IStockNotificationService _stockNotificationService;
+
+        public StockWorkerService(IStockAlertRangeService stockAlertRangeService, IStockNotificationService stockNotificationService)
         {
             _stockAlertRangeService = stockAlertRangeService;
+            _stockNotificationService = stockNotificationService;
         }
 
-        public List<StockAlertRange> GetAll() { return _stockAlertRangeService.GetAll(); }
+        public async Task<List<StockAlertRange>> GetAllStockAlertRangesAsync() { return await _stockAlertRangeService.GetAllStockAlertRangesAsync(); }
 
-        public List<string> GetStockSymbols()
+        public async Task<List<string>> GetStockSymbolsAsync()
         {
-            var allstocks = _stockAlertRangeService.GetAll();
+            var allstocks = await _stockAlertRangeService.GetAllStockAlertRangesAsync();
             return allstocks.Select(stock => stock.StockSymbol.SymbolName).ToList();
         }
 
-        public void CheckAndNotifyStockRange(IntraStockPrice currentPrice, StockAlertRange stockAlertRange)
+        public void CheckStockRangeVariance(GlobalQuote globalQuote, StockAlertRange stockAlertRange)
         {
-            if (currentPrice.GlobalQuote.Price >= stockAlertRange.UpperLimit)
+            if (globalQuote?.Price >= stockAlertRange?.UpperLimit)
             {
-                NotifyStockRange("Stock Price Surge",currentPrice.GlobalQuote.Symbol+" stock price value has surged above the Upper Limit");
+                _stockNotificationService.NotifyStockRange("Stock Price Surge", globalQuote.Symbol + " stock price value has surged above the Upper Limit");
             }
-            else if (currentPrice.GlobalQuote.Price <= stockAlertRange.LowerLimit)
+            else if (globalQuote?.Price <= stockAlertRange?.LowerLimit)
             {
-                NotifyStockRange("Stock Price Fall", currentPrice.GlobalQuote.Symbol + " stock price value has fallen below the Lower Limit");
+                _stockNotificationService.NotifyStockRange("Stock Price Fall", globalQuote.Symbol + " stock price value has fallen below the Lower Limit");
             }
-            else
-                NotifyStockRange("Stock Price in Range", currentPrice.GlobalQuote.Symbol + " stock price value is in range");
-
         }
-
-        private void NotifyStockRange(string head, string content)
-        {
-            new ToastContentBuilder()
-                .AddText(head)
-                .AddText(content)
-                .Show();
-        }
-
-
     }
 }

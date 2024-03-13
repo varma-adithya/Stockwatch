@@ -1,55 +1,69 @@
-﻿using Stockwatch.Model;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Stockwatch.Model;
 using Stockwatch.Model.Dto;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Stockwatch.Business
 {
-    public interface IStockPriceService 
+    public interface IStockPriceService
     {
-        public Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions);
+        public Task<IntraStockPrice?> GetStockPriceAsync(StockSymbol Symbol);
     }
-    public class StockPriceService: IStockPriceService
-    {
-        public IntraStockPrice _intraStockPrice { get; set; }
 
-        public async Task<IntraStockPrice> GetStockPrice(AlphaVantageAPI urlOptions)
+    public class StockPriceService : IStockPriceService
+    {
+        private readonly ApiOptions _urlOptions;
+        private readonly HttpClient _httpClient;
+        private readonly ILogger _logger;
+
+        public StockPriceService(IOptions<ApiOptions> urlOptions, HttpClient httpClient, ILogger<StockPriceService> logger)
         {
-            string url = urlOptions.ApiUrl
-                    .Replace("YOUR_SYMBOL_NAME", urlOptions.SymbolName)
-                    .Replace("YOUR_API_KEY", urlOptions.ApiKey);
-            using (HttpClient client = new HttpClient())
+            _urlOptions = urlOptions.Value;
+            _logger = logger;
+            _httpClient = httpClient;
+        }
+
+        public async Task<IntraStockPrice?> GetStockPriceAsync(StockSymbol symbol)
+        {
+            if (symbol == null) 
+                throw new ArgumentNullException(nameof(symbol));
+
+            try
             {
-                try
+                HttpResponseMessage response = await _httpClient.GetAsync(string.Format(_urlOptions.ApiUrl, symbol.SymbolName, _urlOptions.ApiKey));
+                if (response.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    if (response.IsSuccessStatusCode)
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    if (jsonContent != null)
                     {
-                        string jsonContent = await response.Content.ReadAsStringAsync();
                         var serializeOptions = new JsonSerializerOptions
                         {
-
                             NumberHandling = JsonNumberHandling.AllowReadingFromString,
                             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                             PropertyNameCaseInsensitive = true,
                         };
-
-                        IntraStockPrice stockPrice = JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
-                        Console.WriteLine(stockPrice.GlobalQuote.High);
-                        return stockPrice;
+                        return JsonSerializer.Deserialize<IntraStockPrice>(jsonContent, serializeOptions);
                     }
                     else
-                    {
-                        return null;
-                    }
+                        _logger.LogWarning("API response is Null");
                 }
-                catch (Exception ex)
+                else
                 {
-                    return null;
+                    var error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+                    _logger.LogError($"API request has failed: {error}");
+                    throw new AlphaVantageException(error);
                 }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failure in GetStockPriceAsync");
+                throw;
+            }
+
+            return default;
+
         }
-
-
     }
 }
