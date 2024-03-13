@@ -7,11 +7,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((hostContext, services) =>
         {
             services.AddHostedService<Worker>();
-            services.Configure<ApiOptions>(options =>
-            {
-                options.ApiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
-                options.ApiUrl = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_URL");
-            });
+            services.Configure<ApiOptions>(hostContext.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
             services.AddHttpClient<IStockPriceService,StockPriceService>();
             services.AddTransient<IStockPriceService, StockPriceService>();
             services.AddTransient<IStockWorkerService, StockWorkerService>();

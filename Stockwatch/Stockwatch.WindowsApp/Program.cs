@@ -23,11 +23,7 @@ namespace Stockwatch.WindowsApp
             CurrentHost = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
-                        services.Configure<ApiOptions>(options =>
-                        {
-                            options.ApiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
-                            options.ApiUrl = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_URL");
-                        });
+                        services.Configure<ApiOptions>(context.Configuration.GetSection(nameof(ApiOptions.AlphaVantageAPI)));
                         services.AddTransient<StockPage>();
                         services.AddHttpClient<IStockPriceService, StockPriceService>();
                         services.AddTransient<IStockSymbolService, StockSymbolService>();
@@ -47,6 +43,7 @@ namespace Stockwatch.WindowsApp
                     .ConfigureAppConfiguration(context =>
                     {
                         context.AddEnvironmentVariables();
+                        context.AddUserSecrets<StockPage>();
                         context.AddJsonFile("appsetting.json", optional: false, reloadOnChange: true);
                     })
                     .Build();
