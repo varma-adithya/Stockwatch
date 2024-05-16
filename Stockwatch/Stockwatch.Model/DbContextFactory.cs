@@ -8,7 +8,7 @@ namespace Stockwatch.Model
         public StockwatchDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<StockwatchDbContext>();
-            var connectionString = "Data Source=..\\stock_database.db";
+            var connectionString = $"Data Source={DbFileLocation.GetDbFileLocation()}";
             builder.UseSqlite(connectionString);
             return new StockwatchDbContext(builder.Options);
         }

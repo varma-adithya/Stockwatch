@@ -1,7 +1,4 @@
-using Microsoft.Extensions.Options;
 using Stockwatch.Business;
-using Stockwatch.Model;
-using Stockwatch.Model.Dto;
 
 namespace Stockwatch.Background
 {
@@ -9,16 +6,13 @@ namespace Stockwatch.Background
     {
 
         private ILogger<Worker> _logger;
-        private IConfiguration _configuration;
-        private AlphaVantageAPI _options;
-        private IStockWorkerService _workerService;
-        private IStockPriceService _priceService;
-        public Worker(IStockPriceService priceService, IServiceProvider serviceProvider, IConfiguration configuration, ILogger<Worker> logger, IOptions<AlphaVantageAPI> options)
+        private IStockWorkerService _stockWorkerService;
+        private IStockPriceService _stockPriceService;
+
+        public Worker(IServiceProvider serviceProvider, IStockPriceService stockPriceService, ILogger<Worker> logger)
         {
-            _priceService = priceService;
-            _workerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
-            _options = options.Value;
-            _configuration = configuration;
+            _stockPriceService = stockPriceService;
+            _stockWorkerService = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IStockWorkerService>();
             _logger = logger;
         }
         
@@ -30,7 +24,7 @@ namespace Stockwatch.Background
         
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger?.LogInformation("Ticker has stopped!");
+            _logger.LogInformation("Ticker has stopped!");
             await base.StopAsync(cancellationToken);
         }
 
@@ -38,24 +32,32 @@ namespace Stockwatch.Background
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _options.ApiKey = _configuration["APIKey"];
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var checkSymbolList = _workerService.GetAll();
-                foreach (var checkSymbol in checkSymbolList)
+                var stockAlertRangeList = await _stockWorkerService.GetAllStockAlertRangesAsync();
+
+                if (stockAlertRangeList.Count == 0)
                 {
-                    _options.SymbolName = checkSymbol.StockSymbol.SymbolName;
-                    var stockPrice = _priceService.GetStockPrice(_options);
-                    Console.WriteLine(stockPrice.Result.GlobalQuote.Symbol);
-                    if (stockPrice.Result != null)
+                    _logger.LogWarning("No Stock Range in database! Please add stock range to get alerts");
+                }
+                else
+                {
+                    foreach (var stockAlertRange in stockAlertRangeList)
                     {
-                        IntraStockPrice currentPrice = stockPrice.Result;
-                        _workerService.CheckAndNotifyStockRange(currentPrice, checkSymbol);
+                        var currentPrice = await _stockPriceService.GetStockPriceAsync(stockAlertRange.StockSymbol);
+                        _logger.LogInformation($"Stock price for stock symbol {stockAlertRange.StockSymbol.SymbolName} requested");
+
+                        if (currentPrice?.GlobalQuote != null)
+                        {
+                            _stockWorkerService.CheckStockRangeVariance(currentPrice.GlobalQuote, stockAlertRange);                           
+                        }
+                        else
+                            _logger.LogWarning($"Stock price request for {stockAlertRange.StockSymbol.SymbolName} failed"); ;
                     }
                 }
 
-
-
+                _logger.LogInformation("Checks for all Stock Alerts ended! Next check in 5 minutes from now");
                 await Task.Delay(300000, stoppingToken);
+                stockAlertRangeList = await _stockWorkerService.GetAllStockAlertRangesAsync();
             }
         }
     }
