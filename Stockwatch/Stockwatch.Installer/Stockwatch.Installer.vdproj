@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0893911EB76F4C6DA1DA990EB31F742F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1BC3A69FD22B44D89A5CD58DD0AE2979"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_93C11EB61CC94278BF764D33DFE2173B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -127,6 +139,46 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0893911EB76F4C6DA1DA990EB31F742F"
+            {
+            "SourcePath" = "8:C:\\Users\\adith\\Downloads\\StockWatch_icon.ico"
+            "TargetName" = "8:StockWatch_icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_3F51292271944409805DAC16C90F2905"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1BC3A69FD22B44D89A5CD58DD0AE2979"
+            {
+            "SourcePath" = "8:C:\\Users\\adith\\Downloads\\StockNotifier_icon.ico"
+            "TargetName" = "8:StockNotifier_icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -156,7 +208,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_3F51292271944409805DAC16C90F2905"
                     {
-                    "Name" = "8:WindowsApp"
+                    "Name" = "8:StockWatch"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -167,7 +219,7 @@
                     }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_AC56AF523B0744C59E85EDFCED7CF851"
                     {
-                    "Name" = "8:BackgroundService"
+                    "Name" = "8:StockNotifier"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -206,7 +258,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stockwatch Installer"
         "ProductCode" = "8:{48511BD9-EC8C-4372-ADBA-677CFBAD3AAE}"
-        "PackageCode" = "8:{8823FFD6-82F0-4A76-8F6A-D903407C432C}"
+        "PackageCode" = "8:{7FDD2F6D-8ADA-41B4-B740-AC0BC78A9120}"
         "UpgradeCode" = "8:{2C9D8209-B4C6-4730-B109-765658F3DB1B}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -214,12 +266,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:adithyaworld@outlook.com"
+        "Manufacturer" = "8:Adithya Varma"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Stockwatch Installer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:adithyaworld@outlook.com"
+        "ARPCONTACT" = "8:Adithya Varma"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
@@ -326,6 +378,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_34EF22773CBB48659B8EEAAA6B0B5043"
+            {
+            "Name" = "8:StockNotifier"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F45B79C84831480D814AE3B62E6AC22B"
+            "Folder" = "8:_1FD0306F1AA843D99E10FF768C18274F"
+            "WorkingFolder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
+            "Icon" = "8:_1BC3A69FD22B44D89A5CD58DD0AE2979"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_42B296F9D0EF46E08974A1A1185D3A35"
+            {
+            "Name" = "8:StockWatch"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_93C11EB61CC94278BF764D33DFE2173B"
+            "Folder" = "8:_3F51292271944409805DAC16C90F2905"
+            "WorkingFolder" = "8:_3F51292271944409805DAC16C90F2905"
+            "Icon" = "8:_0893911EB76F4C6DA1DA990EB31F742F"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6AECC2391B4A440CB35F0302BA552F32"
             {
             "Name" = "8:Stockwatch Background"
@@ -338,6 +418,62 @@
             "Folder" = "8:_51FCBC3943474A27A806E1D423781219"
             "WorkingFolder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
             "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_781E8719B7914C64BE2959B9F61B4C1D"
+            {
+            "Name" = "8:StockNotifier"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F45B79C84831480D814AE3B62E6AC22B"
+            "Folder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
+            "WorkingFolder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
+            "Icon" = "8:_1BC3A69FD22B44D89A5CD58DD0AE2979"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8F8C47331C6547CAA0AAD0DF98AAAFCE"
+            {
+            "Name" = "8:StockWatch"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_93C11EB61CC94278BF764D33DFE2173B"
+            "Folder" = "8:_E67C96CAA86B4492AD6A216194B6C216"
+            "WorkingFolder" = "8:_3F51292271944409805DAC16C90F2905"
+            "Icon" = "8:_0893911EB76F4C6DA1DA990EB31F742F"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CBA7CE75E25F4F6DB9259C16CD7CD4BB"
+            {
+            "Name" = "8:StockWatch"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_93C11EB61CC94278BF764D33DFE2173B"
+            "Folder" = "8:_1FD0306F1AA843D99E10FF768C18274F"
+            "WorkingFolder" = "8:_3F51292271944409805DAC16C90F2905"
+            "Icon" = "8:_0893911EB76F4C6DA1DA990EB31F742F"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E0062FBCF7F2400DA440BADF374107C5"
+            {
+            "Name" = "8:StockNotifier"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_F45B79C84831480D814AE3B62E6AC22B"
+            "Folder" = "8:_E67C96CAA86B4492AD6A216194B6C216"
+            "WorkingFolder" = "8:_AC56AF523B0744C59E85EDFCED7CF851"
+            "Icon" = "8:_1BC3A69FD22B44D89A5CD58DD0AE2979"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE888E3574634BA4942D5637337359B2"
